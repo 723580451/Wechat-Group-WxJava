@@ -6,19 +6,12 @@ import com.github.binarywang.wxpay.constant.WxPayConstants.SignType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import me.chanjar.weixin.common.util.BeanUtils;
-import org.apache.commons.codec.binary.Hex;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -29,9 +22,8 @@ import java.util.*;
  *
  * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  */
+@Slf4j
 public class SignUtils {
-  private static final Logger log = LoggerFactory.getLogger(SignUtils.class);
-
   /**
    * 请参考并使用 {@link #createSign(Object, String, String, boolean)}.
    */
@@ -91,24 +83,10 @@ public class SignUtils {
 
     toSign.append("key=").append(signKey);
     if (SignType.HMAC_SHA256.equals(signType)) {
-      return createHmacSha256Sign(toSign.toString(), signKey);
+      return me.chanjar.weixin.common.util.SignUtils.createHmacSha256Sign(toSign.toString(), signKey);
     } else {
       return DigestUtils.md5Hex(toSign.toString()).toUpperCase();
     }
-  }
-
-  private static String createHmacSha256Sign(String message, String key) {
-    try {
-      Mac sha256 = Mac.getInstance("HmacSHA256");
-      SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(), "HmacSHA256");
-      sha256.init(secretKeySpec);
-      byte[] bytes = sha256.doFinal(message.getBytes());
-      return Hex.encodeHexString(bytes).toUpperCase();
-    } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-      log.error(e.getMessage(), e);
-    }
-
-    return null;
   }
 
   /**
@@ -146,11 +124,11 @@ public class SignUtils {
     Map<String, String> result = Maps.newHashMap();
     List<Field> fields = new ArrayList<>(Arrays.asList(bean.getClass().getDeclaredFields()));
     fields.addAll(Arrays.asList(bean.getClass().getSuperclass().getDeclaredFields()));
-    if(bean.getClass().getSuperclass().getSuperclass() == BaseWxPayRequest.class){
+    if (bean.getClass().getSuperclass().getSuperclass() == BaseWxPayRequest.class) {
       fields.addAll(Arrays.asList(BaseWxPayRequest.class.getDeclaredFields()));
     }
 
-    if(bean.getClass().getSuperclass().getSuperclass() == BaseWxPayResult.class){
+    if (bean.getClass().getSuperclass().getSuperclass() == BaseWxPayResult.class) {
       fields.addAll(Arrays.asList(BaseWxPayResult.class.getDeclaredFields()));
     }
 
