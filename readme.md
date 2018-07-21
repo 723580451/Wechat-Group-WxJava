@@ -1,5 +1,5 @@
-## 可能是目前最好最全的微信Java开发工具包（SDK）
-### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等相关模块功能的后端开发。
+## 全能微信Java开发工具包（SDK）
+### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent)
 [![Build Status](https://travis-ci.org/Wechat-Group/weixin-java-tools.svg?branch=develop)](https://travis-ci.org/Wechat-Group/weixin-java-tools)
