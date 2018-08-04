@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import me.chanjar.weixin.common.util.ToStringUtils;
 import me.chanjar.weixin.common.util.xml.XStreamInitializer;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -44,12 +45,10 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     WxPayRefundNotifyResult result = BaseWxPayResult.fromXML(xmlString, WxPayRefundNotifyResult.class);
     String reqInfoString = result.getReqInfoString();
     try {
-      Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-
-      final MessageDigest md5 = MessageDigest.getInstance("MD5");
-      md5.update(mchKey.getBytes());
-      final String keyMd5String = new BigInteger(1, md5.digest()).toString(16).toLowerCase();
+      final String keyMd5String = DigestUtils.md5Hex(mchKey).toLowerCase();
       SecretKeySpec key = new SecretKeySpec(keyMd5String.getBytes(), "AES");
+
+      Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
       cipher.init(Cipher.DECRYPT_MODE, key);
       result.setReqInfo(ReqInfo.fromXML(new String(cipher.doFinal(Base64.decodeBase64(reqInfoString)))));
     } catch (Exception e) {
