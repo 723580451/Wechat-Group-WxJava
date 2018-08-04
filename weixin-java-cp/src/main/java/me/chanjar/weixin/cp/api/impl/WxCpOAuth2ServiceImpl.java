@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.URIUtil;
 import me.chanjar.weixin.common.util.json.GsonHelper;
@@ -37,16 +38,22 @@ public class WxCpOAuth2ServiceImpl implements WxCpOAuth2Service {
 
   @Override
   public String buildAuthorizationUrl(String redirectUri, String state) {
-    String url = "https://open.weixin.qq.com/connect/oauth2/authorize?";
-    url += "appid=" + this.mainService.getWxCpConfigStorage().getCorpId();
-    url += "&redirect_uri=" + URIUtil.encodeURIComponent(redirectUri);
-    url += "&response_type=code";
-    url += "&scope=snsapi_base";
+    return this.buildAuthorizationUrl(redirectUri, state, WxConsts.OAuth2Scope.SNSAPI_BASE);
+  }
+
+  @Override
+  public String buildAuthorizationUrl(String redirectUri, String state, String scope) {
+    StringBuilder url = new StringBuilder("https://open.weixin.qq.com/connect/oauth2/authorize?");
+    url.append("appid=").append(this.mainService.getWxCpConfigStorage().getCorpId());
+    url.append("&redirect_uri=").append(URIUtil.encodeURIComponent(redirectUri));
+    url.append("&response_type=code");
+    url.append("&scope=").append(scope);
+    
     if (state != null) {
-      url += "&state=" + state;
+      url.append("&state=").append(state);
     }
-    url += "#wechat_redirect";
-    return url;
+    url.append("#wechat_redirect");
+    return url.toString();
   }
 
   @Override

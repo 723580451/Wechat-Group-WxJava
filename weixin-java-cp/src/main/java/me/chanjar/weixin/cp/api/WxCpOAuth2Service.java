@@ -36,6 +36,19 @@ public interface WxCpOAuth2Service {
 
   /**
    * <pre>
+   * 构造oauth2授权的url连接
+   * 详情请见: http://qydev.weixin.qq.com/wiki/index.php?title=企业获取code
+   * </pre>
+   *
+   * @param redirectUri 跳转链接地址
+   * @param state       状态码
+   * @param scope       取值参考me.chanjar.weixin.common.api.WxConsts.OAuth2Scope类
+   * @return url
+   */
+  String buildAuthorizationUrl(String redirectUri, String state, String scope);
+
+  /**
+   * <pre>
    * 用oauth2获取用户信息
    * http://qydev.weixin.qq.com/wiki/index.php?title=根据code获取成员信息
    * 因为企业号oauth2.0必须在应用设置里设置通过ICP备案的可信域名，所以无法测试，因此这个方法很可能是坏的。
@@ -78,7 +91,7 @@ public interface WxCpOAuth2Service {
    * 需要有对应应用的使用权限，且成员必须在授权应用的可见范围内。
    * </pre>
    *
-   * @param userTicket  成员票据
+   * @param userTicket 成员票据
    */
   WxCpUserDetail getUserDetail(String userTicket) throws WxErrorException;
 }
