@@ -7,6 +7,9 @@ import org.apache.commons.lang3.BooleanUtils;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author codepiano
+ */
 public class WxMpMassNewsArticleGsonAdapter implements JsonSerializer<WxMpMassNews.WxMpMassNewsArticle>, JsonDeserializer<WxMpMassNews.WxMpMassNewsArticle> {
 
   @Override
