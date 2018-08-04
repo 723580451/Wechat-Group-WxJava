@@ -16,6 +16,8 @@ import me.chanjar.weixin.cp.bean.WxCpUserDetail;
  *
  * Created by Binary Wang on 2017-6-25.
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
+ *
+ * @author Binary Wang
  * </pre>
  */
 public class WxCpOAuth2ServiceImpl implements WxCpOAuth2Service {
@@ -61,7 +63,10 @@ public class WxCpOAuth2ServiceImpl implements WxCpOAuth2Service {
     JsonObject jo = je.getAsJsonObject();
     return new String[]{GsonHelper.getString(jo, "UserId"),
       GsonHelper.getString(jo, "DeviceId"),
-      GsonHelper.getString(jo, "OpenId")};
+      GsonHelper.getString(jo, "OpenId"),
+      GsonHelper.getString(jo, "user_ticket"),
+      GsonHelper.getString(jo, "expires_in")
+    };
   }
 
   @Override
