@@ -27,7 +27,11 @@ public class WxMaInMemoryConfig implements WxMaConfig {
   protected volatile String httpProxyUsername;
   protected volatile String httpProxyPassword;
 
+  protected volatile String jsapiTicket;
+  protected volatile long jsapiTicketExpiresTime;
+
   protected Lock accessTokenLock = new ReentrantLock();
+  protected Lock jsapiTicketLock = new ReentrantLock();
 
   /**
    * 临时文件目录
@@ -68,6 +72,33 @@ public class WxMaInMemoryConfig implements WxMaConfig {
   public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
     this.accessToken = accessToken;
     this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+  }
+
+  @Override
+  public String getJsapiTicket() {
+    return this.jsapiTicket;
+  }
+
+  @Override
+  public Lock getJsapiTicketLock() {
+    return this.jsapiTicketLock;
+  }
+
+  @Override
+  public boolean isJsapiTicketExpired() {
+    return System.currentTimeMillis() > this.jsapiTicketExpiresTime;
+  }
+
+  @Override
+  public void expireJsapiTicket() {
+    this.jsapiTicketExpiresTime = 0;
+  }
+
+  @Override
+  public void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
+    this.jsapiTicket = jsapiTicket;
+    // 预留200秒的时间
+    this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
   }
 
   @Override

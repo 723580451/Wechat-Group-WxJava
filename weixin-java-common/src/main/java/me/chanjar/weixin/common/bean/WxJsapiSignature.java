@@ -1,13 +1,21 @@
 package me.chanjar.weixin.common.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
  * jspai signature.
+ *
+ * @author chanjarster
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class WxJsapiSignature implements Serializable {
   private static final long serialVersionUID = -1116808193154384804L;
 
