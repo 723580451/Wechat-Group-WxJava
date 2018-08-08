@@ -48,7 +48,12 @@ public class WxCpOAuth2ServiceImpl implements WxCpOAuth2Service {
     url.append("&redirect_uri=").append(URIUtil.encodeURIComponent(redirectUri));
     url.append("&response_type=code");
     url.append("&scope=").append(scope);
-    
+
+    if (WxConsts.OAuth2Scope.SNSAPI_PRIVATEINFO.equals(scope)
+      || WxConsts.OAuth2Scope.SNSAPI_USERINFO.equals(scope)) {
+      url.append("&agentid=").append(this.mainService.getWxCpConfigStorage().getAgentId());
+    }
+
     if (state != null) {
       url.append("&state=").append(state);
     }
