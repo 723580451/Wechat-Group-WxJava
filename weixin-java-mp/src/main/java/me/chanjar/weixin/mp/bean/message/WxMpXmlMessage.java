@@ -5,12 +5,13 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
 import me.chanjar.weixin.common.api.WxConsts;
-import me.chanjar.weixin.common.util.ToStringUtils;
 import me.chanjar.weixin.common.util.xml.XStreamCDataConverter;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.util.crypto.WxMpCryptUtil;
@@ -530,7 +531,7 @@ public class WxMpXmlMessage implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtils.toSimpleString(this);
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
 
 }

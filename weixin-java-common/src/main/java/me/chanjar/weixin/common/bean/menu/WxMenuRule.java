@@ -1,10 +1,12 @@
 package me.chanjar.weixin.common.bean.menu;
 
+import java.io.Serializable;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
-import me.chanjar.weixin.common.util.ToStringUtils;
-
-import java.io.Serializable;
 
 @Data
 public class WxMenuRule implements Serializable {
@@ -24,6 +26,6 @@ public class WxMenuRule implements Serializable {
 
   @Override
   public String toString() {
-    return ToStringUtils.toSimpleString(this);
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
 }
