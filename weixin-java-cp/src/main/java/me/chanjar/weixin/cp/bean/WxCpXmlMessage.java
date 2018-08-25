@@ -23,9 +23,8 @@ import me.chanjar.weixin.cp.util.xml.XStreamTransformer;
  * <pre>
  * 微信推送过来的消息，也是同步回复给用户的消息，xml格式
  * 相关字段的解释看微信开发者文档：
- * http://mp.weixin.qq.com/wiki/index.php?title=接收普通消息
- * http://mp.weixin.qq.com/wiki/index.php?title=接收事件推送
- * http://mp.weixin.qq.com/wiki/index.php?title=接收语音识别结果
+ * https://work.weixin.qq.com/api/doc#12973
+ * https://work.weixin.qq.com/api/doc#12974
  * </pre>
  *
  * @author Daniel Qian
@@ -130,15 +129,172 @@ public class WxCpXmlMessage implements Serializable {
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String recognition;
 
+  /**
+   * 通讯录变更事件.
+   * 请参考常量 me.chanjar.weixin.cp.WxCpConsts.ContactChangeType
+   */
+  @XStreamAlias("ChangeType")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String changeType;
+
+  /**
+   * 变更信息的成员UserID.
+   */
+  @XStreamAlias("UserID")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String userId;
+
+  /**
+   * 新的UserID，变更时推送（userid由系统生成时可更改一次）.
+   */
+  @XStreamAlias("NewUserID")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String newUserId;
+
+  /**
+   * 成员名称.
+   * 或者部门名称
+   */
+  @XStreamAlias("Name")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String name;
+
+  /**
+   * 成员部门列表.
+   */
+  @XStreamAlias("Department")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String department;
+
+  /**
+   * 手机号码.
+   */
+  @XStreamAlias("Mobile")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String mobile;
+
+  /**
+   * 职位信息。长度为0~64个字节.
+   */
+  @XStreamAlias("Position")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String position;
+
+  /**
+   * 性别，1表示男性，2表示女性.
+   */
+  @XStreamAlias("Gender")
+  private Integer gender;
+
+  /**
+   * 邮箱.
+   */
+  @XStreamAlias("Email")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String email;
+
+  /**
+   * 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可.
+   */
+  @XStreamAlias("Avatar")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String avatar;
+
+  /**
+   * 英文名.
+   */
+  @XStreamAlias("EnglishName")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String englishName;
+
+  /**
+   * 上级字段，标识是否为上级。0表示普通成员，1表示上级.
+   */
+  @XStreamAlias("IsLeader")
+  private Integer isLeader;
+
+  /**
+   * 座机.
+   */
+  @XStreamAlias("Telephone")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String telephone;
+
+  /**
+   * 扩展属性.
+   */
+  @XStreamAlias("ExtAttr")
+  private ExtAttr extAttrs = new ExtAttr();
+
+  /**
+   * 部门Id.
+   */
+  @XStreamAlias("Id")
+  private Integer id;
+
+  /**
+   * 父部门id.
+   */
+  @XStreamAlias("ParentId")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String parentId;
+
+  /**
+   * 部门排序.
+   */
+  @XStreamAlias("Order")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String order;
+
+  /**
+   * 标签Id.
+   */
+  @XStreamAlias("TagId")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String tagId;
+
+  /**
+   * 标签中新增的成员userid列表，用逗号分隔.
+   */
+  @XStreamAlias("AddUserItems")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String addUserItems;
+
+  /**
+   * 标签中删除的成员userid列表，用逗号分隔.
+   */
+  @XStreamAlias("DelUserItems")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String delUserItems;
+
+  /**
+   * 标签中新增的部门id列表，用逗号分隔.
+   */
+  @XStreamAlias("AddPartyItems")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String addPartyItems;
+
+  /**
+   * 标签中删除的部门id列表，用逗号分隔.
+   */
+  @XStreamAlias("DelPartyItems")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String delPartyItems;
+
+
   ///////////////////////////////////////
   // 群发消息返回的结果
   ///////////////////////////////////////
   /**
-   * 群发的结果.
+   * 多个时间共用字段.
+   * 1. 群发的结果.
+   * 2. 通讯录变更事件
+   * 激活状态：1=已激活 2=已禁用 4=未激活 已激活代表已激活企业微信或已关注微工作台（原企业号）.
    */
   @XStreamAlias("Status")
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String status;
+
   /**
    * group_id下粉丝数；或者openid_list中的粉丝数.
    */
@@ -255,6 +411,23 @@ public class WxCpXmlMessage implements Serializable {
     @XStreamAlias("ScanResult")
     @XStreamConverter(value = XStreamCDataConverter.class)
     private String scanResult;
+  }
+
+  @Data
+  public static class ExtAttr {
+    @XStreamAlias("Item")
+    protected final List<Item> items = new ArrayList<>();
+
+    @Data
+    public static class Item {
+      @XStreamAlias("Name")
+      @XStreamConverter(value = XStreamCDataConverter.class)
+      private String name;
+
+      @XStreamAlias("Value")
+      @XStreamConverter(value = XStreamCDataConverter.class)
+      private String value;
+    }
   }
 
   @Data
