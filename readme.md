@@ -9,14 +9,14 @@
 ### 重要信息
 1. **微信公众号【WX开发助手】已开通，欢迎[扫码](qrcodes/mp_qrcode.jpg)或者在微信中搜索`weixin-java-tools`或者`WX开发助手`关注，本公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
 1. **最近微信支付爆出的所谓漏洞是官方的老版的微信支付所谓的SDK （就是一个demo）的代码漏洞，使用我们的SDK不存在此问题，如果不放心，检查下自己项目所依赖的xstream版本是否≥1.4.9，前提是使用了weinxin-java-pay提供的回调通知解析代码。**
-1. 最新更新：**2018-06-22 发布[【3.1.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
-1. [开源中国本项目的首页](https://www.oschina.net/p/weixin-java-tools-new)，欢迎大家积极留言评分 🙂
-1. 新手重要提示：本项目仅是一个开发工具包（即SDK），未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考[【Demo项目】](demo.md)或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[开发文档Wiki首页](https://github.com/Wechat-Group/weixin-java-tools/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
+1. 最新正式版发布：**2018-06-22 发布[【3.1.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
+1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考[【Demo项目】](demo.md)或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[开发文档Wiki首页](https://github.com/Wechat-Group/weixin-java-tools/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
 1. [出现`Illegal key size`问题的解决办法](https://github.com/Wechat-Group/weixin-java-tools/wiki/%E5%8A%A0%E8%A7%A3%E5%AF%86%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95) （太多人遇到此问题而不知所措，因此特意置顶，希望能引起新手的注意，其他常见问题请查阅 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)首页）
 
 --------------------------------
 ### 其他说明
 1. 本项目Fork自chanjarster/weixin-java-tools，但由于原项目已停止维护，故单独维护和发布，且发布到maven上的groupId也会不同，详细信息见下文。
+1. [开源中国本项目的首页](https://www.oschina.net/p/weixin-java-tools-new)，欢迎大家积极留言评分 🙂
 1. SDK详细开发文档请查阅 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)，部分文档可能未能及时更新，如有发现，可以及时上报或者自行修改。
 1. **阅读源码的同学请注意，本SDK为简化代码编译时加入了lombok支持，如果不了解lombok的话，请先学习下相关知识；**
 1. 如有新功能需求，发现BUG，或者由于微信官方接口调整导致的代码问题，可以直接在[【Issues】](https://github.com/Wechat-Group/weixin-java-tools/issues)页提出issue，便于讨论追踪问题；
