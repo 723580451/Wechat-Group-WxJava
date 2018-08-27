@@ -8,6 +8,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+/**
+ * menu rule.
+ *
+ * @author Daniel Qian
+ */
 @Data
 public class WxMenuRule implements Serializable {
   private static final long serialVersionUID = -4587181819499286670L;

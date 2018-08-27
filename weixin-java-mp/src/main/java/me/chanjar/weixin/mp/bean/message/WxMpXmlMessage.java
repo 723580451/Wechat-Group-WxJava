@@ -11,6 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.util.xml.XStreamCDataConverter;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
@@ -27,8 +28,9 @@ import me.chanjar.weixin.mp.util.xml.XStreamTransformer;
  *
  * @author chanjarster
  */
-@XStreamAlias("xml")
 @Data
+@Slf4j
+@XStreamAlias("xml")
 public class WxMpXmlMessage implements Serializable {
   private static final long serialVersionUID = -3586245291677274914L;
 
@@ -482,10 +484,11 @@ public class WxMpXmlMessage implements Serializable {
    * @param nonce             随机串
    * @param msgSignature      签名串
    */
-  public static WxMpXmlMessage fromEncryptedXml(String encryptedXml, WxMpConfigStorage wxMpConfigStorage, String timestamp,
-                                                String nonce, String msgSignature) {
+  public static WxMpXmlMessage fromEncryptedXml(String encryptedXml, WxMpConfigStorage wxMpConfigStorage,
+                                                String timestamp, String nonce, String msgSignature) {
     WxMpCryptUtil cryptUtil = new WxMpCryptUtil(wxMpConfigStorage);
     String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce, encryptedXml);
+    log.debug("解密后的原始xml消息内容：{}", plainText);
     return fromXml(plainText);
   }
 

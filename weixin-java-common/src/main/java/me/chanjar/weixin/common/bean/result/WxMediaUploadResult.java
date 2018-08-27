@@ -8,6 +8,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import lombok.Data;
 import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 
+/**
+ *
+ * @author Daniel Qian
+ */
 @Data
 public class WxMediaUploadResult implements Serializable {
   private static final long serialVersionUID = 330834334738622341L;

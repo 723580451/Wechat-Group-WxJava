@@ -13,6 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.util.xml.XStreamCDataConverter;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
@@ -29,8 +30,9 @@ import me.chanjar.weixin.cp.util.xml.XStreamTransformer;
  *
  * @author Daniel Qian
  */
-@XStreamAlias("xml")
 @Data
+@Slf4j
+@XStreamAlias("xml")
 public class WxCpXmlMessage implements Serializable {
   private static final long serialVersionUID = -1042994982179476410L;
 
@@ -52,6 +54,24 @@ public class WxCpXmlMessage implements Serializable {
   @XStreamAlias("CreateTime")
   private Long createTime;
 
+  /**
+   * <pre>
+   * 当接受用户消息时，可能会获得以下值：
+   * {@link WxConsts.XmlMsgType#TEXT}
+   * {@link WxConsts.XmlMsgType#IMAGE}
+   * {@link WxConsts.XmlMsgType#VOICE}
+   * {@link WxConsts.XmlMsgType#VIDEO}
+   * {@link WxConsts.XmlMsgType#LOCATION}
+   * {@link WxConsts.XmlMsgType#LINK}
+   * {@link WxConsts.XmlMsgType#EVENT}
+   * 当发送消息的时候使用：
+   * {@link WxConsts.XmlMsgType#TEXT}
+   * {@link WxConsts.XmlMsgType#IMAGE}
+   * {@link WxConsts.XmlMsgType#VOICE}
+   * {@link WxConsts.XmlMsgType#VIDEO}
+   * {@link WxConsts.XmlMsgType#NEWS}
+   * </pre>
+   */
   @XStreamAlias("MsgType")
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String msgType;
@@ -339,54 +359,21 @@ public class WxCpXmlMessage implements Serializable {
   /**
    * 从加密字符串转换.
    */
-  public static WxCpXmlMessage fromEncryptedXml(
-    String encryptedXml,
-    WxCpConfigStorage wxCpConfigStorage,
-    String timestamp, String nonce, String msgSignature) {
+  public static WxCpXmlMessage fromEncryptedXml(String encryptedXml, WxCpConfigStorage wxCpConfigStorage,
+                                                String timestamp, String nonce, String msgSignature) {
     WxCpCryptUtil cryptUtil = new WxCpCryptUtil(wxCpConfigStorage);
     String plainText = cryptUtil.decrypt(msgSignature, timestamp, nonce, encryptedXml);
+    log.debug("解密后的原始xml消息内容：{}", plainText);
     return fromXml(plainText);
   }
 
-  public static WxCpXmlMessage fromEncryptedXml(
-    InputStream is,
-    WxCpConfigStorage wxCpConfigStorage,
-    String timestamp, String nonce, String msgSignature) {
+  public static WxCpXmlMessage fromEncryptedXml(InputStream is, WxCpConfigStorage wxCpConfigStorage,
+                                                String timestamp, String nonce, String msgSignature) {
     try {
       return fromEncryptedXml(IOUtils.toString(is, "UTF-8"), wxCpConfigStorage, timestamp, nonce, msgSignature);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  /**
-   * <pre>
-   * 当接受用户消息时，可能会获得以下值：
-   * {@link WxConsts.XmlMsgType#TEXT}
-   * {@link WxConsts.XmlMsgType#IMAGE}
-   * {@link WxConsts.XmlMsgType#VOICE}
-   * {@link WxConsts.XmlMsgType#VIDEO}
-   * {@link WxConsts.XmlMsgType#LOCATION}
-   * {@link WxConsts.XmlMsgType#LINK}
-   * {@link WxConsts.XmlMsgType#EVENT}
-   * </pre>
-   */
-  public String getMsgType() {
-    return this.msgType;
-  }
-
-  /**
-   * <pre>
-   * 当发送消息的时候使用：
-   * {@link WxConsts.XmlMsgType#TEXT}
-   * {@link WxConsts.XmlMsgType#IMAGE}
-   * {@link WxConsts.XmlMsgType#VOICE}
-   * {@link WxConsts.XmlMsgType#VIDEO}
-   * {@link WxConsts.XmlMsgType#NEWS}
-   * </pre>
-   */
-  public void setMsgType(String msgType) {
-    this.msgType = msgType;
   }
 
   @Override

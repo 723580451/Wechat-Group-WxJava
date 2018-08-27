@@ -10,6 +10,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+/**
+ * menu button.
+ *
+ * @author Daniel Qian
+ */
 @Data
 public class WxMenuButton implements Serializable {
   private static final long serialVersionUID = -1070939403109776555L;
