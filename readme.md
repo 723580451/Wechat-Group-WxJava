@@ -7,7 +7,7 @@
 
 ---------------------------------
 ### 重要信息
-1. **微信公众号【WX开发助手】已开通，欢迎 [扫码](qrcodes/mp_qrcode.jpg) 或者在微信中搜索`weixin-java-tools`或者`WX开发助手`关注，本公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
+1. **微信公众号【WX开发助手】已开通，欢迎 [扫码](qrcodes/mp_qrcode.jpg) 或者在微信中搜索 `weixin-java-tools`或者 `WX开发助手` 关注，本公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
 1. **企业微信也已开通，欢迎 [扫码](qrcodes/cp_qrcode.png) 申请加入。**
 1. **最近微信支付爆出的所谓漏洞是官方的老版的微信支付所谓的SDK （就是一个demo）的代码漏洞，使用我们的SDK不存在此问题，如果不放心，检查下自己项目所依赖的xstream版本是否≥1.4.9，前提是使用了weinxin-java-pay提供的回调通知解析代码。**
 1. **2018-06-22 发布 [【3.1.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
@@ -62,6 +62,19 @@
   - 公众号：`weixin-java-mp`    
   - 企业号/企业微信：`weixin-java-cp`
   
+----------------------------------
+## 使用案例（持续更新中）
+1. 开源项目：https://github.com/workcheng/weiya
+1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
+1. 平台：[小猪餐餐](http://www.xzcancan.com/)
+1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
+1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
+1. 公众号和小程序：民医台（可自行搜索）
+1. 洽洽企业号
+1. 高善人力资源
+1. 其他更多案例请[【点击访问】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)
+
 ----------------------------------
 ## 参与贡献本项目的人员列表，特别感谢！
 1. [chanjarster (Daniel Qian)](http://github.com/chanjarster)
