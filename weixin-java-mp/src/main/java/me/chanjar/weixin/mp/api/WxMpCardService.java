@@ -2,12 +2,16 @@ package me.chanjar.weixin.mp.api;
 
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateRequest;
+import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardQrcodeCreateResult;
 import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
 
 /**
  * 卡券相关接口
  *
  * @author YuJian(mgcnrx11@hotmail.com) on 01/11/2016
+ * @author yuanqixun 2018-08-29
  */
 public interface WxMpCardService {
   String CARD_GET = "https://api.weixin.qq.com/card/get";
@@ -16,6 +20,9 @@ public interface WxMpCardService {
   String CARD_CODE_GET = "https://api.weixin.qq.com/card/code/get";
   String CARD_CODE_CONSUME = "https://api.weixin.qq.com/card/code/consume";
   String CARD_CODE_MARK = "https://api.weixin.qq.com/card/code/mark";
+  String CARD_TEST_WHITELIST = "https://api.weixin.qq.com/card/testwhitelist/set";
+  String CARD_QRCODE_CREAET = "https://api.weixin.qq.com/card/qrcode/create";
+  String CARD_LANDING_PAGE_CREAET = "https://api.weixin.qq.com/card/landingpage/create";
 
   /**
    * 得到WxMpService
@@ -122,4 +129,27 @@ public interface WxMpCardService {
    * <br> 可由 com.google.gson.JsonParser#parse 等方法直接取JSON串中的某个字段。
    */
   String getCardDetail(String cardId) throws WxErrorException;
+
+  /**
+   * 添加测试白名单
+   * @param openid 用户的openid
+   * @return
+   */
+  String addTestWhiteList(String openid) throws WxErrorException;
+
+  /**
+   * 创建卡券二维码
+   * @param cardId 卡券编号
+   * @param outerStr 二维码标识
+   * @return WxMpCardQrcodeCreateResult
+   */
+  WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr) throws WxErrorException;
+
+  /**
+   * 创建卡券货架
+   * @param createRequest 货架创建参数
+   * @return
+   * @throws WxErrorException
+   */
+  WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest createRequest) throws WxErrorException;
 }
