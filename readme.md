@@ -29,6 +29,20 @@
 1. 本SDK项目在以下代码托管网站同步更新:
 * 码云：https://gitee.com/binary/weixin-java-tools
 * GitHub：https://github.com/wechat-group/weixin-java-tools
+  
+----------------------------------
+## 使用案例
+1. 开源项目：https://github.com/workcheng/weiya
+1. 开源项目：https://github.com/cyzaoj/mywx
+1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
+1. 平台：[小猪餐餐](http://www.xzcancan.com/)
+1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
+1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
+1. 公众号和小程序：民医台（可自行搜索）
+1. 洽洽企业号
+1. 高善人力资源
+1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
 
 ---------------------------------
 ### 技术交流方式
@@ -39,14 +53,7 @@
 1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
 
 ---------------------------------
-### 版本说明
-1. 本项目定为大约每两个月发布一次正式版，版本号格式为X.X.0（如2.1.0，2.2.0等），遇到重大问题需修复会及时提交新版本，欢迎大家随时提交Pull Request；
-1. BUG修复和新特性一般会先发布成小版本作为临时测试版本（如2.4.5.BETA，2.4.6.BETA等，即尾号不为0，并添加BETA字样，以区别于正式版）；
-1. 目前最新版本号为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent) ，也可以通过访问链接 [【微信支付】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-pay%22) 、[【微信小程序】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-miniapp%22) 、[【公众号】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-mp%22) 、[【企业微信】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-cp%22)、[【开放平台】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-open%22)
-分别查看所有最新的版本。 
-
----------------------------------
-## Maven引用
+### Maven引用
 注意：最新版本（包括测试版）为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent)，以下为最新正式版。
 
 ```xml
@@ -62,23 +69,17 @@
   - 微信开放平台：`weixin-java-open`   
   - 公众号：`weixin-java-mp`    
   - 企业号/企业微信：`weixin-java-cp`
-  
-----------------------------------
-## 使用案例（持续更新中）
-1. 开源项目：https://github.com/workcheng/weiya
-1. 开源项目：https://github.com/cyzaoj/mywx
-1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
-1. 平台：[小猪餐餐](http://www.xzcancan.com/)
-1. 平台：[餐饮系统](http://canyin.daydao.com)
-1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
-1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
-1. 公众号和小程序：民医台（可自行搜索）
-1. 洽洽企业号
-1. 高善人力资源
-1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)
+
+---------------------------------
+### 版本说明
+1. 本项目定为大约每两个月发布一次正式版，版本号格式为X.X.0（如2.1.0，2.2.0等），遇到重大问题需修复会及时提交新版本，欢迎大家随时提交Pull Request；
+1. BUG修复和新特性一般会先发布成小版本作为临时测试版本（如2.4.5.BETA，2.4.6.BETA等，即尾号不为0，并添加BETA字样，以区别于正式版）；
+1. 目前最新版本号为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent) ，也可以通过访问链接 [【微信支付】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-pay%22) 、[【微信小程序】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-miniapp%22) 、[【公众号】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-mp%22) 、[【企业微信】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-cp%22)、[【开放平台】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-open%22)
+分别查看所有最新的版本。 
 
 ----------------------------------
-## 参与贡献本项目的人员列表，特别感谢！
+## 参与贡献的人员列表
+特别感谢以下参与贡献的所有同学！
 1. [chanjarster (Daniel Qian)](http://github.com/chanjarster)
 1. [binarywang (Binary Wang)](http://github.com/binarywang)
 1. [mgcnrx11](http://github.com/mgcnrx11)
