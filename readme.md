@@ -33,6 +33,7 @@
 ## 使用案例
 1. 开源项目：https://github.com/workcheng/weiya
 1. 开源项目：https://github.com/jmdhappy/xxpay-master 
+1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
 1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
 1. 平台：[小猪餐餐](http://www.xzcancan.com/)
 1. 平台：[餐饮系统](http://canyin.daydao.com)
