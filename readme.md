@@ -9,10 +9,13 @@
 
 ---------------------------------
 ### 重要信息
-1. **微信公众号【WX开发助手】和企业微信已开通，欢迎 [扫码](http://www.binarywang.com/article/cp_and_mp) 关注或申请加入，也可以在微信中搜索 `weixin-java-tools`或 `WX开发助手` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
+
 1. **2018-06-22 发布 [【3.1.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
 1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/weixin-java-tools/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
 1. [出现`Illegal key size`问题的解决办法](https://github.com/Wechat-Group/weixin-java-tools/wiki/%E5%8A%A0%E8%A7%A3%E5%AF%86%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95) （太多人遇到此问题而不知所措，因此特意置顶，希望能引起新手的注意，其他常见问题请查阅 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)首页）
+1. **更多精彩内容，请关注新开通的微信公众号【WX开发助手】，或者加入企业微信，欢迎扫描一下二维码，或者[访问此页面扫码](http://www.binarywang.com/article/cp_and_mp) ，也可以在微信中搜索 `weixin-java-tools`或 `WX开发助手` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
+
+![微信开发助手公众号](qrcodes/mp_qrcode.jpg)  ![企业微信](qrcodes/cp_qrcode.png)
 
 --------------------------------
 ### 其他说明
