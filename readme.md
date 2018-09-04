@@ -40,6 +40,7 @@
 1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
 1. 平台：[小猪餐餐](http://www.xzcancan.com/)
 1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 公众号：中国电信上海网厅（sh_189）
 1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
 1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
 1. 公众号和小程序：民医台（可自行搜索）
