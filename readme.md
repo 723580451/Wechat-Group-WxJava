@@ -1,5 +1,5 @@
 ## 全能微信Java开发工具包（SDK）
-### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
+#### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
 [![码云Gitee](https://gitee.com/binary/weixin-java-tools/badge/star.svg?theme=blue)](https://gitee.com/binary/weixin-java-tools) 
 [![Github](https://img.shields.io/badge/Github-10k~-green.svg)](https://github.com/Wechat-Group/weixin-java-tools) 
@@ -33,7 +33,7 @@
 * GitHub：https://github.com/wechat-group/weixin-java-tools
   
 ----------------------------------
-## 使用案例
+### 使用案例
 1. 开源项目：https://github.com/workcheng/weiya
 1. 开源项目：https://github.com/jmdhappy/xxpay-master 
 1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
@@ -83,7 +83,7 @@
 分别查看所有最新的版本。 
 
 ----------------------------------
-## 参与贡献的人员列表
+### 贡献者列表
 特别感谢以下参与贡献的所有同学！
 1. [chanjarster (Daniel Qian)](http://github.com/chanjarster)
 1. [binarywang (Binary Wang)](http://github.com/binarywang)
