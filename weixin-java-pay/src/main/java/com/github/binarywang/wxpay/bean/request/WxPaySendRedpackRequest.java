@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @XStreamAlias("xml")
 public class WxPaySendRedpackRequest extends BaseWxPayRequest {
   @Override
-  protected boolean ignoreSignType() {
-    return true;
+  protected String[] getIgnoredParamsForSign() {
+    return new String[]{"sign_type"};
   }
 
   /**

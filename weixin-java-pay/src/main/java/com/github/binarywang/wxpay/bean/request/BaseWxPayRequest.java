@@ -188,17 +188,17 @@ public abstract class BaseWxPayRequest implements Serializable {
   }
 
   /**
-   * 签名时，是否忽略signType.
-   */
-  protected boolean ignoreSignType() {
-    return false;
-  }
-
-  /**
    * 签名时，是否忽略appid.
    */
   protected boolean ignoreAppid() {
     return false;
+  }
+
+  /**
+   * 签名时，忽略的参数.
+   */
+  protected String[] getIgnoredParamsForSign() {
+    return new String[0];
   }
 
   /**
@@ -248,7 +248,6 @@ public abstract class BaseWxPayRequest implements Serializable {
     }
 
     //设置签名字段的值
-    this.setSign(SignUtils.createSign(this, this.getSignType(), config.getMchKey(),
-      this.ignoreSignType()));
+    this.setSign(SignUtils.createSign(this, this.getSignType(), config.getMchKey(), this.getIgnoredParamsForSign()));
   }
 }

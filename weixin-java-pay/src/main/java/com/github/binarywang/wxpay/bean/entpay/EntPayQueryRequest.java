@@ -54,7 +54,7 @@ public class EntPayQueryRequest extends BaseWxPayRequest {
   }
 
   @Override
-  protected boolean ignoreSignType() {
-    return true;
+  protected String[] getIgnoredParamsForSign() {
+    return new String[]{"sign_type"};
   }
 }
