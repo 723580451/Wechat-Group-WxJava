@@ -1,8 +1,9 @@
 package cn.binarywang.wx.miniapp.api;
 
+import java.io.File;
+
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
-import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
@@ -19,12 +20,24 @@ public interface WxMaService {
 
   String JSCODE_TO_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session";
 
+  String IMG_SEC_CHECK_URL = "https://api.weixin.qq.com/wxa/img_sec_check";
+
   /**
-   * 获取登录后的session信息
+   * <pre>
+   * 校验一张图片是否含有违法违规内容.
+   * 应用场景举例：1）图片智能鉴黄：涉及拍照的工具类应用(如美拍，识图类应用)用户拍照上传检测；电商类商品上架图片检测；媒体类用户文章里的图片检测等；2）敏感人脸识别：用户头像；媒体类用户文章里的图片检测；社交类用户上传的图片检测等。频率限制：单个 appId 调用上限为 1000 次/分钟，100,000 次/天
+   * 详情请见: https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html
+   * </pre>
+   */
+  boolean imgSecCheck(File file) throws WxErrorException;
+
+  /**
+   * 获取登录后的session信息.
    *
    * @param jsCode 登录时获取的 code
    */
   WxMaJscode2SessionResult jsCode2SessionInfo(String jsCode) throws WxErrorException;
+
   /**
    * <pre>
    * 验证消息的确来自微信服务器.
@@ -133,6 +146,7 @@ public interface WxMaService {
 
   /**
    * 返回模板配置相关接口方法的实现类对象, 以方便调用其各个接口.
+   *
    * @return WxMaTemplateService
    */
   WxMaTemplateService getTemplateService();
