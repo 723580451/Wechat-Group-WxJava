@@ -82,7 +82,7 @@ public class WxCpUserGsonAdapter implements JsonDeserializer<WxCpUser>, JsonSeri
         switch (type) {
           case 0: {
             user.getExternalAttrs()
-              .add(WxCpUser.ExternalAttr.builder()
+              .add(WxCpUser.ExternalAttribute.builder()
                 .type(type)
                 .name(name)
                 .value(GsonHelper.getString(element.getAsJsonObject().get("text").getAsJsonObject(), "value"))
@@ -93,7 +93,7 @@ public class WxCpUserGsonAdapter implements JsonDeserializer<WxCpUser>, JsonSeri
           case 1: {
             final JsonObject web = element.getAsJsonObject().get("web").getAsJsonObject();
             user.getExternalAttrs()
-              .add(WxCpUser.ExternalAttr.builder()
+              .add(WxCpUser.ExternalAttribute.builder()
                 .type(type)
                 .name(name)
                 .url(GsonHelper.getString(web, "url"))
@@ -105,7 +105,7 @@ public class WxCpUserGsonAdapter implements JsonDeserializer<WxCpUser>, JsonSeri
           case 2: {
             final JsonObject miniprogram = element.getAsJsonObject().get("miniprogram").getAsJsonObject();
             user.getExternalAttrs()
-              .add(WxCpUser.ExternalAttr.builder()
+              .add(WxCpUser.ExternalAttribute.builder()
                 .type(type)
                 .name(name)
                 .appid(GsonHelper.getString(miniprogram, "appid"))
@@ -196,7 +196,7 @@ public class WxCpUserGsonAdapter implements JsonDeserializer<WxCpUser>, JsonSeri
 
     if (user.getExternalAttrs().size() > 0) {
       JsonArray attrsJsonArray = new JsonArray();
-      for (WxCpUser.ExternalAttr attr : user.getExternalAttrs()) {
+      for (WxCpUser.ExternalAttribute attr : user.getExternalAttrs()) {
         JsonObject attrJson = new JsonObject();
         attrJson.addProperty("type",attr.getType());
         attrJson.addProperty("name", attr.getName());

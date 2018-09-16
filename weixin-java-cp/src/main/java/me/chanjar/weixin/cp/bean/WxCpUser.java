@@ -39,9 +39,9 @@ public class WxCpUser implements Serializable {
   /**
    * 成员对外信息.
    */
-  private List<ExternalAttr> externalAttrs = new ArrayList<>();
+  private List<ExternalAttribute> externalAttrs = new ArrayList<>();
 
-  public void addExternalAttr(ExternalAttr externalAttr) {
+  public void addExternalAttr(ExternalAttribute externalAttr) {
     this.externalAttrs.add(externalAttr);
   }
 
@@ -68,7 +68,7 @@ public class WxCpUser implements Serializable {
   @Builder
   @NoArgsConstructor
   @AllArgsConstructor
-  public static class ExternalAttr {
+  public static class ExternalAttribute {
     /**
      * 属性类型: 0-本文 1-网页 2-小程序.
      */
@@ -99,5 +99,4 @@ public class WxCpUser implements Serializable {
      */
     private String pagePath;
   }
-
 }

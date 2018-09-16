@@ -78,18 +78,18 @@ public class WxCpUserGsonAdapterTest {
     assertThat(user).isNotNull();
     assertThat(user.getExternalAttrs()).isNotEmpty();
 
-    final WxCpUser.ExternalAttr externalAttr1 = user.getExternalAttrs().get(0);
+    final WxCpUser.ExternalAttribute externalAttr1 = user.getExternalAttrs().get(0);
     assertThat(externalAttr1.getType()).isEqualTo(0);
     assertThat(externalAttr1.getName()).isEqualTo("文本名称");
     assertThat(externalAttr1.getValue()).isEqualTo("文本");
 
-    final WxCpUser.ExternalAttr externalAttr2 = user.getExternalAttrs().get(1);
+    final WxCpUser.ExternalAttribute externalAttr2 = user.getExternalAttrs().get(1);
     assertThat(externalAttr2.getType()).isEqualTo(1);
     assertThat(externalAttr2.getName()).isEqualTo("网页名称");
     assertThat(externalAttr2.getUrl()).isEqualTo("http://www.test.com");
     assertThat(externalAttr2.getTitle()).isEqualTo("标题");
 
-    final WxCpUser.ExternalAttr externalAttr3 = user.getExternalAttrs().get(2);
+    final WxCpUser.ExternalAttribute externalAttr3 = user.getExternalAttrs().get(2);
     assertThat(externalAttr3.getType()).isEqualTo(2);
     assertThat(externalAttr3.getName()).isEqualTo("测试app");
     assertThat(externalAttr3.getAppid()).isEqualTo("wx8bd80126147df384");
@@ -100,18 +100,18 @@ public class WxCpUserGsonAdapterTest {
   @Test
   public void testSerialize() {
     WxCpUser user = new WxCpUser();
-    user.addExternalAttr(WxCpUser.ExternalAttr.builder()
+    user.addExternalAttr(WxCpUser.ExternalAttribute.builder()
       .type(0)
       .name("文本名称")
       .value("文本")
       .build());
-    user.addExternalAttr(WxCpUser.ExternalAttr.builder()
+    user.addExternalAttr(WxCpUser.ExternalAttribute.builder()
       .type(1)
       .name("网页名称")
       .url("http://www.test.com")
       .title("标题")
       .build());
-    user.addExternalAttr(WxCpUser.ExternalAttr.builder()
+    user.addExternalAttr(WxCpUser.ExternalAttribute.builder()
       .type(2)
       .name("测试app")
       .appid("wx8bd80126147df384")
