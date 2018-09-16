@@ -118,7 +118,7 @@ public abstract class BaseWxPayResult implements Serializable {
    * @param fen 将要被转换为元的分的数值
    */
   public static String fenToYuan(Integer fen) {
-    return new BigDecimal(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+    return BigDecimal.valueOf(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
   }
 
   /**
