@@ -10,6 +10,9 @@ import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpTag;
 import me.chanjar.weixin.cp.bean.WxCpUser;
 
+/**
+ * @author Daniel Qian
+ */
 public class WxCpGsonBuilder {
 
   public static final GsonBuilder INSTANCE = new GsonBuilder();
