@@ -15,10 +15,11 @@ import me.chanjar.weixin.cp.api.WxCpService;
 
 /**
  * <pre>
- * 媒体管理接口
+ * 媒体管理接口.
  * Created by Binary Wang on 2017-6-25.
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  * </pre>
+ *
+ * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxCpMediaServiceImpl implements WxCpMediaService {
   private WxCpService mainService;
