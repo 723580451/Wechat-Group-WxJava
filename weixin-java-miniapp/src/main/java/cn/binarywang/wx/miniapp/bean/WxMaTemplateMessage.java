@@ -73,7 +73,7 @@ public class WxMaTemplateMessage implements Serializable {
    * 描述： 模板内容，不填则下发空模板
    * </pre>
    */
-  private List<Data> data;
+  private List<WxMaTemplateData> data;
 
   /**
    * 模板内容字体的颜色，不填默认黑色.
@@ -95,7 +95,7 @@ public class WxMaTemplateMessage implements Serializable {
    */
   private String emphasisKeyword;
 
-  public WxMaTemplateMessage addData(Data datum) {
+  public WxMaTemplateMessage addData(WxMaTemplateData datum) {
     if (this.data == null) {
       this.data = new ArrayList<>();
     }
@@ -106,26 +106,6 @@ public class WxMaTemplateMessage implements Serializable {
 
   public String toJson() {
     return WxMaGsonBuilder.create().toJson(this);
-  }
-
-  @lombok.Data
-  @NoArgsConstructor
-  public static class Data {
-    private String name;
-    private String value;
-    private String color;
-
-    public Data(String name, String value) {
-      this.name = name;
-      this.value = value;
-    }
-
-    public Data(String name, String value, String color) {
-      this.name = name;
-      this.value = value;
-      this.color = color;
-    }
-
   }
 
 }
