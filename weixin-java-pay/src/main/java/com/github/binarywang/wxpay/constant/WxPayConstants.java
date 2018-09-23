@@ -127,8 +127,17 @@ public class WxPayConstants {
    * 签名类型.
    */
   public static class SignType {
+    /**
+     * The constant HMAC_SHA256.
+     */
     public static final String HMAC_SHA256 = "HMAC-SHA256";
+    /**
+     * The constant MD5.
+     */
     public static final String MD5 = "MD5";
+    /**
+     * The constant ALL_SIGN_TYPES.
+     */
     public static final List<String> ALL_SIGN_TYPES = Lists.newArrayList(HMAC_SHA256, MD5);
   }
 

@@ -68,6 +68,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#unifiedOrder(WxPayUnifiedOrderRequest)}.
+   *
+   * @throws WxPayException the wx pay exception
    */
   @Test
   public void testUnifiedOrder() throws WxPayException {
@@ -86,11 +88,21 @@ public class BaseWxPayServiceImplTest {
     this.logger.warn(this.payService.getWxApiData().toString());
   }
 
+  /**
+   * Test create order.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateOrder() throws Exception {
     //see other tests with method name starting with 'testCreateOrder_'
   }
 
+  /**
+   * Test create order jsapi.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateOrder_jsapi() throws Exception {
     WxPayMpOrderResult result = this.payService
@@ -107,6 +119,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.warn(this.payService.getWxApiData().toString());
   }
 
+  /**
+   * Test create order app.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateOrder_app() throws Exception {
     WxPayAppOrderResult result = this.payService
@@ -122,6 +139,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.warn(this.payService.getWxApiData().toString());
   }
 
+  /**
+   * Test create order native.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateOrder_native() throws Exception {
     WxPayNativeOrderResult result = this.payService
@@ -138,6 +160,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.warn(this.payService.getWxApiData().toString());
   }
 
+  /**
+   * Test get pay info.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testGetPayInfo() throws Exception {
     //please use createOrder instead
@@ -145,6 +172,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#queryOrder(String, String)} .
+   *
+   * @throws WxPayException the wx pay exception
    */
   @Test
   public void testQueryOrder() throws WxPayException {
@@ -154,12 +183,19 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#closeOrder(String)} .
+   *
+   * @throws WxPayException the wx pay exception
    */
   @Test
   public void testCloseOrder() throws WxPayException {
     this.logger.info(this.payService.closeOrder("11212121").toString());
   }
 
+  /**
+   * Billing data object [ ] [ ].
+   *
+   * @return the object [ ] [ ]
+   */
   @DataProvider
   public Object[][] billingData() {
     return new Object[][]{
@@ -174,6 +210,15 @@ public class BaseWxPayServiceImplTest {
     };
   }
 
+  /**
+   * Test download bill.
+   *
+   * @param billDate   the bill date
+   * @param billType   the bill type
+   * @param tarType    the tar type
+   * @param deviceInfo the device info
+   * @throws Exception the exception
+   */
   @Test(dataProvider = "billingData")
   public void testDownloadBill(String billDate, String billType,
                                String tarType, String deviceInfo) throws Exception {
@@ -182,12 +227,22 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(billResult.toString());
   }
 
+  /**
+   * Test download bill with no params.
+   *
+   * @throws Exception the exception
+   */
   @Test(expectedExceptions = WxPayException.class)
   public void testDownloadBill_withNoParams() throws Exception {
     //必填字段为空时，抛出异常
     this.payService.downloadBill("", "", "", null);
   }
 
+  /**
+   * Fund flow data object [ ] [ ].
+   *
+   * @return the object [ ] [ ]
+   */
   @DataProvider
   public Object[][] fundFlowData() {
     return new Object[][]{
@@ -200,6 +255,14 @@ public class BaseWxPayServiceImplTest {
     };
   }
 
+  /**
+   * Test download fund flow.
+   *
+   * @param billDate    the bill date
+   * @param accountType the account type
+   * @param tarType     the tar type
+   * @throws Exception the exception
+   */
   @Test(dataProvider = "fundFlowData")
   public void testDownloadFundFlow(String billDate, String accountType, String tarType) throws Exception {
     WxPayFundFlowResult fundFlowResult = this.payService.downloadFundFlow(billDate, accountType, tarType);
@@ -207,12 +270,22 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(fundFlowResult.toString());
   }
 
+  /**
+   * Test download fund flow with no params.
+   *
+   * @throws Exception the exception
+   */
   @Test(expectedExceptions = WxPayException.class)
   public void testDownloadFundFlow_withNoParams() throws Exception {
     //必填字段为空时，抛出异常
     this.payService.downloadFundFlow("", "", null);
   }
 
+  /**
+   * Test report.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testReport() throws Exception {
     WxPayReportRequest request = new WxPayReportRequest();
@@ -227,6 +300,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#refund(WxPayRefundRequest)} .
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testRefund() throws Exception {
@@ -242,6 +317,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#refundQuery(String, String, String, String)} .
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testRefundQuery() throws Exception {
@@ -264,6 +341,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result.toString());
   }
 
+  /**
+   * Test parse refund notify result.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testParseRefundNotifyResult() throws Exception {
     // 请参考com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResultTest里的单元测试
@@ -271,6 +353,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#sendRedpack(WxPaySendRedpackRequest)} .
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testSendRedpack() throws Exception {
@@ -289,6 +373,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * Test method for {@link WxPayService#queryRedpack(String)}.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testQueryRedpack() throws Exception {
@@ -296,6 +382,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(redpackResult.toString());
   }
 
+  /**
+   * Test create scan pay qrcode mode 1.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateScanPayQrcodeMode1() throws Exception {
     String productId = "abc";
@@ -309,6 +400,11 @@ public class BaseWxPayServiceImplTest {
     assertTrue(qrcodeContent.contains("product_id=" + productId));
   }
 
+  /**
+   * Test create scan pay qrcode mode 2.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateScanPayQrcodeMode2() throws Exception {
     String qrcodeContent = "abc";
@@ -318,6 +414,11 @@ public class BaseWxPayServiceImplTest {
     assertEquals(QrcodeUtils.decodeQrcode(qrcodeFilePath.toFile()), qrcodeContent);
   }
 
+  /**
+   * Test micropay.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testMicropay() throws Exception {
     WxPayMicropayResult result = this.payService.micropay(
@@ -332,16 +433,31 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result.toString());
   }
 
+  /**
+   * Test get config.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testGetConfig() throws Exception {
     // no need to test
   }
 
+  /**
+   * Test set config.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testSetConfig() throws Exception {
     // no need to test
   }
 
+  /**
+   * Test reverse order.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testReverseOrder() throws Exception {
     WxPayOrderReverseResult result = this.payService.reverseOrder(
@@ -353,6 +469,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result.toString());
   }
 
+  /**
+   * Test shorturl.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testShorturl() throws Exception {
     String longUrl = "weixin://wxpay/bizpayurl?sign=XXXXX&appid=XXXXX&mch_id=XXXXX&product_id=XXXXXX&time_stamp=XXXXXX&nonce_str=XXXXX";
@@ -366,6 +487,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result);
   }
 
+  /**
+   * Test authcode 2 openid.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testAuthcode2Openid() throws Exception {
     String authCode = "11111";
@@ -379,6 +505,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result);
   }
 
+  /**
+   * Test get sandbox sign key.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testGetSandboxSignKey() throws Exception {
     final String signKey = this.payService.getSandboxSignKey();
@@ -386,6 +517,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(signKey);
   }
 
+  /**
+   * Test send coupon.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testSendCoupon() throws Exception {
     WxPayCouponSendResult result = this.payService.sendCoupon(WxPayCouponSendRequest.newBuilder()
@@ -397,6 +533,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result.toString());
   }
 
+  /**
+   * Test query coupon stock.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testQueryCouponStock() throws Exception {
     WxPayCouponStockQueryResult result = this.payService.queryCouponStock(
@@ -407,6 +548,11 @@ public class BaseWxPayServiceImplTest {
     this.logger.info(result.toString());
   }
 
+  /**
+   * Test query coupon info.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testQueryCouponInfo() throws Exception {
     WxPayCouponInfoQueryResult result = this.payService.queryCouponInfo(
@@ -421,6 +567,8 @@ public class BaseWxPayServiceImplTest {
 
   /**
    * 只支持拉取90天内的评论数据
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testQueryComment() throws Exception {
@@ -434,7 +582,10 @@ public class BaseWxPayServiceImplTest {
   }
 
   /**
-   * @see WxPayOrderNotifyResultTest#testFromXML()
+   * Test parse order notify result.
+   *
+   * @throws Exception the exception
+   * @see WxPayOrderNotifyResultTest#testFromXML() WxPayOrderNotifyResultTest#testFromXML()
    */
   @Test
   public void testParseOrderNotifyResult() throws Exception {
@@ -471,6 +622,11 @@ public class BaseWxPayServiceImplTest {
     System.out.println(result);
   }
 
+  /**
+   * Test get wx api data.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testGetWxApiData() throws Exception {
     //see test in testUnifiedOrder()

@@ -40,6 +40,8 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
    *
    * @param xmlString xml字符串
    * @param mchKey    商户密钥
+   * @return the wx pay refund notify result
+   * @throws WxPayException the wx pay exception
    */
   public static WxPayRefundNotifyResult fromXML(String xmlString, String mchKey) throws WxPayException {
     WxPayRefundNotifyResult result = BaseWxPayResult.fromXML(xmlString, WxPayRefundNotifyResult.class);
@@ -252,6 +254,12 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     @XStreamAlias("refund_request_source")
     private String refundRequestSource;
 
+    /**
+     * From xml req info.
+     *
+     * @param xmlString the xml string
+     * @return the req info
+     */
     public static ReqInfo fromXML(String xmlString) {
       XStream xstream = XStreamInitializer.getInstance();
       xstream.processAnnotations(ReqInfo.class);

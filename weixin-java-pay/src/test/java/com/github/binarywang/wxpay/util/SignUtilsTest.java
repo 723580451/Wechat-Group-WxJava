@@ -17,6 +17,11 @@ import static org.testng.Assert.*;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class SignUtilsTest {
+  /**
+   * Test create sign.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateSign() throws Exception {
     String signKey = "192006250b4c09247ec02edce69f6a2d";
@@ -25,6 +30,11 @@ public class SignUtilsTest {
       "9A0A8659F005D6984697E2CA0A9CF3B7");
   }
 
+  /**
+   * Test create sign hmacsha 256.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCreateSign_HMACSHA256() throws Exception {
     String signKey = "192006250b4c09247ec02edce69f6a2d";
@@ -34,6 +44,11 @@ public class SignUtilsTest {
     assertEquals(sign, "6A9AE1657590FD6257D693A078E1C3E4BB6BA4DC30B23E0EE2496E54170DACD6");
   }
 
+  /**
+   * Test check sign.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testCheckSign() throws Exception {
   }

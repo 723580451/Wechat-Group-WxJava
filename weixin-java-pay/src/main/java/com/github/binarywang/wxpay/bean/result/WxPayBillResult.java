@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * The type Wx pay bill result.
+ *
  * @author BinaryWang
  */
 @Data

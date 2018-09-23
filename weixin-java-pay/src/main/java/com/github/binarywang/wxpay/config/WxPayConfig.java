@@ -95,6 +95,9 @@ public class WxPayConfig {
 
   /**
    * 初始化ssl.
+   *
+   * @return the ssl context
+   * @throws WxPayException the wx pay exception
    */
   public SSLContext initSSLContext() throws WxPayException {
     if (StringUtils.isBlank(this.getMchId())) {

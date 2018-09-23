@@ -285,6 +285,12 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
   @XStreamAlias("version")
   private String version;
 
+  /**
+   * From xml wx pay order notify result.
+   *
+   * @param xmlString the xml string
+   * @return the wx pay order notify result
+   */
   public static WxPayOrderNotifyResult fromXML(String xmlString) {
     XStream xstream = XStreamInitializer.getInstance();
     xstream.processAnnotations(WxPayOrderNotifyResult.class);

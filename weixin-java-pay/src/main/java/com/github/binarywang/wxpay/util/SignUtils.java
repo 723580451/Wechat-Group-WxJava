@@ -33,6 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 public class SignUtils {
   /**
    * 请参考并使用 {@link #createSign(Object, String, String, String[])}.
+   *
+   * @param xmlBean the xml bean
+   * @param signKey the sign key
+   * @return the string
    */
   @Deprecated
   public static String createSign(Object xmlBean, String signKey) {
@@ -41,6 +45,10 @@ public class SignUtils {
 
   /**
    * 请参考并使用 {@link #createSign(Map, String, String, String[])} .
+   *
+   * @param params  the params
+   * @param signKey the sign key
+   * @return the string
    */
   @Deprecated
   public static String createSign(Map<String, String> params, String signKey) {
@@ -54,7 +62,7 @@ public class SignUtils {
    * @param signType      签名类型，如果为空，则默认为MD5
    * @param signKey       签名Key
    * @param ignoredParams 签名时需要忽略的特殊参数
-   * @return 签名字符串
+   * @return 签名字符串 string
    */
   public static String createSign(Object xmlBean, String signType, String signKey, String[] ignoredParams) {
     return createSign(xmlBean2Map(xmlBean), signType, signKey, ignoredParams);
@@ -67,7 +75,7 @@ public class SignUtils {
    * @param signType      签名类型，如果为空，则默认为MD5
    * @param signKey       签名Key
    * @param ignoredParams 签名时需要忽略的特殊参数
-   * @return 签名字符串
+   * @return 签名字符串 string
    */
   public static String createSign(Map<String, String> params, String signType, String signKey, String[] ignoredParams) {
     SortedMap<String, String> sortedMap = new TreeMap<>(params);
@@ -123,7 +131,7 @@ public class SignUtils {
    * 将bean按照@XStreamAlias标识的字符串内容生成以之为key的map对象.
    *
    * @param bean 包含@XStreamAlias的xml bean对象
-   * @return map对象
+   * @return map对象 map
    */
   public static Map<String, String> xmlBean2Map(Object bean) {
     Map<String, String> result = Maps.newHashMap();

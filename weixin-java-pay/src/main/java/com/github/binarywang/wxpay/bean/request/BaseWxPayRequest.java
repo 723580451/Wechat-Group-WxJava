@@ -121,6 +121,7 @@ public abstract class BaseWxPayRequest implements Serializable {
    * 将单位为元转换为单位为分.
    *
    * @param yuan 将要转换的元的数值字符串
+   * @return the integer
    */
   public static Integer yuanToFen(String yuan) {
     return new BigDecimal(yuan).setScale(2, BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal(100)).intValue();
@@ -143,6 +144,8 @@ public abstract class BaseWxPayRequest implements Serializable {
 
   /**
    * 检查约束情况.
+   *
+   * @throws WxPayException the wx pay exception
    */
   protected abstract void checkConstraints() throws WxPayException;
 
@@ -178,6 +181,11 @@ public abstract class BaseWxPayRequest implements Serializable {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
 
+  /**
+   * To xml string.
+   *
+   * @return the string
+   */
   public String toXML() {
     XStream xstream = XStreamInitializer.getInstance();
     //涉及到服务商模式的两个参数，在为空值时置为null，以免在请求时将空值传给微信服务器
@@ -189,6 +197,8 @@ public abstract class BaseWxPayRequest implements Serializable {
 
   /**
    * 签名时，是否忽略appid.
+   *
+   * @return the boolean
    */
   protected boolean ignoreAppid() {
     return false;
@@ -196,6 +206,8 @@ public abstract class BaseWxPayRequest implements Serializable {
 
   /**
    * 签名时，忽略的参数.
+   *
+   * @return the string [ ]
    */
   protected String[] getIgnoredParamsForSign() {
     return new String[0];
@@ -210,6 +222,7 @@ public abstract class BaseWxPayRequest implements Serializable {
    * </pre>
    *
    * @param config 支付配置对象，用于读取相应系统配置信息
+   * @throws WxPayException the wx pay exception
    */
   public void checkAndSign(WxPayConfig config) throws WxPayException {
     this.checkFields();

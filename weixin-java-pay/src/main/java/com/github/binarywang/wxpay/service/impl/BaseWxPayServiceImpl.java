@@ -90,11 +90,20 @@ import static com.github.binarywang.wxpay.constant.WxPayConstants.TarType;
  */
 public abstract class BaseWxPayServiceImpl implements WxPayService {
   private static final String PAY_BASE_URL = "https://api.mch.weixin.qq.com";
+  /**
+   * The Log.
+   */
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
+  /**
+   * The constant wxApiData.
+   */
   protected static ThreadLocal<WxPayApiData> wxApiData = new ThreadLocal<>();
 
   private EntPayService entPayService = new EntPayServiceImpl(this);
 
+  /**
+   * The Config.
+   */
   protected WxPayConfig config;
 
   @Override

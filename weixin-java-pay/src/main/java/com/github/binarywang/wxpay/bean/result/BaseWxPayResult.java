@@ -116,6 +116,7 @@ public abstract class BaseWxPayResult implements Serializable {
    * 将单位分转换成单位圆.
    *
    * @param fen 将要被转换为元的分的数值
+   * @return the string
    */
   public static String fenToYuan(Integer fen) {
     return BigDecimal.valueOf(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
@@ -123,6 +124,11 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 从xml字符串创建bean对象.
+   *
+   * @param <T>       the type parameter
+   * @param xmlString the xml string
+   * @param clz       the clz
+   * @return the t
    */
   public static <T extends BaseWxPayResult> T fromXML(String xmlString, Class<T> clz) {
     XStream xstream = XStreamInitializer.getInstance();
@@ -132,6 +138,11 @@ public abstract class BaseWxPayResult implements Serializable {
     return result;
   }
 
+  /**
+   * Gets logger.
+   *
+   * @return the logger
+   */
   protected Logger getLogger() {
     return LoggerFactory.getLogger(this.getClass());
   }
@@ -143,6 +154,8 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 将bean通过保存的xml字符串转换成map.
+   *
+   * @return the map
    */
   public Map<String, String> toMap() {
     if (StringUtils.isBlank(this.xmlString)) {
@@ -189,6 +202,9 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 获取xml中元素的值.
+   *
+   * @param path the path
+   * @return the xml value
    */
   String getXmlValue(String... path) {
     Document doc = this.getXmlDoc();
@@ -206,6 +222,9 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 获取xml中元素的值，作为int值返回.
+   *
+   * @param path the path
+   * @return the xml value as int
    */
   Integer getXmlValueAsInt(String... path) {
     String result = this.getXmlValue(path);
@@ -219,8 +238,10 @@ public abstract class BaseWxPayResult implements Serializable {
   /**
    * 校验返回结果签名.
    *
+   * @param wxPayService the wx pay service
    * @param signType     签名类型
    * @param checkSuccess 是否同时检查结果是否成功
+   * @throws WxPayException the wx pay exception
    */
   public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
     //校验返回结果签名

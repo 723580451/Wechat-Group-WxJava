@@ -1,12 +1,13 @@
 package com.github.binarywang.wxpay.bean.result;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
-import java.util.List;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <pre>
@@ -15,7 +16,6 @@ import java.util.List;
  * </pre>
  *
  * @author cwivan
- * @date 2018-08-02
  */
 @Data
 @NoArgsConstructor

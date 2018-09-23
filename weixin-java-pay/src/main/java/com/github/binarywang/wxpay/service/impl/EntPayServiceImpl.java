@@ -40,6 +40,11 @@ import com.github.binarywang.wxpay.service.WxPayService;
 public class EntPayServiceImpl implements EntPayService {
   private WxPayService payService;
 
+  /**
+   * Instantiates a new Ent pay service.
+   *
+   * @param payService the pay service
+   */
   public EntPayServiceImpl(WxPayService payService) {
     this.payService = payService;
   }
@@ -140,6 +145,13 @@ public class EntPayServiceImpl implements EntPayService {
     }
   }
 
+  /**
+   * The entry point of application.
+   *
+   * @param args the input arguments
+   * @throws WxPayException the wx pay exception
+   * @throws IOException    the io exception
+   */
   public static void main(String[] args) throws WxPayException, IOException {
     String key = "-----BEGIN RSA PUBLIC KEY-----\n" +
       "MIIBCgKCAQEAtEeUSop/YGqZ53Y++R9NapFSZmorj+SL/brmJUU7+hyClEnPOeG/\n" +

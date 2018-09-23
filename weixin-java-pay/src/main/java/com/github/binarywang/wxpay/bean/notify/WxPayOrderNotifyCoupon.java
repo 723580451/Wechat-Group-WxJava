@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 支付异步通知代金券详细.
+ *
  * @author aimilin
  */
 @Data
@@ -23,6 +24,12 @@ public class WxPayOrderNotifyCoupon implements Serializable {
   private String couponType;
   private Integer couponFee;
 
+  /**
+   * To map map.
+   *
+   * @param index the index
+   * @return the map
+   */
   public Map<String, String> toMap(int index) {
     Map<String, String> map = new HashMap<>();
     map.put("coupon_id_" + index, this.getCouponId());
