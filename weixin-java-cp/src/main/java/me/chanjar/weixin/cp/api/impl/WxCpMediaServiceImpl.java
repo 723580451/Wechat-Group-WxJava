@@ -1,5 +1,10 @@
 package me.chanjar.weixin.cp.api.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
+
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.fs.FileUtils;
@@ -7,11 +12,6 @@ import me.chanjar.weixin.common.util.http.BaseMediaDownloadRequestExecutor;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.cp.api.WxCpMediaService;
 import me.chanjar.weixin.cp.api.WxCpService;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
 
 /**
  * <pre>
@@ -35,16 +35,22 @@ public class WxCpMediaServiceImpl implements WxCpMediaService {
 
   @Override
   public WxMediaUploadResult upload(String mediaType, File file) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/media/upload?type=" + mediaType;
-    return this.mainService.execute(MediaUploadRequestExecutor.create(this.mainService.getRequestHttp()), url, file);
+    return this.mainService.execute(MediaUploadRequestExecutor.create(this.mainService.getRequestHttp()),
+      MEDIA_UPLOAD_URL + mediaType, file);
   }
 
   @Override
   public File download(String mediaId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/media/get";
     return this.mainService.execute(
       BaseMediaDownloadRequestExecutor.create(this.mainService.getRequestHttp(),
         this.mainService.getWxCpConfigStorage().getTmpDirFile()),
-      url, "media_id=" + mediaId);
+      MEDIA_GET_URL, "media_id=" + mediaId);
+  }
+
+  @Override
+  public String uploadImg(File file) throws WxErrorException {
+    final WxMediaUploadResult result = this.mainService
+      .execute(MediaUploadRequestExecutor.create(this.mainService.getRequestHttp()), IMG_UPLOAD_URL, file);
+    return result.getUrl();
   }
 }
