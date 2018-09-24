@@ -1,5 +1,14 @@
 package me.chanjar.weixin.cp.api.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.annotations.*;
+
 import com.google.inject.Inject;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
@@ -7,22 +16,14 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.cp.api.ApiTestModule;
 import me.chanjar.weixin.cp.api.TestConstants;
 import me.chanjar.weixin.cp.api.WxCpService;
-import org.testng.annotations.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.*;
 
 /**
- * <pre>
- *
  * Created by Binary Wang on 2017-6-25.
+ *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
- * </pre>
  */
 @Guice(modules = ApiTestModule.class)
 public class WxCpMediaServiceImplTest {
@@ -35,8 +36,8 @@ public class WxCpMediaServiceImplTest {
   public Object[][] mediaData() {
     return new Object[][]{
       new Object[]{WxConsts.MediaFileType.IMAGE, TestConstants.FILE_JPG, "mm.jpeg"},
-      new Object[]{WxConsts.MediaFileType.VOICE, TestConstants.FILE_MP3, "mm.mp3"},
-      new Object[]{WxConsts.MediaFileType.VOICE, TestConstants.FILE_AMR, "mm.amr"},//{"errcode":301017,"errmsg":"voice file only support amr like myvoice.amr"}
+      new Object[]{WxConsts.MediaFileType.VOICE, TestConstants.FILE_MP3, "mm.mp3"},//{"errcode":301017,"errmsg":"voice file only support amr like myvoice.amr"}
+      new Object[]{WxConsts.MediaFileType.VOICE, TestConstants.FILE_AMR, "mm.amr"},
       new Object[]{WxConsts.MediaFileType.VIDEO, TestConstants.FILE_MP4, "mm.mp4"},
       new Object[]{WxConsts.MediaFileType.FILE, TestConstants.FILE_JPG, "mm.jpeg"}
     };
@@ -75,4 +76,10 @@ public class WxCpMediaServiceImplTest {
     System.out.println(file);
   }
 
+  @Test
+  public void testUploadImg() throws WxErrorException {
+    URL url = ClassLoader.getSystemResource("mm.jpeg");
+    String res = this.wxService.getMediaService().uploadImg(new File(url.getFile()));
+    assertThat(res).isNotEmpty();
+  }
 }

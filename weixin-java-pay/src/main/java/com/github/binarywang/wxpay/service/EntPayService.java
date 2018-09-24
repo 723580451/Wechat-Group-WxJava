@@ -24,6 +24,8 @@ public interface EntPayService {
    * </pre>
    *
    * @param request 请求对象
+   * @return the ent pay result
+   * @throws WxPayException the wx pay exception
    */
   EntPayResult entPay(EntPayRequest request) throws WxPayException;
 
@@ -36,6 +38,8 @@ public interface EntPayService {
    * </pre>
    *
    * @param partnerTradeNo 商户订单号
+   * @return the ent pay query result
+   * @throws WxPayException the wx pay exception
    */
   EntPayQueryResult queryEntPay(String partnerTradeNo) throws WxPayException;
 
@@ -54,6 +58,9 @@ public interface EntPayService {
    * 文档详见:https://pay.weixin.qq.com/wiki/doc/api/tools/mch_pay.php?chapter=24_7&index=4
    * 接口链接：https://fraud.mch.weixin.qq.com/risk/getpublickey
    * </pre>
+   *
+   * @return the public key
+   * @throws WxPayException the wx pay exception
    */
   String getPublicKey() throws WxPayException;
 
@@ -67,6 +74,8 @@ public interface EntPayService {
    * </pre>
    *
    * @param request 请求对象
+   * @return the ent pay bank result
+   * @throws WxPayException the wx pay exception
    */
   EntPayBankResult payBank(EntPayBankRequest request) throws WxPayException;
 
@@ -79,6 +88,8 @@ public interface EntPayService {
    * </pre>
    *
    * @param partnerTradeNo 商户订单号
+   * @return the ent pay bank query result
+   * @throws WxPayException the wx pay exception
    */
   EntPayBankQueryResult queryPayBank(String partnerTradeNo) throws WxPayException;
 }

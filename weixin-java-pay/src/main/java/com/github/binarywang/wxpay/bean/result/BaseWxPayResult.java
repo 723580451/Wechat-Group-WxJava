@@ -1,5 +1,26 @@
 package com.github.binarywang.wxpay.bean.result;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
@@ -9,26 +30,7 @@ import com.google.common.collect.Maps;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
-import me.chanjar.weixin.common.util.ToStringUtils;
 import me.chanjar.weixin.common.util.xml.XStreamInitializer;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <pre>
@@ -114,13 +116,19 @@ public abstract class BaseWxPayResult implements Serializable {
    * 将单位分转换成单位圆.
    *
    * @param fen 将要被转换为元的分的数值
+   * @return the string
    */
   public static String fenToYuan(Integer fen) {
-    return new BigDecimal(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+    return BigDecimal.valueOf(Double.valueOf(fen) / 100).setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
   }
 
   /**
    * 从xml字符串创建bean对象.
+   *
+   * @param <T>       the type parameter
+   * @param xmlString the xml string
+   * @param clz       the clz
+   * @return the t
    */
   public static <T extends BaseWxPayResult> T fromXML(String xmlString, Class<T> clz) {
     XStream xstream = XStreamInitializer.getInstance();
@@ -130,17 +138,24 @@ public abstract class BaseWxPayResult implements Serializable {
     return result;
   }
 
+  /**
+   * Gets logger.
+   *
+   * @return the logger
+   */
   protected Logger getLogger() {
     return LoggerFactory.getLogger(this.getClass());
   }
 
   @Override
   public String toString() {
-    return ToStringUtils.toSimpleString(this);
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
   }
 
   /**
    * 将bean通过保存的xml字符串转换成map.
+   *
+   * @return the map
    */
   public Map<String, String> toMap() {
     if (StringUtils.isBlank(this.xmlString)) {
@@ -187,6 +202,9 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 获取xml中元素的值.
+   *
+   * @param path the path
+   * @return the xml value
    */
   String getXmlValue(String... path) {
     Document doc = this.getXmlDoc();
@@ -204,6 +222,9 @@ public abstract class BaseWxPayResult implements Serializable {
 
   /**
    * 获取xml中元素的值，作为int值返回.
+   *
+   * @param path the path
+   * @return the xml value as int
    */
   Integer getXmlValueAsInt(String... path) {
     String result = this.getXmlValue(path);
@@ -217,8 +238,10 @@ public abstract class BaseWxPayResult implements Serializable {
   /**
    * 校验返回结果签名.
    *
+   * @param wxPayService the wx pay service
    * @param signType     签名类型
    * @param checkSuccess 是否同时检查结果是否成功
+   * @throws WxPayException the wx pay exception
    */
   public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
     //校验返回结果签名

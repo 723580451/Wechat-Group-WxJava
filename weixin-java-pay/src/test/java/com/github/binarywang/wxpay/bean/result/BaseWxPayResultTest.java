@@ -1,26 +1,42 @@
 package com.github.binarywang.wxpay.bean.result;
 
+import java.util.Map;
+
 import org.testng.*;
 import org.testng.annotations.*;
-
-import java.util.Map;
 
 /**
  * <pre>
  * Created by Binary Wang on 2017-01-04.
- * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  * </pre>
+ *
+ * @author <a href="https://github.com/binarywang">binarywang(Binary Wang)</a>
  */
 public class BaseWxPayResultTest {
 
+  /**
+   * Test get xml value.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testGetXmlValue() throws Exception {
   }
 
+  /**
+   * Test xml 2 doc.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testXml2Doc() throws Exception {
   }
 
+  /**
+   * Test to map.
+   *
+   * @throws Exception the exception
+   */
   @Test
   public void testToMap() throws Exception {
     WxPayOrderQueryResult result = new WxPayOrderQueryResult();
@@ -53,6 +69,9 @@ public class BaseWxPayResultTest {
 
   }
 
+  /**
+   * Test to map with empty xml string.
+   */
   @Test(expectedExceptions = {RuntimeException.class})
   public void testToMap_with_empty_xmlString() {
     WxPayOrderQueryResult result = new WxPayOrderQueryResult();

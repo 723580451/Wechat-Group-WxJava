@@ -1,6 +1,5 @@
 package me.chanjar.weixin.open.api.impl;
 
-import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -14,6 +13,7 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.open.api.WxOpenComponentService;
 import me.chanjar.weixin.open.api.WxOpenConfigStorage;
+import me.chanjar.weixin.open.api.WxOpenMaService;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
 import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class WxOpenComponentServiceImpl implements WxOpenComponentService {
   private static final JsonParser JSON_PARSER = new JsonParser();
-  private static final Map<String, WxMaService> WX_OPEN_MA_SERVICE_MAP = new Hashtable<>();
+  private static final Map<String, WxOpenMaService> WX_OPEN_MA_SERVICE_MAP = new Hashtable<>();
   private static final Map<String, WxMpService> WX_OPEN_MP_SERVICE_MAP = new Hashtable<>();
 
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -64,18 +64,18 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
   }
 
   @Override
-  public WxMaService getWxMaServiceByAppid(String appId) {
-    WxMaService wxMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
-    if (wxMaService == null) {
+  public WxOpenMaService getWxMaServiceByAppid(String appId) {
+    WxOpenMaService wxOpenMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
+    if (wxOpenMaService == null) {
       synchronized (WX_OPEN_MA_SERVICE_MAP) {
-        wxMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
-        if (wxMaService == null) {
-          wxMaService = new WxOpenMaServiceImpl(this, appId, getWxOpenConfigStorage().getWxMaConfig(appId));
-          WX_OPEN_MA_SERVICE_MAP.put(appId, wxMaService);
+        wxOpenMaService = WX_OPEN_MA_SERVICE_MAP.get(appId);
+        if (wxOpenMaService == null) {
+          wxOpenMaService = new WxOpenMaServiceImpl(this, appId, getWxOpenConfigStorage().getWxMaConfig(appId));
+          WX_OPEN_MA_SERVICE_MAP.put(appId, wxOpenMaService);
         }
       }
     }
-    return wxMaService;
+    return wxOpenMaService;
   }
 
   public WxOpenService getWxOpenService() {
@@ -148,6 +148,7 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
   private String get(String uri) throws WxErrorException {
     return get(uri, "component_access_token");
   }
+
   private String get(String uri, String accessTokenKey) throws WxErrorException {
     String componentAccessToken = getComponentAccessToken(false);
     String uriWithComponentAccessToken = uri + (uri.contains("?") ? "&" : "?") + accessTokenKey + "=" + componentAccessToken;
@@ -177,13 +178,30 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
 
   @Override
   public String getPreAuthUrl(String redirectURI) throws WxErrorException {
+    return getPreAuthUrl(redirectURI, null, null);
+  }
 
+  @Override
+  public String getPreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("component_appid", getWxOpenConfigStorage().getComponentAppId());
     String responseContent = post(API_CREATE_PREAUTHCODE_URL, jsonObject.toString());
     jsonObject = WxGsonBuilder.create().fromJson(responseContent, JsonObject.class);
-    return String.format(COMPONENT_LOGIN_PAGE_URL, getWxOpenConfigStorage().getComponentAppId(), jsonObject.get("pre_auth_code").getAsString(), URIUtil.encodeURIComponent(redirectURI));
+
+    StringBuilder preAuthUrl = new StringBuilder(String.format(COMPONENT_LOGIN_PAGE_URL,
+      getWxOpenConfigStorage().getComponentAppId(),
+      jsonObject.get("pre_auth_code").getAsString(),
+      URIUtil.encodeURIComponent(redirectURI)));
+    if (StringUtils.isNotEmpty(authType)) {
+      preAuthUrl.append("&auth_type=").append(authType);
+    }
+    if (StringUtils.isNotEmpty(bizAppid)) {
+      preAuthUrl.append("&biz_appid=").append(bizAppid);
+    }
+
+    return preAuthUrl.toString();
   }
+
 
   @Override
   public String route(final WxOpenXmlMessage wxMessage) throws WxErrorException {

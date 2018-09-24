@@ -1,20 +1,22 @@
 package me.chanjar.weixin.open.api.impl;
 
 
-import cn.binarywang.wx.miniapp.config.WxMaConfig;
-import me.chanjar.weixin.common.bean.WxAccessToken;
-import me.chanjar.weixin.common.util.ToStringUtils;
-import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.open.api.WxOpenConfigStorage;
-import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
-import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
-
 import java.io.File;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import cn.binarywang.wx.miniapp.config.WxMaConfig;
+import me.chanjar.weixin.common.bean.WxAccessToken;
+import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.open.api.WxOpenConfigStorage;
+import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
+import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
 
 /**
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
@@ -34,6 +36,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
   private int httpProxyPort;
   private String httpProxyUsername;
   private String httpProxyPassword;
+  private ApacheHttpClientBuilder apacheHttpClientBuilder;
 
   private Map<String, Token> authorizerRefreshTokens = new Hashtable<>();
   private Map<String, Token> authorizerAccessTokens = new Hashtable<>();
@@ -144,6 +147,15 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
 
   public void setHttpProxyPassword(String httpProxyPassword) {
     this.httpProxyPassword = httpProxyPassword;
+  }
+
+  @Override
+  public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
+    return apacheHttpClientBuilder;
+  }
+
+  public ApacheHttpClientBuilder setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
+    return this.apacheHttpClientBuilder = apacheHttpClientBuilder;
   }
 
   @Override
@@ -438,7 +450,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
 
     @Override
     public String toString() {
-      return ToStringUtils.toSimpleString(this);
+      return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 
     @Override
@@ -448,7 +460,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
 
     @Override
     public ApacheHttpClientBuilder getApacheHttpClientBuilder() {
-      return null;
+      return wxOpenConfigStorage.getApacheHttpClientBuilder();
     }
 
 

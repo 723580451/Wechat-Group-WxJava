@@ -267,6 +267,9 @@ public class WxPayOrderQueryResult extends BaseWxPayResult {
     }
   }
 
+  /**
+   * The type Coupon.
+   */
   @Data
   @Builder(builderMethodName = "newBuilder")
   @AllArgsConstructor

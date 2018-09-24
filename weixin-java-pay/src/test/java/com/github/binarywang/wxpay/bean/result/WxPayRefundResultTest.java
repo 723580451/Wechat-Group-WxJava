@@ -13,6 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class WxPayRefundResultTest {
 
+  /**
+   * Test compose refund coupons.
+   */
   @Test
   public void testComposeRefundCoupons() {
     /*

@@ -1,7 +1,23 @@
 package cn.binarywang.wx.miniapp.api.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
+
+import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cn.binarywang.wx.miniapp.api.WxMaAnalysisService;
 import cn.binarywang.wx.miniapp.api.WxMaCodeService;
+import cn.binarywang.wx.miniapp.api.WxMaJsapiService;
 import cn.binarywang.wx.miniapp.api.WxMaMediaService;
 import cn.binarywang.wx.miniapp.api.WxMaMsgService;
 import cn.binarywang.wx.miniapp.api.WxMaQrcodeService;
@@ -12,31 +28,21 @@ import cn.binarywang.wx.miniapp.api.WxMaUserService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.google.common.base.Joiner;
+import com.google.gson.Gson;
 import me.chanjar.weixin.common.bean.WxAccessToken;
+import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.DataUtils;
 import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.HttpType;
+import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import org.apache.http.HttpHost;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 import static cn.binarywang.wx.miniapp.constant.WxMaConstants.ErrorCode.*;
 
@@ -58,9 +64,12 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   private WxMaAnalysisService analysisService = new WxMaAnalysisServiceImpl(this);
   private WxMaCodeService codeService = new WxMaCodeServiceImpl(this);
   private WxMaSettingService settingService = new WxMaSettingServiceImpl(this);
+  private WxMaJsapiService jsapiService = new WxMaJsapiServiceImpl(this);
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
+
+  protected static final Gson GSON = new Gson();
 
   @Override
   public CloseableHttpClient getRequestHttpClient() {
@@ -138,6 +147,13 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     }
 
     return this.getWxMaConfig().getAccessToken();
+  }
+
+  @Override
+  public boolean imgSecCheck(File file) throws WxErrorException {
+    //这里只是借用MediaUploadRequestExecutor，并不使用其返回值WxMediaUploadResult
+    WxMediaUploadResult result = this.execute(MediaUploadRequestExecutor.create(this.getRequestHttp()), IMG_SEC_CHECK_URL, file);
+    return result != null;
   }
 
   @Override
@@ -308,6 +324,11 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   @Override
   public WxMaCodeService getCodeService() {
     return this.codeService;
+  }
+
+  @Override
+  public WxMaJsapiService getJsapiService() {
+    return this.jsapiService;
   }
 
   @Override

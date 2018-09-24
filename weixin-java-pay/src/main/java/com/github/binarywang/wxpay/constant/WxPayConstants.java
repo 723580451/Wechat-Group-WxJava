@@ -1,11 +1,10 @@
 package com.github.binarywang.wxpay.constant;
 
-import java.text.Format;
-import java.util.List;
-
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.time.FastDateFormat;
 
-import com.google.common.collect.Lists;
+import java.text.Format;
+import java.util.List;
 
 /**
  * <pre>
@@ -107,11 +106,38 @@ public class WxPayConstants {
   }
 
   /**
+   * 账户类型
+   */
+  public static class AccountType{
+    /**
+     * 基本账户
+     */
+    public static final String BASIC = "Basic";
+    /**
+     * 运营账户
+     */
+    public static final String OPERATION = "Operation";
+    /**
+     * Fees
+     */
+    public static final String FEES = "Fees";
+  }
+
+  /**
    * 签名类型.
    */
   public static class SignType {
+    /**
+     * The constant HMAC_SHA256.
+     */
     public static final String HMAC_SHA256 = "HMAC-SHA256";
+    /**
+     * The constant MD5.
+     */
     public static final String MD5 = "MD5";
+    /**
+     * The constant ALL_SIGN_TYPES.
+     */
     public static final List<String> ALL_SIGN_TYPES = Lists.newArrayList(HMAC_SHA256, MD5);
   }
 

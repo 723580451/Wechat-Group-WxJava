@@ -28,6 +28,11 @@ public class WxPayRefundNotifyResultTest {
   @Inject
   private WxPayConfig wxPayConfig;
 
+  /**
+   * Test from xml.
+   *
+   * @throws WxPayException the wx pay exception
+   */
   public void testFromXML() throws WxPayException {
     String xmlString = "<xml>" +
       "<return_code>SUCCESS</return_code>" +
@@ -42,6 +47,11 @@ public class WxPayRefundNotifyResultTest {
     System.out.println(refundNotifyResult);
   }
 
+  /**
+   * Encode req info.
+   *
+   * @throws Exception the exception
+   */
   public void encodeReqInfo() throws Exception {
     String xml = "<root>\n" +
       "<out_refund_no><![CDATA[R4001312001201707262674894706_4]]></out_refund_no>\n" +
