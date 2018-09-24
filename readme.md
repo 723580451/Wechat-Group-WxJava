@@ -10,7 +10,7 @@
 ---------------------------------
 ### 重要信息
 
-1. **2018-06-22 发布 [【3.1.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
+1. **2018-09-24 发布 [【3.2.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
 1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/weixin-java-tools/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
 1. [出现`Illegal key size`问题的解决办法](https://github.com/Wechat-Group/weixin-java-tools/wiki/%E5%8A%A0%E8%A7%A3%E5%AF%86%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95) （太多人遇到此问题而不知所措，因此特意置顶，希望能引起新手的注意，其他常见问题请查阅 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)首页）
 1. **更多精彩内容，请扫描以下二维码关注新开通的微信公众号【WX开发助手】，或者加入企业微信，或者[访问此页面扫码](http://www.binarywang.com/article/cp_and_mp) ，也可以在微信中搜索 `weixin-java-tools`或 `WX开发助手` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信开发相关技术知识。**
@@ -65,7 +65,7 @@
 <dependency>
   <groupId>com.github.binarywang</groupId>
   <artifactId>（不同模块参考下文）</artifactId>
-  <version>3.1.0</version>
+  <version>3.2.0</version>
 </dependency>
 ```
 * 各模块的`artifactId`：
@@ -88,36 +88,38 @@
 1. [chanjarster (Daniel Qian)](http://github.com/chanjarster)
 1. [binarywang (Binary Wang)](http://github.com/binarywang)
 1. [mgcnrx11](http://github.com/mgcnrx11)
+1. [007gzs](http://github.com/007gzs)
 1. [aimilin6688 (Jonk)](http://github.com/aimilin6688)
 1. [kakotor](http://github.com/kakotor)
 1. [kareanyi (MillerLin)](http://github.com/kareanyi)
 1. [rememberber (周波)](http://github.com/rememberber)
-1. [007gzs](http://github.com/007gzs)
 1. [tianmu](http://github.com/tianmu)
+1. [charmingoh (Charming)](http://github.com/charmingoh)
 1. [ukid](http://github.com/ukid)
 1. [forfuns (爱因斯唐)](http://github.com/forfuns)
 1. [zxkane (Meng Xin Zhu)](http://github.com/zxkane)
 1. [crskyp (我是木予)](http://github.com/crskyp)
+1. [yuanqixun (yuanqixun)](http://github.com/yuanqixun)
 1. [gaigeshen (gaigeshen)](http://github.com/gaigeshen)
 1. [dylanleung (dylanleung)](http://github.com/dylanleung)
+1. [huansinho](http://github.com/huansinho)
 1. [codepiano (codepiano)](http://github.com/codepiano)
 1. [stvliu (Steven Liu)](http://github.com/stvliu)
 1. [ajffdnt](http://github.com/ajffdnt)
 1. [fxdfxq (fxdfxq)](http://github.com/fxdfxq)
-1. [DDLeEHi](http://github.com/DDLeEHi)
 1. [unlimitedsola (Sola)](http://github.com/unlimitedsola)
-1. [jink2005 (Jink2005)](http://github.com/jink2005)
-1. [nickwongwong (Nick Wong)](http://github.com/nickwongwong)
+1. [DDLeEHi](http://github.com/DDLeEHi)
 1. [Hyseen](http://github.com/Hyseen)
+1. [nickwongwong (Nick Wong)](http://github.com/nickwongwong)
+1. [jink2005 (Jink2005)](http://github.com/jink2005)
 1. [withinthefog (withinthefog)](http://github.com/withinthefog)
-1. [huansinho](http://github.com/huansinho)
 1. [iwareserictsai (Eric.Tsai)](http://github.com/iwareserictsai)
 1. [lwxian](http://github.com/lwxian)
 1. [xusheng1987 (flying)](http://github.com/xusheng1987)
 1. [ZhaoxiongTan (xiong)](http://github.com/ZhaoxiongTan)
 1. [SimonDolph (Simon Dolph)](http://github.com/SimonDolph)
-1. [lly835](http://github.com/lly835)
-1. [lichenliang666 (李晨亮)](http://github.com/lichenliang666)
+1. [axeon](http://github.com/axeon)
+1. [TonyLuo (Tony)](http://github.com/TonyLuo)
 1. [dwandw (dwandw)](http://github.com/dwandw)
 1. [alanchenup (alanchen)](http://github.com/alanchenup)
 1. [zexpp5 (Lance7in)](http://github.com/zexpp5)
@@ -126,13 +128,21 @@
 1. [rtsbtx (强哥)](http://github.com/rtsbtx)
 1. [dracupid (Jingchen Zhao)](http://github.com/dracupid)
 1. [lijunkun1988](http://github.com/lijunkun1988)
-1. [dxwts (xuewu)](http://github.com/dxwts)
+1. [lly835](http://github.com/lly835)
 1. [mog0202 (蘑菇0202)](http://github.com/mog0202)
 1. [bobbyguo (bobby_guo)](http://github.com/bobbyguo)
 1. [huotaihe (白马度和)](http://github.com/huotaihe)
-1. [axeon](http://github.com/axeon)
+1. [dxwts (xuewu)](http://github.com/dxwts)
 1. [aliangsoft (阿亮软件)](http://github.com/aliangsoft)
 1. [Mkluas (Mklaus)](http://github.com/Mkluas)
 1. [CodeIdeal (康阳)](http://github.com/CodeIdeal)
 1. [leeis (IOMan)](http://github.com/leeis)
+1. [lichenliang666 (李晨亮)](http://github.com/lichenliang666)
 1. [627535195](http://github.com/627535195)
+1. [ztmark (Mark)](http://github.com/ztmark)
+1. [gtyang](http://github.com/gtyang)
+1. [scott-z (scott)](http://github.com/scott-z)
+1. [borisbao (Boris)](http://github.com/borisbao)
+1. [qsjia (QSJia)](http://github.com/qsjia)
+1. [webcreazy (webcreazy)](http://github.com/webcreazy)
+1. [cwivan (鱼丸Cwivan)](http://github.com/cwivan)
