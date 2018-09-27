@@ -25,6 +25,10 @@ public interface WxOpenComponentService {
   String API_SET_AUTHORIZER_OPTION_URL = "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option";
 
   String COMPONENT_LOGIN_PAGE_URL = "https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=%s&pre_auth_code=%s&redirect_uri=%s";
+  /**
+   * 手机端打开授权链接
+   */
+  String COMPONENT_MOBILE_LOGIN_PAGE_URL = "https://mp.weixin.qq.com/safe/bindcomponent?action=bindcomponent&no_scan=1&auth_type=3&component_appid=%s&pre_auth_code=%s&redirect_uri=%s&auth_type=xxx&biz_appid=xxx$#wechat_redirect";
   String CONNECT_OAUTH2_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=%s&component_appid=%s#wechat_redirect";
 
   /**
@@ -65,6 +69,26 @@ public interface WxOpenComponentService {
    * 注：auth_type、biz_appid两个字段互斥。
    */
   String getPreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException;
+
+  /**
+   * 获取预授权链接（手机端预授权）
+   *
+   * @param redirectURI
+   * @return
+   * @throws WxErrorException
+   */
+  String getMobilePreAuthUrl(String redirectURI) throws WxErrorException;
+
+  /**
+   * 获取预授权链接（手机端预授权）
+   *
+   * @param redirectURI
+   * @param authType
+   * @param bizAppid
+   * @return
+   * @throws WxErrorException
+   */
+  String getMobilePreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException;
 
   String route(WxOpenXmlMessage wxMessage) throws WxErrorException;
 
