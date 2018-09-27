@@ -541,6 +541,21 @@ public class WxMpXmlMessage implements Serializable {
   @XStreamAlias("DeviceStatus")
   private Integer deviceStatus;
 
+  ///////////////////////////////////////
+  // 小程序 审核事件
+  ///////////////////////////////////////
+  /**
+   * 审核成功时的时间（整形），时间戳
+   */
+  @XStreamAlias("SuccTime")
+  private Long succTime;
+
+  /**
+   * 审核失败的原因
+   */
+  @XStreamAlias("Reason")
+  private String reason;
+
   public static WxMpXmlMessage fromXml(String xml) {
     //修改微信变态的消息内容格式，方便解析
     xml = xml.replace("</PicList><PicList>", "");

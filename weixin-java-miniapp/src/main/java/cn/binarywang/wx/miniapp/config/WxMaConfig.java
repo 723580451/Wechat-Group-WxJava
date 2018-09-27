@@ -57,6 +57,25 @@ public interface WxMaConfig {
    */
   void updateJsapiTicket(String jsapiTicket, int expiresInSeconds);
 
+  String getCardApiTicket();
+
+  Lock getCardApiTicketLock();
+
+  boolean isCardApiTicketExpired();
+
+  /**
+   * 强制将卡券api ticket过期掉
+   */
+  void expireCardApiTicket();
+
+  /**
+   * 应该是线程安全的
+   *
+   * @param 卡券apiTicket      新的卡券api ticket值
+   * @param expiresInSeconds 过期时间，以秒为单位
+   */
+  void updateCardApiTicket(String apiTicket, int expiresInSeconds);
+
   String getAppid();
 
   String getSecret();

@@ -19,6 +19,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 会员卡相关接口的实现类
  *
@@ -237,7 +242,7 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
     jsonObject.addProperty("code", code);
 
     String responseContent = this.getWxMpService().post(MEMBER_CARD_USER_INFO_GET, jsonObject.toString());
-    log.debug("{}",responseContent);
+    log.debug("{}", responseContent);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpMemberCardUserInfoResult>() {
@@ -278,6 +283,93 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
   public MemberCardActivateUserFormResult setActivateUserForm(MemberCardActivateUserFormRequest userFormRequest) throws WxErrorException {
     String responseContent = this.getWxMpService().post(MEMBER_CARD_ACTIVATEUSERFORM, GSON.toJson(userFormRequest));
     return MemberCardActivateUserFormResult.fromJson(responseContent);
+  }
+
+  /**
+   * 获取会员卡开卡插件参数(跳转型开卡组件需要参数)
+   *
+   * @param outStr
+   * @return
+   * @throws WxErrorException
+   */
+  public ActivatePluginParam getActivatePluginParam(String cardId, String outStr) throws WxErrorException {
+    JsonObject params = new JsonObject();
+    params.addProperty("card_id", cardId);
+    params.addProperty("outer_str", outStr);
+    String response = this.wxMpService.post(MEMBER_CARD_ACTIVATE_URL, GSON.toJson(params));
+    ActivatePluginParamResult result = GSON.fromJson(response, ActivatePluginParamResult.class);
+    if (0 == result.getErrcode()) {
+      String url = result.getUrl();
+      try {
+        String decodedUrl = URLDecoder.decode(url, "UTF-8");
+        Map<String, String> resultMap = parseRequestUrl(decodedUrl);
+        ActivatePluginParam activatePluginParam = new ActivatePluginParam();
+        activatePluginParam.setEncryptCardId(resultMap.get("encrypt_card_id"));
+        activatePluginParam.setOuterStr(resultMap.get("outer_str"));
+        activatePluginParam.setBiz(resultMap.get("biz")+"==");
+        return activatePluginParam;
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * 去掉url中的路径，留下请求参数部分
+   *
+   * @param strURL url地址
+   * @return url请求参数部分
+   */
+  private static String truncateUrlPage(String strURL) {
+    String strAllParam = null;
+    String[] arrSplit = null;
+    arrSplit = strURL.split("[?]");
+    if (strURL.length() > 1) {
+      if (arrSplit.length > 1) {
+        if (arrSplit[1] != null) {
+          strAllParam = arrSplit[1];
+        }
+      }
+    }
+
+    return strAllParam;
+  }
+
+  /**
+   * 解析出url参数中的键值对
+   * 如 "index.jsp?Action=del&id=123"，解析出Action:del,id:123存入map中
+   *
+   * @param URL url地址
+   * @return url请求参数部分
+   */
+  public static Map<String, String> parseRequestUrl(String URL) {
+    Map<String, String> mapRequest = new HashMap<String, String>();
+
+    String[] arrSplit = null;
+
+    String strUrlParam = truncateUrlPage(URL);
+    if (strUrlParam == null) {
+      return mapRequest;
+    }
+    arrSplit = strUrlParam.split("[&]");
+    for (String strSplit : arrSplit) {
+      String[] arrSplitEqual = null;
+      arrSplitEqual = strSplit.split("[=]");
+
+      //解析出键值
+      if (arrSplitEqual.length > 1) {
+        //正确解析
+        mapRequest.put(arrSplitEqual[0], arrSplitEqual[1]);
+
+      } else {
+        if (arrSplitEqual[0] != "") {
+          //只有参数没有值，不加入
+          mapRequest.put(arrSplitEqual[0], "");
+        }
+      }
+    }
+    return mapRequest;
   }
 
 }

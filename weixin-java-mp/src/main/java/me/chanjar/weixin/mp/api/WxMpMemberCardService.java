@@ -25,6 +25,11 @@ public interface WxMpMemberCardService {
   String MEMBER_CARD_ACTIVATEUSERFORM = "https://api.weixin.qq.com/card/membercard/activateuserform/set";
 
   /**
+   * 获取会员卡开卡插件参数
+   */
+  String MEMBER_CARD_ACTIVATE_URL = "https://api.weixin.qq.com/card/membercard/activate/geturl";
+
+  /**
    * 得到WxMpService
    */
   WxMpService getWxMpService();
@@ -88,4 +93,13 @@ public interface WxMpMemberCardService {
    */
   MemberCardActivateUserFormResult setActivateUserForm(MemberCardActivateUserFormRequest userFormRequest) throws WxErrorException;
 
+  /**
+   * 获取会员卡开卡插件参数(跳转型开卡组件需要参数)
+   *
+   * @param cardId
+   * @param outStr
+   * @return
+   * @throws WxErrorException
+   */
+  ActivatePluginParam getActivatePluginParam(String cardId, String outStr) throws WxErrorException;
 }

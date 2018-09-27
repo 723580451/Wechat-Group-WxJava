@@ -299,11 +299,10 @@ public interface WxOpenMaService extends WxMaService {
   /**
    * 查询最新一次提交的审核状态（仅供第三方代小程序调用）
    *
-   * @param auditid
    * @return
    * @throws WxErrorException
    */
-  String getLatestAuditStatus(Long auditid) throws WxErrorException;
+  String getLatestAuditStatus() throws WxErrorException;
 
   /**
    * 发布已通过审核的小程序（仅供第三方代小程序调用）
@@ -331,5 +330,5 @@ public interface WxOpenMaService extends WxMaService {
    * @throws WxErrorException
    */
   String undoCodeAudit() throws WxErrorException;
-  
+
 }

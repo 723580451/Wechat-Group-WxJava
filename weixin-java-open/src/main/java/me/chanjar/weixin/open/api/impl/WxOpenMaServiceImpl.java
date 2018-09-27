@@ -275,12 +275,11 @@ public class WxOpenMaServiceImpl extends WxMaServiceImpl implements WxOpenMaServ
   /**
    * 8. 查询最新一次提交的审核状态（仅供第三方代小程序调用）
    *
-   * @param auditid
    * @return
    * @throws WxErrorException
    */
   @Override
-  public String getLatestAuditStatus(Long auditid) throws WxErrorException {
+  public String getLatestAuditStatus() throws WxErrorException {
     String response = get(API_GET_LATEST_AUDIT_STATUS, null);
     return response;
   }
