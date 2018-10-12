@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -192,7 +193,7 @@ public abstract class BaseWxPayResult implements Serializable {
       this.xmlDoc = DocumentBuilderFactory
         .newInstance()
         .newDocumentBuilder()
-        .parse(new ByteArrayInputStream(this.xmlString.getBytes("UTF-8")));
+        .parse(new ByteArrayInputStream(this.xmlString.getBytes(StandardCharsets.UTF_8)));
       return xmlDoc;
     } catch (SAXException | IOException | ParserConfigurationException e) {
       throw new RuntimeException("非法的xml文本内容：" + this.xmlString);

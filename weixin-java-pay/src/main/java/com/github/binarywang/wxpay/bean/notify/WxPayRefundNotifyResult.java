@@ -1,6 +1,7 @@
 package com.github.binarywang.wxpay.bean.notify;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -48,7 +49,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     String reqInfoString = result.getReqInfoString();
     try {
       final String keyMd5String = DigestUtils.md5Hex(mchKey).toLowerCase();
-      SecretKeySpec key = new SecretKeySpec(keyMd5String.getBytes(), "AES");
+      SecretKeySpec key = new SecretKeySpec(keyMd5String.getBytes(StandardCharsets.UTF_8), "AES");
 
       Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
       cipher.init(Cipher.DECRYPT_MODE, key);
