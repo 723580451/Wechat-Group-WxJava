@@ -22,7 +22,7 @@ import me.chanjar.weixin.common.util.xml.XStreamInitializer;
 
 /**
  * <pre>
- *  退款结果通知对象
+ *  退款结果通知对象.
  *  Created by BinaryWang on 2017/8/27.
  * </pre>
  *
@@ -37,7 +37,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
   private static final long serialVersionUID = 4651725860079259186L;
 
   /**
-   * 从xml字符串创建bean对象
+   * 从xml字符串创建bean对象.
    *
    * @param xmlString xml字符串
    * @param mchKey    商户密钥
@@ -63,7 +63,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
 
   /**
    * <pre>
-   * 字段名：加密信息
+   * 字段名：加密信息.
    * 变量名：req_info
    * 是否必填：是
    * 类型：String(1024)
@@ -211,7 +211,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
      * 是否必填：否
      * 类型： String(20)
      * 示例值：20160725152626
-     * 描述：-
+     * </pre>
      */
     @XStreamAlias("success_time")
     private String successTime;
@@ -256,10 +256,10 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     private String refundRequestSource;
 
     /**
-     * From xml req info.
+     * 从xml字符串构造ReqInfo对象.
      *
-     * @param xmlString the xml string
-     * @return the req info
+     * @param xmlString xml字符串
+     * @return ReqInfo对象
      */
     public static ReqInfo fromXML(String xmlString) {
       XStream xstream = XStreamInitializer.getInstance();
