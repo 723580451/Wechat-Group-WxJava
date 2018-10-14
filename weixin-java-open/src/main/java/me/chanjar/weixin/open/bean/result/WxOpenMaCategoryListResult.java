@@ -6,7 +6,6 @@ import me.chanjar.weixin.open.bean.ma.WxOpenMaCategory;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,10 +15,7 @@ import java.util.List;
  * @date 2018/9/12
  */
 @Data
-public class WxOpenMaCategoryListResult implements Serializable {
-
-  private String errcode;
-  private String errmsg;
+public class WxOpenMaCategoryListResult extends WxOpenResult {
 
   @SerializedName("category_list")
   List<WxOpenMaCategory> categoryList;
