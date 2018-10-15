@@ -5,7 +5,6 @@ import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,10 +14,7 @@ import java.util.List;
  * @date 2018/9/12
  */
 @Data
-public class WxOpenMaPageListResult implements Serializable {
-
-  private String errcode;
-  private String errmsg;
+public class WxOpenMaPageListResult extends WxOpenResult {
 
   @SerializedName("page_list")
   List<String> pageList;

@@ -3,7 +3,6 @@ package me.chanjar.weixin.open.bean.result;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,10 +12,7 @@ import java.util.List;
  * @date 2018/9/12
  */
 @Data
-public class WxOpenMaDomainResult implements Serializable {
-
-  private String errcode;
-  private String errmsg;
+public class WxOpenMaDomainResult extends WxOpenResult {
 
   @SerializedName("requestdomain")
   List<String> requestdomainList;
@@ -29,5 +25,5 @@ public class WxOpenMaDomainResult implements Serializable {
 
   @SerializedName("downloaddomain")
   List<String> downloaddomainList;
-  
+
 }

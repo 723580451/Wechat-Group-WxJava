@@ -4,18 +4,24 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /**
- * 微信开放平台小程序发布代码审核结果
- *
  * @author yqx
- * @date 2018/9/12
+ * @date 2018/10/3
  */
 @Data
-public class WxOpenMaSubmitAuditResult extends WxOpenResult {
-
+public class WxOpenMaQueryAuditResult extends WxOpenResult {
   /**
    * 审核编号
    */
   @SerializedName("auditid")
   Long auditId;
 
+  /**
+   * 审核状态:2-审核中,0-审核通过,1-审核失败
+   */
+  Integer status;
+
+  /**
+   * 审核失败原因
+   */
+  String reason;
 }
