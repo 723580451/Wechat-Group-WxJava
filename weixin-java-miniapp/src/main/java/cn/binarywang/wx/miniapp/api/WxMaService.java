@@ -180,6 +180,12 @@ public interface WxMaService {
   WxMaSettingService getSettingService();
 
   /**
+   * 返回分享相关查询服务
+   * @return WxMaShareService
+   */
+  WxMaShareService getShareService();
+
+  /**
    * 初始化http请求对象.
    */
   void initHttp();
