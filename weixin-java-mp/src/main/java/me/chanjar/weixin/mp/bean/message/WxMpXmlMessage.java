@@ -129,6 +129,10 @@ public class WxMpXmlMessage implements Serializable {
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String recognition;
 
+  @XStreamAlias("UnionId")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String unionId;
+
   ///////////////////////////////////////
   // 群发消息返回的结果
   ///////////////////////////////////////
