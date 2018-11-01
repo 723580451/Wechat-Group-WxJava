@@ -50,7 +50,7 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
     if (WxPayConstants.ResultCode.FAIL.equals(result.getReturnCode())) {
       return result;
     }
-    
+
     String reqInfoString = result.getReqInfoString();
     try {
       final String keyMd5String = DigestUtils.md5Hex(mchKey).toLowerCase();
@@ -58,7 +58,8 @@ public class WxPayRefundNotifyResult extends BaseWxPayResult implements Serializ
 
       Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
       cipher.init(Cipher.DECRYPT_MODE, key);
-      result.setReqInfo(ReqInfo.fromXML(new String(cipher.doFinal(Base64.decodeBase64(reqInfoString)))));
+      result.setReqInfo(ReqInfo.fromXML(new String(cipher.doFinal(Base64.decodeBase64(reqInfoString)),
+        StandardCharsets.UTF_8)));
     } catch (Exception e) {
       throw new WxPayException("解密退款通知加密信息时出错", e);
     }
