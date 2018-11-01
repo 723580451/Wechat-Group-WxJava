@@ -22,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.util.SignUtils;
@@ -254,7 +255,7 @@ public abstract class BaseWxPayResult implements Serializable {
 
     //校验结果是否成功
     if (checkSuccess) {
-      List<String> successStrings = Lists.newArrayList("SUCCESS", "");
+      List<String> successStrings = Lists.newArrayList(WxPayConstants.ResultCode.SUCCESS, "");
       if (!successStrings.contains(StringUtils.trimToEmpty(getReturnCode()).toUpperCase())
         || !successStrings.contains(StringUtils.trimToEmpty(getResultCode()).toUpperCase())) {
         StringBuilder errorMsg = new StringBuilder();
