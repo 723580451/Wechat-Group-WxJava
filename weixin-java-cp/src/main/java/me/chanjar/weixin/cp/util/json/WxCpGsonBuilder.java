@@ -15,7 +15,7 @@ import me.chanjar.weixin.cp.bean.WxCpUser;
  */
 public class WxCpGsonBuilder {
 
-  public static final GsonBuilder INSTANCE = new GsonBuilder();
+  private static final GsonBuilder INSTANCE = new GsonBuilder();
 
   static {
     INSTANCE.disableHtmlEscaping();

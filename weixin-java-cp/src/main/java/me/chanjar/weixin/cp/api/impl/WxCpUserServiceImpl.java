@@ -90,7 +90,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
     String responseContent = this.mainService.get(url, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxCpGsonBuilder.INSTANCE.create()
+    return WxCpGsonBuilder.create()
       .fromJson(tmpJsonElement.getAsJsonObject().get("userlist"),
         new TypeToken<List<WxCpUser>>() {
         }.getType()
@@ -112,7 +112,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
     String responseContent = this.mainService.get(url, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxCpGsonBuilder.INSTANCE.create()
+    return WxCpGsonBuilder.create()
       .fromJson(
         tmpJsonElement.getAsJsonObject().get("userlist"),
         new TypeToken<List<WxCpUser>>() {

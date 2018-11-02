@@ -15,7 +15,7 @@ import me.chanjar.weixin.open.bean.result.WxOpenQueryAuthResult;
  */
 public class WxOpenGsonBuilder {
 
-  public static final GsonBuilder INSTANCE = new GsonBuilder();
+  private static final GsonBuilder INSTANCE = new GsonBuilder();
 
   static {
     INSTANCE.disableHtmlEscaping();

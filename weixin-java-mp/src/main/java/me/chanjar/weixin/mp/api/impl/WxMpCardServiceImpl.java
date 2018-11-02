@@ -1,6 +1,18 @@
 package me.chanjar.weixin.mp.api.impl;
 
-import com.google.gson.*;
+import java.util.Arrays;
+import java.util.concurrent.locks.Lock;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxError;
@@ -15,12 +27,6 @@ import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateResult;
 import me.chanjar.weixin.mp.bean.card.WxMpCardQrcodeCreateResult;
 import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Binary Wang on 2016/7/27.
@@ -31,7 +37,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
   private WxMpService wxMpService;
 
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON = WxMpGsonBuilder.create();
 
   public WxMpCardServiceImpl(WxMpService wxMpService) {
     this.wxMpService = wxMpService;
@@ -156,7 +162,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     param.addProperty("check_consume", checkConsume);
     String responseContent = this.wxMpService.post(CARD_CODE_GET, param.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    return WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpCardResult>() {
       }.getType());
   }
@@ -213,7 +219,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     param.addProperty("is_mark", isMark);
     String responseContent = this.getWxMpService().post(CARD_CODE_MARK, param.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    WxMpCardResult cardResult = WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    WxMpCardResult cardResult = WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpCardResult>() {
       }.getType());
     if (!"0".equals(cardResult.getErrorCode())) {

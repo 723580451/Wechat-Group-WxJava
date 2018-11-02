@@ -1,5 +1,14 @@
 package me.chanjar.weixin.mp.api.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,20 +18,25 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 import me.chanjar.weixin.mp.api.WxMpMemberCardService;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.card.*;
+import me.chanjar.weixin.mp.bean.card.AdvancedInfo;
+import me.chanjar.weixin.mp.bean.card.BaseInfo;
+import me.chanjar.weixin.mp.bean.card.DateInfo;
+import me.chanjar.weixin.mp.bean.card.MemberCard;
+import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormRequest;
+import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormResult;
+import me.chanjar.weixin.mp.bean.card.MemberCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.WxMpCardCreateResult;
 import me.chanjar.weixin.mp.bean.card.enums.BusinessServiceType;
 import me.chanjar.weixin.mp.bean.card.enums.CardColor;
 import me.chanjar.weixin.mp.bean.card.enums.DateInfoType;
-import me.chanjar.weixin.mp.bean.membercard.*;
+import me.chanjar.weixin.mp.bean.membercard.ActivatePluginParam;
+import me.chanjar.weixin.mp.bean.membercard.ActivatePluginParamResult;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardActivatedMessage;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardCreateMessage;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardUpdateMessage;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardUpdateResult;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardUserInfoResult;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 会员卡相关接口的实现类
@@ -36,7 +50,7 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
 
   private WxMpService wxMpService;
 
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON = WxMpGsonBuilder.create();
 
   WxMpMemberCardServiceImpl(WxMpService wxMpService) {
     this.wxMpService = wxMpService;
@@ -244,7 +258,7 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
     String responseContent = this.getWxMpService().post(MEMBER_CARD_USER_INFO_GET, jsonObject.toString());
     log.debug("{}", responseContent);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    return WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpMemberCardUserInfoResult>() {
       }.getType());
   }
@@ -267,7 +281,7 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
     String responseContent = this.getWxMpService().post(MEMBER_CARD_UPDATE_USER, GSON.toJson(updateUserMessage));
 
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    return WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpMemberCardUpdateResult>() {
       }.getType());
   }

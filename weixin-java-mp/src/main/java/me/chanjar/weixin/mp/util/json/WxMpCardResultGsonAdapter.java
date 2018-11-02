@@ -26,7 +26,7 @@ public class WxMpCardResultGsonAdapter implements JsonDeserializer<WxMpCardResul
     cardResult.setCanConsume(GsonHelper.getBoolean(jsonObject, "can_consume"));
     cardResult.setUserCardStatus(GsonHelper.getString(jsonObject, "user_card_status"));
 
-    WxMpCard card = WxMpGsonBuilder.INSTANCE.create().fromJson(jsonObject.get("card"),
+    WxMpCard card = WxMpGsonBuilder.create().fromJson(jsonObject.get("card"),
       new TypeToken<WxMpCard>() {
       }.getType());
 

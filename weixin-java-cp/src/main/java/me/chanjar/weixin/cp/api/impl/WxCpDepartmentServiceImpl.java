@@ -56,7 +56,7 @@ public class WxCpDepartmentServiceImpl implements WxCpDepartmentService {
 
     String responseContent = this.mainService.get(url, null);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxCpGsonBuilder.INSTANCE.create()
+    return WxCpGsonBuilder.create()
       .fromJson(tmpJsonElement.getAsJsonObject().get("department"),
         new TypeToken<List<WxCpDepart>>() {
         }.getType()

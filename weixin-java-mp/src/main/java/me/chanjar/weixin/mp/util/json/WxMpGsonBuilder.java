@@ -16,7 +16,7 @@ import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
 public class WxMpGsonBuilder {
 
-  public static final GsonBuilder INSTANCE = new GsonBuilder();
+  private static final GsonBuilder INSTANCE = new GsonBuilder();
 
   static {
     INSTANCE.disableHtmlEscaping();
