@@ -152,38 +152,44 @@ public interface WxMaService {
   WxMaTemplateService getTemplateService();
 
   /**
-   * 数据分析相关查询服务
+   * 数据分析相关查询服务.
    *
    * @return WxMaAnalysisService
    */
   WxMaAnalysisService getAnalysisService();
 
   /**
-   * 返回代码操作相关的 API
+   * 返回代码操作相关的 API.
    *
    * @return WxMaCodeService
    */
   WxMaCodeService getCodeService();
 
   /**
-   * 返回jsapi操作相关的 API服务类对象
+   * 返回jsapi操作相关的 API服务类对象.
    *
    * @return WxMaJsapiService
    */
   WxMaJsapiService getJsapiService();
 
   /**
-   * 小程序修改服务器地址、成员管理 API
+   * 小程序修改服务器地址、成员管理 API.
    *
    * @return WxMaSettingService
    */
   WxMaSettingService getSettingService();
 
   /**
-   * 返回分享相关查询服务
+   * 返回分享相关查询服务.
    * @return WxMaShareService
    */
   WxMaShareService getShareService();
+
+  /**
+   * 返回维新运动相关接口服务对象.
+   * @return WxMaShareService
+   */
+  WxMaRunService getRunService();
 
   /**
    * 初始化http请求对象.

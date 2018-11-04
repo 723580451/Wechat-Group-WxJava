@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
-import cn.binarywang.wx.miniapp.api.*;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,6 +15,18 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import cn.binarywang.wx.miniapp.api.WxMaAnalysisService;
+import cn.binarywang.wx.miniapp.api.WxMaCodeService;
+import cn.binarywang.wx.miniapp.api.WxMaJsapiService;
+import cn.binarywang.wx.miniapp.api.WxMaMediaService;
+import cn.binarywang.wx.miniapp.api.WxMaMsgService;
+import cn.binarywang.wx.miniapp.api.WxMaQrcodeService;
+import cn.binarywang.wx.miniapp.api.WxMaRunService;
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.WxMaSettingService;
+import cn.binarywang.wx.miniapp.api.WxMaShareService;
+import cn.binarywang.wx.miniapp.api.WxMaTemplateService;
+import cn.binarywang.wx.miniapp.api.WxMaUserService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.google.common.base.Joiner;
@@ -57,6 +68,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   private WxMaSettingService settingService = new WxMaSettingServiceImpl(this);
   private WxMaJsapiService jsapiService = new WxMaJsapiServiceImpl(this);
   private WxMaShareService shareService = new WxMaShareServiceImpl(this);
+  private WxMaRunService runService = new WxMaRunServiceImpl(this);
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
@@ -331,5 +343,10 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   @Override
   public WxMaShareService getShareService() {
     return this.shareService;
+  }
+
+  @Override
+  public WxMaRunService getRunService() {
+    return this.runService;
   }
 }
