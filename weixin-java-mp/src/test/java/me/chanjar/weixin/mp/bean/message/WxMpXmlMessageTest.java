@@ -1,8 +1,13 @@
 package me.chanjar.weixin.mp.bean.message;
 
-import me.chanjar.weixin.common.api.WxConsts;
+import java.util.List;
+import java.util.Map;
+
 import org.testng.annotations.*;
 
+import me.chanjar.weixin.common.api.WxConsts;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.*;
 
 @Test
@@ -170,4 +175,85 @@ public class WxMpXmlMessageTest {
     assertEquals(wxMessage.getSendLocationInfo().getPoiName(), "wo de poi");
   }
 
+  public void testFromXml_MASSSENDJOBFINISH() {
+    //xml样例来自 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21
+    String xml = "<xml>\n" +
+      "<ToUserName><![CDATA[gh_4d00ed8d6399]]></ToUserName>\n" +
+      "<FromUserName><![CDATA[oV5CrjpxgaGXNHIQigzNlgLTnwic]]></FromUserName>\n" +
+      "<CreateTime>1481013459</CreateTime>\n" +
+      "<MsgType><![CDATA[event]]></MsgType>\n" +
+      "<Event><![CDATA[MASSSENDJOBFINISH]]></Event>\n" +
+      "<MsgID>1000001625</MsgID>\n" +
+      "<Status><![CDATA[err(30003)]]></Status>\n" +
+      "<TotalCount>0</TotalCount>\n" +
+      "<FilterCount>0</FilterCount>\n" +
+      "<SentCount>0</SentCount>\n" +
+      "<ErrorCount>0</ErrorCount>\n" +
+      "<CopyrightCheckResult>\n" +
+      "<Count>2</Count>\n" +
+      "<ResultList>\n" +
+      "<item>\n" +
+      "<ArticleIdx>1</ArticleIdx>\n" +
+      "<UserDeclareState>0</UserDeclareState>\n" +
+      "<AuditState>2</AuditState>\n" +
+      "<OriginalArticleUrl><![CDATA[Url_1]]></OriginalArticleUrl>\n" +
+      "<OriginalArticleType>1</OriginalArticleType>\n" +
+      "<CanReprint>1</CanReprint>\n" +
+      "<NeedReplaceContent>1</NeedReplaceContent>\n" +
+      "<NeedShowReprintSource>1</NeedShowReprintSource>\n" +
+      "</item>\n" +
+      "<item>\n" +
+      "<ArticleIdx>2</ArticleIdx>\n" +
+      "<UserDeclareState>0</UserDeclareState>\n" +
+      "<AuditState>2</AuditState>\n" +
+      "<OriginalArticleUrl><![CDATA[Url_2]]></OriginalArticleUrl>\n" +
+      "<OriginalArticleType>1</OriginalArticleType>\n" +
+      "<CanReprint>1</CanReprint>\n" +
+      "<NeedReplaceContent>1</NeedReplaceContent>\n" +
+      "<NeedShowReprintSource>1</NeedShowReprintSource>\n" +
+      "</item>\n" +
+      "</ResultList>\n" +
+      "<CheckState>2</CheckState>\n" +
+      "</CopyrightCheckResult>\n" +
+      "</xml>";
+    WxMpXmlMessage wxMessage = WxMpXmlMessage.fromXml(xml);
+    assertEquals(wxMessage.getToUser(), "gh_4d00ed8d6399");
+    assertEquals(wxMessage.getFromUser(), "oV5CrjpxgaGXNHIQigzNlgLTnwic");
+    assertEquals(wxMessage.getCreateTime(), new Long(1481013459));
+    assertEquals(wxMessage.getMsgType(), WxConsts.XmlMsgType.EVENT);
+    assertEquals(wxMessage.getEvent(), "MASSSENDJOBFINISH");
+    assertEquals(wxMessage.getMsgId(), new Long(1000001625L));
+    assertEquals(wxMessage.getStatus(), "err(30003)");
+    assertEquals(wxMessage.getTotalCount(), new Integer(0));
+    assertEquals(wxMessage.getFilterCount(), new Integer(0));
+    assertEquals(wxMessage.getSentCount(), new Integer(0));
+    assertEquals(wxMessage.getErrorCount(), new Integer(0));
+
+    final Map<String, Object> allFields = wxMessage.getAllFieldsMap();
+    assertThat(allFields).isNotNull();
+    final Map<String, Object> copyrightCheckResult = (Map<String, Object>) allFields.get("CopyrightCheckResult");
+    List<Map<String, Object>> resultList = (List<Map<String, Object>>) ((Map<String, Object>) copyrightCheckResult.get("ResultList")).get("item");
+    assertThat(copyrightCheckResult).isNotNull();
+
+    assertThat(copyrightCheckResult.get("Count")).isEqualTo("2");
+    assertThat(copyrightCheckResult.get("CheckState")).isEqualTo("2");
+
+    assertThat(resultList.get(0).get("ArticleIdx")).isEqualTo("1");
+    assertThat(resultList.get(0).get("UserDeclareState")).isEqualTo("0");
+    assertThat(resultList.get(0).get("AuditState")).isEqualTo("2");
+    assertThat(resultList.get(0).get("OriginalArticleUrl")).isEqualTo("Url_1");
+    assertThat(resultList.get(0).get("OriginalArticleType")).isEqualTo("1");
+    assertThat(resultList.get(0).get("CanReprint")).isEqualTo("1");
+    assertThat(resultList.get(0).get("NeedReplaceContent")).isEqualTo("1");
+    assertThat(resultList.get(0).get("NeedShowReprintSource")).isEqualTo("1");
+
+    assertThat(resultList.get(1).get("ArticleIdx")).isEqualTo("2");
+    assertThat(resultList.get(1).get("UserDeclareState")).isEqualTo("0");
+    assertThat(resultList.get(1).get("AuditState")).isEqualTo("2");
+    assertThat(resultList.get(1).get("OriginalArticleUrl")).isEqualTo("Url_2");
+    assertThat(resultList.get(1).get("OriginalArticleType")).isEqualTo("1");
+    assertThat(resultList.get(1).get("CanReprint")).isEqualTo("1");
+    assertThat(resultList.get(1).get("NeedReplaceContent")).isEqualTo("1");
+    assertThat(resultList.get(1).get("NeedShowReprintSource")).isEqualTo("1");
+  }
 }
