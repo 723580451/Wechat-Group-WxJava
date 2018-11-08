@@ -1,9 +1,7 @@
 package me.chanjar.weixin.mp.api;
 
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormRequest;
-import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormResult;
-import me.chanjar.weixin.mp.bean.card.WxMpCardCreateResult;
+import me.chanjar.weixin.mp.bean.card.*;
 import me.chanjar.weixin.mp.bean.membercard.*;
 
 /**
@@ -28,6 +26,12 @@ public interface WxMpMemberCardService {
    * 获取会员卡开卡插件参数
    */
   String MEMBER_CARD_ACTIVATE_URL = "https://api.weixin.qq.com/card/membercard/activate/geturl";
+
+  /**
+   * 会员卡信息更新
+   */
+  String MEMBER_CARD_UPDATE = "https://api.weixin.qq.com/card/update";
+
 
   /**
    * 得到WxMpService
@@ -102,4 +106,12 @@ public interface WxMpMemberCardService {
    * @throws WxErrorException
    */
   ActivatePluginParam getActivatePluginParam(String cardId, String outStr) throws WxErrorException;
+
+  /**
+   * 更新会员卡信息
+   * @param memberCardUpdateRequest
+   * @return
+   * @throws WxErrorException
+   */
+  CardUpdateResult updateCardInfo(MemberCardUpdateRequest memberCardUpdateRequest) throws WxErrorException;
 }

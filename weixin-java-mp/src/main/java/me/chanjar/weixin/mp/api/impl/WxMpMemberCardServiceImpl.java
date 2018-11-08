@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.chanjar.weixin.mp.bean.card.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,14 +19,6 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 import me.chanjar.weixin.mp.api.WxMpMemberCardService;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.card.AdvancedInfo;
-import me.chanjar.weixin.mp.bean.card.BaseInfo;
-import me.chanjar.weixin.mp.bean.card.DateInfo;
-import me.chanjar.weixin.mp.bean.card.MemberCard;
-import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormRequest;
-import me.chanjar.weixin.mp.bean.card.MemberCardActivateUserFormResult;
-import me.chanjar.weixin.mp.bean.card.MemberCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.WxMpCardCreateResult;
 import me.chanjar.weixin.mp.bean.card.enums.BusinessServiceType;
 import me.chanjar.weixin.mp.bean.card.enums.CardColor;
 import me.chanjar.weixin.mp.bean.card.enums.DateInfoType;
@@ -327,6 +320,20 @@ public class WxMpMemberCardServiceImpl implements WxMpMemberCardService {
       }
     }
     return null;
+  }
+
+  /**
+   * 更新会员卡信息
+   *
+   * @param memberCardUpdateRequest
+   * @return
+   * @throws WxErrorException
+   */
+  @Override
+  public CardUpdateResult updateCardInfo(MemberCardUpdateRequest memberCardUpdateRequest) throws WxErrorException {
+    String response = this.wxMpService.post(MEMBER_CARD_UPDATE, GSON.toJson(memberCardUpdateRequest));
+    CardUpdateResult result = GSON.fromJson(response, CardUpdateResult.class);
+    return result;
   }
 
   /**
