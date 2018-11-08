@@ -49,6 +49,12 @@ public class XStreamInitializer {
     xstream.setMode(XStream.NO_REFERENCES);
     xstream.addPermission(NullPermission.NULL);
     xstream.addPermission(PrimitiveTypePermission.PRIMITIVES);
+    xstream.allowTypesByWildcard(new String[]{
+      "me.chanjar.weixin.**", "cn.binarywang.wx.**", "com.github.binarywang.**"
+    });
+
+    XStream.setupDefaultSecurity(xstream);
+
     xstream.setClassLoader(Thread.currentThread().getContextClassLoader());
     return xstream;
   }
