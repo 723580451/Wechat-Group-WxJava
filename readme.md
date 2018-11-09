@@ -1,5 +1,5 @@
 ## 全能微信Java开发工具包（SDK）
-#### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
+#### 支持包括微信支付、开放平台、公众号（包括订阅号和服务号）、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
 [![码云Gitee](https://gitee.com/binary/weixin-java-tools/badge/star.svg?theme=blue)](https://gitee.com/binary/weixin-java-tools)
 [![Github](http://github-svg-buttons.herokuapp.com/star.svg?user=Wechat-Group&repo=weixin-java-tools&style=flat&background=1081C1)](https://github.com/Wechat-Group/weixin-java-tools)
@@ -73,7 +73,7 @@
   - 微信小程序：`weixin-java-miniapp`   
   - 微信支付：`weixin-java-pay`
   - 微信开放平台：`weixin-java-open`   
-  - 公众号：`weixin-java-mp`    
+  - 公众号（包括订阅号和服务号）：`weixin-java-mp`    
   - 企业号/企业微信：`weixin-java-cp`
 
 ---------------------------------
