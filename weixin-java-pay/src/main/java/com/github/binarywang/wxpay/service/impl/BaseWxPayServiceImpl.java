@@ -496,7 +496,19 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
   }
 
   @Override
-  public WxPayBillResult downloadBill(String billDate, String billType, String tarType, String deviceInfo) throws WxPayException {
+  public String downloadRawBill(String billDate, String billType, String tarType, String deviceInfo)
+    throws WxPayException {
+    return this.downloadRawBill(this.buildDownloadBillRequest(billDate, billType, tarType, deviceInfo));
+  }
+
+  @Override
+  public WxPayBillResult downloadBill(String billDate, String billType, String tarType, String deviceInfo)
+    throws WxPayException {
+    return this.downloadBill(this.buildDownloadBillRequest(billDate, billType, tarType, deviceInfo));
+  }
+
+  private WxPayDownloadBillRequest buildDownloadBillRequest(String billDate, String billType, String tarType,
+                                                            String deviceInfo) throws WxPayException {
     if (!BillType.ALL.equals(billType)) {
       throw new WxPayException("目前仅支持ALL类型的对账单下载");
     }
@@ -506,12 +518,22 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     request.setBillDate(billDate);
     request.setTarType(tarType);
     request.setDeviceInfo(deviceInfo);
-
-    return this.downloadBill(request);
+    return request;
   }
 
   @Override
   public WxPayBillResult downloadBill(WxPayDownloadBillRequest request) throws WxPayException {
+    String responseContent = this.downloadRawBill(request);
+
+    if (StringUtils.isEmpty(responseContent)) {
+      return null;
+    }
+
+    return this.handleBill(request.getBillType(), responseContent);
+  }
+
+  @Override
+  public String downloadRawBill(WxPayDownloadBillRequest request) throws WxPayException {
     request.checkAndSign(this.getConfig());
 
     String url = this.getPayBaseUrl() + "/pay/downloadbill";
@@ -525,12 +547,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
         throw WxPayException.from(BaseWxPayResult.fromXML(responseContent, WxPayCommonResult.class));
       }
     }
-
-    if (StringUtils.isEmpty(responseContent)) {
-      return null;
-    }
-
-    return this.handleBill(request.getBillType(), responseContent);
+    return responseContent;
   }
 
   private WxPayBillResult handleBill(String billType, String responseContent) {
