@@ -11,6 +11,7 @@ import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.open.api.WxOpenConfigStorage;
 import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
 import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
@@ -320,6 +321,31 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
     @Override
     public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
       wxOpenConfigStorage.updateAuthorizerAccessToken(appId, accessToken, expiresInSeconds);
+    }
+
+    @Override
+    public String getTicket(TicketType type) {
+      return null;
+    }
+
+    @Override
+    public Lock getTicketLock(TicketType type) {
+      return null;
+    }
+
+    @Override
+    public boolean isTicketExpired(TicketType type) {
+      return false;
+    }
+
+    @Override
+    public void expireTicket(TicketType type) {
+
+    }
+
+    @Override
+    public void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
+
     }
 
     @Override
