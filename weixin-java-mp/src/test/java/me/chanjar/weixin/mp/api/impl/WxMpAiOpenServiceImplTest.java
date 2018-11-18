@@ -2,7 +2,7 @@ package me.chanjar.weixin.mp.api.impl;
 
 import com.google.inject.Inject;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.AiLangType;
+import me.chanjar.weixin.mp.enums.AiLangType;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.test.ApiTestModule;
 import org.testng.annotations.Guice;

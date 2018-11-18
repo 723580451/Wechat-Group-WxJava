@@ -1,4 +1,4 @@
-package me.chanjar.weixin.mp;
+package me.chanjar.weixin.mp.enums;
 
 import lombok.Getter;
 
@@ -13,11 +13,11 @@ import lombok.Getter;
 @Getter
 public enum AiLangType {
   /**
-   * 中文 汉语
+   * 中文 汉语.
    */
   zh_CN("zh_CN"),
   /**
-   * 英文 英语
+   * 英文 英语.
    */
   en_US("en_US");
 
