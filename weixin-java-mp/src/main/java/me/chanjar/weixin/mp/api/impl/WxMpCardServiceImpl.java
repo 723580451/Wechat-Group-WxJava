@@ -293,7 +293,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     cardJson.addProperty("outer_str", outerStr);
     actionInfoJson.add("card", cardJson);
     jsonObject.add("action_info", actionInfoJson);
-    String response = this.wxMpService.post(CARD_QRCODE_CREAET, GSON.toJson(jsonObject));
+    String response = this.wxMpService.post(CARD_QRCODE_CREATE, GSON.toJson(jsonObject));
     return WxMpCardQrcodeCreateResult.fromJson(response);
   }
 
@@ -306,7 +306,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
    */
   @Override
   public WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest request) throws WxErrorException {
-    String response = this.wxMpService.post(CARD_LANDING_PAGE_CREAET, GSON.toJson(request));
+    String response = this.wxMpService.post(CARD_LANDING_PAGE_CREATE, GSON.toJson(request));
     return WxMpCardLandingPageCreateResult.fromJson(response);
   }
 

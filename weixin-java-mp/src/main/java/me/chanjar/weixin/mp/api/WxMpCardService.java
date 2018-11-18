@@ -21,8 +21,8 @@ public interface WxMpCardService {
   String CARD_CODE_CONSUME = "https://api.weixin.qq.com/card/code/consume";
   String CARD_CODE_MARK = "https://api.weixin.qq.com/card/code/mark";
   String CARD_TEST_WHITELIST = "https://api.weixin.qq.com/card/testwhitelist/set";
-  String CARD_QRCODE_CREAET = "https://api.weixin.qq.com/card/qrcode/create";
-  String CARD_LANDING_PAGE_CREAET = "https://api.weixin.qq.com/card/landingpage/create";
+  String CARD_QRCODE_CREATE = "https://api.weixin.qq.com/card/qrcode/create";
+  String CARD_LANDING_PAGE_CREATE = "https://api.weixin.qq.com/card/landingpage/create";
   /**
    * 将用户的卡券设置为失效状态
    */
