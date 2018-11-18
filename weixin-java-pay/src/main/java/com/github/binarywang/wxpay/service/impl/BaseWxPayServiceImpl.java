@@ -49,7 +49,6 @@ import com.github.binarywang.wxpay.bean.request.WxPayShorturlRequest;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.bean.result.WxPayAuthcode2OpenidResult;
-import com.github.binarywang.wxpay.bean.result.WxPayBillBaseResult;
 import com.github.binarywang.wxpay.bean.result.WxPayBillResult;
 import com.github.binarywang.wxpay.bean.result.WxPayCommonResult;
 import com.github.binarywang.wxpay.bean.result.WxPayFundFlowBaseResult;
@@ -91,7 +90,6 @@ import static com.github.binarywang.wxpay.constant.WxPayConstants.TarType;
 public abstract class BaseWxPayServiceImpl implements WxPayService {
   private static final String PAY_BASE_URL = "https://api.mch.weixin.qq.com";
   private static final String TOTAL_FUND_COUNT = "资金流水总笔数";
-  private static final String TOTAL_DEAL_COUNT = "总交易单数";
 
   /**
    * The Log.
@@ -554,10 +552,10 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
       return null;
     }
 
-    return this.handleAllBill(responseContent);
+    return WxPayBillResult.fromRawBillResultString(responseContent);
   }
 
-  private String handleGzipBill(String url, String requestStr) throws WxPayException {
+  private String handleGzipBill(String url, String requestStr) {
     try {
       byte[] responseBytes = this.postForBytes(url, requestStr, false);
       Path tempDirectory = Files.createTempDirectory("bill");
@@ -579,80 +577,6 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     }
 
     return null;
-  }
-
-  private WxPayBillResult handleAllBill(String responseContent) {
-    WxPayBillResult wxPayBillResult = new WxPayBillResult();
-
-    String listStr = "";
-    String objStr = "";
-    if (responseContent.contains(TOTAL_DEAL_COUNT)) {
-      listStr = responseContent.substring(0, responseContent.indexOf(TOTAL_DEAL_COUNT));
-      objStr = responseContent.substring(responseContent.indexOf(TOTAL_DEAL_COUNT));
-    }
-
-    /*
-     * 交易时间:2017-04-06 01:00:02 公众账号ID: 商户号: 子商户号:0 设备号:WEB 微信订单号: 商户订单号:2017040519091071873216 用户标识: 交易类型:NATIVE
-     * 交易状态:REFUND 付款银行:CFT 货币种类:CNY 总金额:0.00 企业红包金额:0.00 微信退款单号: 商户退款单号:20170406010000933 退款金额:0.01 企业红包退款金额:0.00
-     * 退款类型:ORIGINAL 退款状态:SUCCESS 商品名称: 商户数据包: 手续费:0.00000 费率 :0.60%
-     * 参考以上格式进行取值
-     */
-    List<WxPayBillBaseResult> wxPayBillBaseResultLst = new LinkedList<>();
-    // 去空格
-    String newStr = listStr.replaceAll(",", " ");
-    // 数据分组
-    String[] tempStr = newStr.split("`");
-    // 分组标题
-    String[] t = tempStr[0].split(" ");
-    // 计算循环次数
-    int j = tempStr.length / t.length;
-    // 纪录数组下标
-    int k = 1;
-    for (int i = 0; i < j; i++) {
-      WxPayBillBaseResult wxPayBillBaseResult = new WxPayBillBaseResult();
-
-      wxPayBillBaseResult.setTradeTime(tempStr[k].trim());
-      wxPayBillBaseResult.setAppId(tempStr[k + 1].trim());
-      wxPayBillBaseResult.setMchId(tempStr[k + 2].trim());
-      wxPayBillBaseResult.setSubMchId(tempStr[k + 3].trim());
-      wxPayBillBaseResult.setDeviceInfo(tempStr[k + 4].trim());
-      wxPayBillBaseResult.setTransactionId(tempStr[k + 5].trim());
-      wxPayBillBaseResult.setOutTradeNo(tempStr[k + 6].trim());
-      wxPayBillBaseResult.setOpenId(tempStr[k + 7].trim());
-      wxPayBillBaseResult.setTradeType(tempStr[k + 8].trim());
-      wxPayBillBaseResult.setTradeState(tempStr[k + 9].trim());
-      wxPayBillBaseResult.setBankType(tempStr[k + 10].trim());
-      wxPayBillBaseResult.setFeeType(tempStr[k + 11].trim());
-      wxPayBillBaseResult.setTotalFee(tempStr[k + 12].trim());
-      wxPayBillBaseResult.setCouponFee(tempStr[k + 13].trim());
-      wxPayBillBaseResult.setRefundId(tempStr[k + 14].trim());
-      wxPayBillBaseResult.setOutRefundNo(tempStr[k + 15].trim());
-      wxPayBillBaseResult.setSettlementRefundFee(tempStr[k + 16].trim());
-      wxPayBillBaseResult.setCouponRefundFee(tempStr[k + 17].trim());
-      wxPayBillBaseResult.setRefundChannel(tempStr[k + 18].trim());
-      wxPayBillBaseResult.setRefundState(tempStr[k + 19].trim());
-      wxPayBillBaseResult.setBody(tempStr[k + 20].trim());
-      wxPayBillBaseResult.setAttach(tempStr[k + 21].trim());
-      wxPayBillBaseResult.setPoundage(tempStr[k + 22].trim());
-      wxPayBillBaseResult.setPoundageRate(tempStr[k + 23].trim());
-      wxPayBillBaseResultLst.add(wxPayBillBaseResult);
-      k += t.length;
-    }
-    wxPayBillResult.setWxPayBillBaseResultLst(wxPayBillBaseResultLst);
-
-    /*
-     * 总交易单数,总交易额,总退款金额,总代金券或立减优惠退款金额,手续费总金额 `2,`0.02,`0.0,`0.0,`0
-     * 参考以上格式进行取值
-     */
-    String totalStr = objStr.replaceAll(",", " ");
-    String[] totalTempStr = totalStr.split("`");
-    wxPayBillResult.setTotalRecord(totalTempStr[1]);
-    wxPayBillResult.setTotalFee(totalTempStr[2]);
-    wxPayBillResult.setTotalRefundFee(totalTempStr[3]);
-    wxPayBillResult.setTotalCouponFee(totalTempStr[4]);
-    wxPayBillResult.setTotalPoundageFee(totalTempStr[5]);
-
-    return wxPayBillResult;
   }
 
   @Override

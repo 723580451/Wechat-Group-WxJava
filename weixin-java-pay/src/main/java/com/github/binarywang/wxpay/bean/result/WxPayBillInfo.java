@@ -15,7 +15,7 @@ import me.chanjar.weixin.common.util.json.WxGsonBuilder;
  */
 @Data
 @NoArgsConstructor
-public class WxPayBillBaseResult implements Serializable {
+public class WxPayBillInfo implements Serializable {
   private static final long serialVersionUID = 2226245109137435453L;
 
   @Override
@@ -36,7 +36,7 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String mchId;
   /**
-   * 子商户号.
+   * 特约商户号.
    */
   private String subMchId;
   /**
@@ -72,11 +72,11 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String feeType;
   /**
-   * 总金额.
+   * 应结订单金额.
    */
   private String totalFee;
   /**
-   * 企业红包金额.
+   * 代金券金额.
    */
   private String couponFee;
   /**
@@ -92,7 +92,7 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String settlementRefundFee;
   /**
-   * 企业红包退款金额.
+   * 充值券退款金额.
    */
   private String couponRefundFee;
   /**
@@ -119,5 +119,17 @@ public class WxPayBillBaseResult implements Serializable {
    * 费率.
    */
   private String poundageRate;
+  /**
+   * 订单金额.
+   */
+  private String totalAmount;
+  /**
+   * 申请退款金额.
+   */
+  private String appliedRefundAmount;
+  /**
+   * 费率备注.
+   */
+  private String feeRemark;
 
 }
