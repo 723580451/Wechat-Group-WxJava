@@ -18,6 +18,33 @@
 
 ![微信公众号及企业微信](qrcodes/cp_mp_qrcodes.png) 
 
+----------------------------------
+### 使用案例
+1. 开源项目：https://github.com/workcheng/weiya
+1. 开源项目：https://github.com/jmdhappy/xxpay-master 
+1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
+1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
+1. 小程序：树懒揽书+
+1. 小程序：广廉快线，鹏城巴士等
+1. 平台：[小猪餐餐](http://www.xzcancan.com/)
+1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 公众号：中国电信上海网厅（sh_189）
+1. 公众号：E答平台
+1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
+1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
+1. 公众号和小程序：民医台（可自行搜索）
+1. 洽洽企业号
+1. 高善人力资源
+1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
+
+---------------------------------
+### 技术交流方式
+1. QQ群：（**注意：目前为付费群，刚入群会有5分钟禁言，稍等片刻即可正常发言**） [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=731dc3e7ea31ebe25376cc1a791445468612c63fd0e9e05399b088ec81fd9e15) 或 [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://jq.qq.com/?_wv=1027&k=40lRskK)，推荐点击按钮入群，当然如果无法成功操作，请自行搜索群号`343954419`进行添加；由于群容量有限，为了维持运营千人QQ群的所需支付的QQ年费会员费用，故开启付费入群模式，申请者只需支付少量金额即可加入，这样也可以保证只有真实交流需求的人进入，避免闲杂做广告人员的乱入；当然如果确实因为各种原因无法付费入群的，请联系群主说明原因即可入群；
+1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
+1. 微信群： 因微信群已达到100人限制，故如有想加入微信群的，可以 [扫码加此微信](qrcodes/wechat_qrcode.jpg) 以便邀请加入（请务必注明“申请加入微信开发群”，否则不予理睬，谢谢配合~）；
+1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)；
+1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
+
 --------------------------------
 ### 其他说明
 1. 本项目Fork自chanjarster/weixin-java-tools，但由于原项目已停止维护，故单独维护和发布，且发布到maven上的groupId也会不同，详细信息见下文。
@@ -32,32 +59,6 @@
 1. 本SDK项目在以下代码托管网站同步更新:
 * 码云：https://gitee.com/binary/weixin-java-tools
 * GitHub：https://github.com/wechat-group/weixin-java-tools
-  
-----------------------------------
-### 使用案例
-1. 开源项目：https://github.com/workcheng/weiya
-1. 开源项目：https://github.com/jmdhappy/xxpay-master 
-1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
-1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
-1. 平台：[小猪餐餐](http://www.xzcancan.com/)
-1. 平台：[餐饮系统](http://canyin.daydao.com)
-1. 公众号：中国电信上海网厅（sh_189）
-1. 公众号：E答平台
-1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
-1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
-1. 公众号和小程序：民医台（可自行搜索）
-1. 洽洽企业号
-1. 高善人力资源
-1. 小程序：树懒揽书+
-1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
-
----------------------------------
-### 技术交流方式
-1. QQ群：（**注意：目前为付费群，刚入群会有5分钟禁言，稍等片刻即可正常发言**） [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=731dc3e7ea31ebe25376cc1a791445468612c63fd0e9e05399b088ec81fd9e15) 或 [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://jq.qq.com/?_wv=1027&k=40lRskK)，推荐点击按钮入群，当然如果无法成功操作，请自行搜索群号`343954419`进行添加；由于群容量有限，为了维持运营千人QQ群的所需支付的QQ年费会员费用，故开启付费入群模式，申请者只需支付少量金额即可加入，这样也可以保证只有真实交流需求的人进入，避免闲杂做广告人员的乱入；当然如果确实因为各种原因无法付费入群的，请联系群主说明原因即可入群；
-1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
-1. 微信群： 因微信群已达到100人限制，故如有想加入微信群的，可以 [扫码加此微信](qrcodes/wechat_qrcode.jpg) 以便邀请加入（请务必注明“申请加入微信开发群”，否则不予理睬，谢谢配合~）；
-1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)；
-1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
 
 ---------------------------------
 ### Maven引用
