@@ -212,7 +212,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
             log.warn("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
             Thread.sleep(sleepMillis);
           } catch (InterruptedException e1) {
-            throw new RuntimeException(e1);
+            Thread.currentThread().interrupt();
           }
         } else {
           throw e;
