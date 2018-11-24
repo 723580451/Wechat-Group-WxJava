@@ -33,9 +33,4 @@ public class WxMaServiceImplTest {
     assertTrue(StringUtils.isNotBlank(after));
   }
 
-  @Test
-  public void testImgSecCheck() throws WxErrorException {
-    boolean result = this.wxService.imgSecCheck(new File(ClassLoader.getSystemResource("tmp.png").getFile()));
-    assertTrue(result);
-  }
 }
