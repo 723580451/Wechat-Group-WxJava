@@ -1,18 +1,22 @@
 package me.chanjar.weixin.mp.api;
 
+import java.util.List;
+
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.WxMpUserQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.bean.result.WxMpUserList;
 
-import java.util.List;
-
 /**
- * 用户管理相关操作接口
+ * 用户管理相关操作接口.
  *
  * @author Binary Wang
  */
 public interface WxMpUserService {
+  String USER_INFO_BATCH_GET_URL = "https://api.weixin.qq.com/cgi-bin/user/info/batchget";
+  String USER_GET_URL = "https://api.weixin.qq.com/cgi-bin/user/get";
+  String USER_INFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info";
+  String USER_INFO_UPDATE_REMARK_URL = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark";
 
   /**
    * <pre>
@@ -61,9 +65,9 @@ public interface WxMpUserService {
    * 接口地址：https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
    * </pre>
    *
-   * @param openids 用户openid列表
+   * @param openidList 用户openid列表
    */
-  List<WxMpUser> userInfoList(List<String> openids) throws WxErrorException;
+  List<WxMpUser> userInfoList(List<String> openidList) throws WxErrorException;
 
   /**
    * <pre>

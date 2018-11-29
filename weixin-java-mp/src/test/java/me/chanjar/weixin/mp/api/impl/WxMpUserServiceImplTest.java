@@ -1,5 +1,11 @@
 package me.chanjar.weixin.mp.api.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.*;
+import org.testng.annotations.*;
+
 import com.google.inject.Inject;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -8,11 +14,6 @@ import me.chanjar.weixin.mp.api.test.TestConfigStorage;
 import me.chanjar.weixin.mp.bean.WxMpUserQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.bean.result.WxMpUserList;
-import org.testng.*;
-import org.testng.annotations.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 测试用户相关的接口
@@ -20,7 +21,7 @@ import java.util.List;
  * @author chanjarster
  * @author Binary Wang
  */
-@Test(groups = "userAPI")
+@Test
 @Guice(modules = ApiTestModule.class)
 public class WxMpUserServiceImplTest {
 
@@ -68,9 +69,9 @@ public class WxMpUserServiceImplTest {
   public void testUserList() throws WxErrorException {
     WxMpUserList wxMpUserList = this.wxService.getUserService().userList(null);
     Assert.assertNotNull(wxMpUserList);
-    Assert.assertFalse(wxMpUserList.getCount() == -1);
-    Assert.assertFalse(wxMpUserList.getTotal() == -1);
-    Assert.assertFalse(wxMpUserList.getOpenids().size() == -1);
+    Assert.assertNotEquals(-1, wxMpUserList.getCount());
+    Assert.assertNotEquals(-1, wxMpUserList.getTotal());
+    Assert.assertNotEquals(-1, wxMpUserList.getOpenids().size());
     System.out.println(wxMpUserList);
   }
 
