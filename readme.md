@@ -24,6 +24,7 @@
 1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
 1. 小程序：树懒揽书+
 1. 小程序：广廉快线，鹏城巴士等
+1. 小程序：360考试宝典
 1. 平台：[小猪餐餐](http://www.xzcancan.com/)
 1. 平台：[餐饮系统](http://canyin.daydao.com)
 1. 公众号：中国电信上海网厅（sh_189）
