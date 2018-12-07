@@ -120,13 +120,13 @@ public class WxPayBillResult implements Serializable {
      * 参考以上格式进行取值
      */
     String[] totalTempStr = objStr.replaceAll(",", " ").split("`");
-    billResult.setTotalRecord(totalTempStr[1]);
-    billResult.setTotalFee(totalTempStr[2]);
-    billResult.setTotalRefundFee(totalTempStr[3]);
-    billResult.setTotalCouponFee(totalTempStr[4]);
-    billResult.setTotalPoundageFee(totalTempStr[5]);
-    billResult.setTotalAmount(totalTempStr[6]);
-    billResult.setTotalAppliedRefundFee(totalTempStr[7]);
+    billResult.setTotalRecord(totalTempStr[1].trim());
+    billResult.setTotalFee(totalTempStr[2].trim());
+    billResult.setTotalRefundFee(totalTempStr[3].trim());
+    billResult.setTotalCouponFee(totalTempStr[4].trim());
+    billResult.setTotalPoundageFee(totalTempStr[5].trim());
+    billResult.setTotalAmount(totalTempStr[6].trim());
+    billResult.setTotalAppliedRefundFee(totalTempStr[7].trim());
 
     return billResult;
   }
