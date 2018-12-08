@@ -18,6 +18,21 @@ public interface RequestExecutor<T, E> {
    *
    * @param uri  uri
    * @param data 数据
+   * @return 响应结果
+   * @throws WxErrorException 自定义异常
+   * @throws IOException      io异常
    */
   T execute(String uri, E data) throws WxErrorException, IOException;
+
+
+  /**
+   * 执行http请求.
+   *
+   * @param uri      uri
+   * @param data     数据
+   * @param handler http响应处理器
+   * @throws WxErrorException 自定义异常
+   * @throws IOException      io异常
+   */
+  void execute(String uri, E data, ResponseHandler<T> handler) throws WxErrorException, IOException;
 }

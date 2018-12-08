@@ -55,6 +55,7 @@ public class WxMpTemplateMessage implements Serializable {
   /**
    * 模板数据.
    */
+  @Builder.Default
   private List<WxMpTemplateData> data = new ArrayList<>();
 
   public WxMpTemplateMessage addData(WxMpTemplateData datum) {

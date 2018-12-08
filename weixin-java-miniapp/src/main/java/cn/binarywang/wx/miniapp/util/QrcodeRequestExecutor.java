@@ -20,6 +20,7 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.fs.FileUtils;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
+import me.chanjar.weixin.common.util.http.ResponseHandler;
 import me.chanjar.weixin.common.util.http.apache.InputStreamResponseHandler;
 import me.chanjar.weixin.common.util.http.apache.Utf8ResponseHandler;
 
@@ -31,6 +32,11 @@ public class QrcodeRequestExecutor implements RequestExecutor<File, AbstractWxMa
 
   public QrcodeRequestExecutor(RequestHttp requestHttp) {
     this.requestHttp = requestHttp;
+  }
+
+  @Override
+  public void execute(String uri, AbstractWxMaQrcodeWrapper data, ResponseHandler<File> handler) throws WxErrorException, IOException {
+    handler.handle(this.execute(uri, data));
   }
 
   @Override
