@@ -1,11 +1,11 @@
 package me.chanjar.weixin.common.util.http;
 
-import me.chanjar.weixin.common.error.WxErrorException;
-
 import java.io.IOException;
 
+import me.chanjar.weixin.common.error.WxErrorException;
+
 /**
- * http请求执行器
+ * http请求执行器.
  *
  * @param <T> 返回值类型
  * @param <E> 请求参数类型
@@ -14,6 +14,8 @@ import java.io.IOException;
 public interface RequestExecutor<T, E> {
 
   /**
+   * 执行http请求.
+   *
    * @param uri  uri
    * @param data 数据
    */
