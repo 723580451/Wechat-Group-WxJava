@@ -13,27 +13,6 @@
 
 1. **2018-09-24 发布 [【3.2.0正式版】](https://github.com/Wechat-Group/weixin-java-tools/releases)**！
 1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/weixin-java-tools/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
-1. [出现`Illegal key size`问题的解决办法](https://github.com/Wechat-Group/weixin-java-tools/wiki/%E5%8A%A0%E8%A7%A3%E5%AF%86%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95) （太多人遇到此问题而不知所措，因此特意置顶，希望能引起新手的注意，其他常见问题请查阅 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)首页）
-
-----------------------------------
-### 使用案例
-1. 开源项目：https://github.com/workcheng/weiya
-1. 开源项目：https://github.com/jmdhappy/xxpay-master 
-1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
-1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
-1. 小程序：树懒揽书+
-1. 小程序：广廉快线，鹏城巴士等
-1. 小程序：360考试宝典
-1. 平台：[小猪餐餐](http://www.xzcancan.com/)
-1. 平台：[餐饮系统](http://canyin.daydao.com)
-1. 公众号：中国电信上海网厅（sh_189）
-1. 公众号：E答平台
-1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
-1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
-1. 公众号和小程序：民医台（可自行搜索）
-1. 洽洽企业号
-1. 高善人力资源
-1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
 
 ---------------------------------
 ### 技术交流方式
@@ -62,7 +41,7 @@
 * GitHub：https://github.com/wechat-group/weixin-java-tools
 
 ---------------------------------
-### Maven引用
+### SDK使用方式
 注意：最新版本（包括测试版）为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent)，以下为最新正式版。
 
 ```xml
@@ -85,6 +64,26 @@
 1. BUG修复和新特性一般会先发布成小版本作为临时测试版本（如3.1.8.B，即尾号不为0，并添加B，以区别于正式版）；
 1. 目前最新版本号为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/weixin-java-parent.svg)](http://mvnrepository.com/artifact/com.github.binarywang/weixin-java-parent) ，也可以通过访问链接 [【微信支付】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-pay%22) 、[【微信小程序】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-miniapp%22) 、[【公众号】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-mp%22) 、[【企业微信】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-cp%22)、[【开放平台】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-open%22)
 分别查看所有最新的版本。 
+
+----------------------------------
+### 使用案例
+1. 开源项目：https://github.com/workcheng/weiya
+1. 开源项目：https://github.com/jmdhappy/xxpay-master 
+1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
+1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
+1. 小程序：树懒揽书+
+1. 小程序：广廉快线，鹏城巴士等
+1. 小程序：360考试宝典
+1. 平台：[小猪餐餐](http://www.xzcancan.com/)
+1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 公众号：中国电信上海网厅（sh_189）
+1. 公众号：E答平台
+1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
+1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
+1. 公众号和小程序：民医台（可自行搜索）
+1. 洽洽企业号
+1. 高善人力资源
+1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
 
 ----------------------------------
 ### 贡献者列表
