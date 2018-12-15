@@ -21,7 +21,7 @@
 1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
 1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/weixin-java-tools/wiki)；
 1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
-1. **另外，想要得到更多开发交流讨论方式，请扫描以下二维码，关注微信公众号【WX开发助手】，或者加入企业微信，当然也可以在微信中搜索 `weixin-java-tools`或 `WX开发助手` 关注公众号，访问相关菜单获取更多交流方式，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识。**
+1. **另外，想要得到更多开发交流讨论方式，请扫描以下二维码，关注微信公众号【WxJava】，或者加入企业微信，当然也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识。**
 
 ![微信公众号及企业微信](qrcodes/cp_mp_qrcodes.png) 
 
