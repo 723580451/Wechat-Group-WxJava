@@ -27,7 +27,6 @@ import com.github.binarywang.wxpay.util.SignUtils;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -191,9 +190,9 @@ public abstract class BaseWxPayResult implements Serializable {
     }
 
     try {
-      this.xmlDoc = DocumentBuilderFactory
-        .newInstance()
-        .newDocumentBuilder()
+      final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setExpandEntityReferences(false);
+      this.xmlDoc = factory.newDocumentBuilder()
         .parse(new ByteArrayInputStream(this.xmlString.getBytes(StandardCharsets.UTF_8)));
       return xmlDoc;
     } catch (SAXException | IOException | ParserConfigurationException e) {

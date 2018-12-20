@@ -37,7 +37,9 @@ public class WxCryptUtil {
     @Override
     protected DocumentBuilder initialValue() {
       try {
-        return DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setExpandEntityReferences(false);
+        return factory.newDocumentBuilder();
       } catch (ParserConfigurationException exc) {
         throw new IllegalArgumentException(exc);
       }
