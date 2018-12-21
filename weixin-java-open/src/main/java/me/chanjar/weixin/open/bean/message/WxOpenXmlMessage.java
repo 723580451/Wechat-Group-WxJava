@@ -3,6 +3,7 @@ package me.chanjar.weixin.open.bean.message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
 
@@ -99,7 +100,7 @@ public class WxOpenXmlMessage implements Serializable {
   public static WxOpenXmlMessage fromEncryptedXml(InputStream is, WxOpenConfigStorage wxOpenConfigStorage,
                                                   String timestamp, String nonce, String msgSignature) {
     try {
-      return fromEncryptedXml(IOUtils.toString(is, "UTF-8"),
+      return fromEncryptedXml(IOUtils.toString(is, StandardCharsets.UTF_8),
         wxOpenConfigStorage, timestamp, nonce, msgSignature);
     } catch (IOException e) {
       throw new RuntimeException(e);
