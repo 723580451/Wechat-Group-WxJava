@@ -1,4 +1,4 @@
-## 微信Java开发工具包（SDK）
+## WxJava（原weixin-java-tools）微信Java开发工具包（SDK）
 
 [![码云Gitee](https://gitee.com/binary/weixin-java-tools/badge/star.svg?theme=blue)](https://gitee.com/binary/weixin-java-tools)
 [![Github](http://github-svg-buttons.herokuapp.com/star.svg?user=Wechat-Group&repo=weixin-java-tools&style=flat&background=1081C1)](https://github.com/Wechat-Group/weixin-java-tools)
