@@ -5,12 +5,12 @@
   xmlns="http://maven.apache.org/POM/4.0.0">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.binarywang</groupId>
-  <artifactId>weixin-java-parent</artifactId>
+  <artifactId>wx-java</artifactId>
   <version>3.2.10.B</version>
   <packaging>pom</packaging>
-  <name>Weixin Java Tools - Parent</name>
+  <name>WxJava - Weixin/Wechat Java SDK</name>
   <description>微信开发Java SDK</description>
-  <url>https://github.com/wechat-group/weixin-java-tools</url>
+  <url>https://github.com/Wechat-Group/WxJava</url>
 
   <licenses>
     <license>
