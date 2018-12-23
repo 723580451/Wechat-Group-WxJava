@@ -7,16 +7,15 @@ import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.open.api.WxOpenConfigStorage;
 import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
 import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
+import me.chanjar.weixin.open.util.json.WxOpenGsonBuilder;
 
 /**
  * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
@@ -325,6 +324,90 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
     }
 
     @Override
+    public String getTicket(TicketType type) {
+      switch (type) {
+        case JSAPI: {
+          return wxOpenConfigStorage.getJsapiTicket(appId);
+        }
+        case WX_CARD: {
+          return wxOpenConfigStorage.getCardApiTicket(appId);
+        }
+        default: {
+          // do nothing
+        }
+      }
+      return null;
+    }
+
+    @Override
+    public Lock getTicketLock(TicketType type) {
+      switch (type) {
+        case JSAPI: {
+          return this.jsapiTicketLock;
+        }
+        case WX_CARD: {
+          return this.cardApiTicketLock;
+        }
+        default: {
+          // do nothing
+        }
+      }
+      return null;
+    }
+
+    @Override
+    public boolean isTicketExpired(TicketType type) {
+      switch (type) {
+        case JSAPI: {
+          return wxOpenConfigStorage.isJsapiTicketExpired(appId);
+        }
+        case WX_CARD: {
+          return wxOpenConfigStorage.isCardApiTicketExpired(appId);
+        }
+        default: {
+          // do nothing
+        }
+      }
+
+      return false;
+    }
+
+    @Override
+    public void expireTicket(TicketType type) {
+      switch (type) {
+        case JSAPI: {
+          wxOpenConfigStorage.expireJsapiTicket(appId);
+          break;
+        }
+        case WX_CARD: {
+          wxOpenConfigStorage.expireCardApiTicket(appId);
+          break;
+        }
+        default: {
+          // do nothing
+        }
+      }
+    }
+
+    @Override
+    public void updateTicket(TicketType type, String ticket, int expiresInSeconds) {
+      switch (type) {
+        case JSAPI: {
+          wxOpenConfigStorage.updateJsapiTicket(appId, ticket, expiresInSeconds);
+          break;
+        }
+        case WX_CARD: {
+          wxOpenConfigStorage.updateCardApiTicket(appId, ticket, expiresInSeconds);
+          break;
+        }
+        default: {
+          // do nothing
+        }
+      }
+
+    }
+
+    @Override
     public String getAppid() {
       return this.appId;
     }
@@ -359,9 +442,6 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
       wxOpenConfigStorage.expireJsapiTicket(appId);
     }
 
-    /**
-     * 卡券api_ticket
-     */
     @Override
     public String getCardApiTicket() {
       return wxOpenConfigStorage.getCardApiTicket(appId);
@@ -450,7 +530,7 @@ public class WxOpenInMemoryConfigStorage implements WxOpenConfigStorage {
 
     @Override
     public String toString() {
-      return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+      return WxOpenGsonBuilder.create().toJson(this);
     }
 
     @Override

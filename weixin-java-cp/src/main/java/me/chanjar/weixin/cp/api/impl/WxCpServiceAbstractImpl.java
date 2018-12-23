@@ -1,9 +1,16 @@
 package me.chanjar.weixin.cp.api.impl;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -17,19 +24,24 @@ import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.cp.api.*;
-import me.chanjar.weixin.cp.bean.*;
+import me.chanjar.weixin.cp.api.WxCpAgentService;
+import me.chanjar.weixin.cp.api.WxCpChatService;
+import me.chanjar.weixin.cp.api.WxCpDepartmentService;
+import me.chanjar.weixin.cp.api.WxCpMediaService;
+import me.chanjar.weixin.cp.api.WxCpMenuService;
+import me.chanjar.weixin.cp.api.WxCpOAuth2Service;
+import me.chanjar.weixin.cp.api.WxCpService;
+import me.chanjar.weixin.cp.api.WxCpTagService;
+import me.chanjar.weixin.cp.api.WxCpUserService;
+import me.chanjar.weixin.cp.bean.WxCpMessage;
+import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
-import java.io.IOException;
 
 public abstract class WxCpServiceAbstractImpl<H, P> implements WxCpService, RequestHttp<H, P> {
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
   private WxCpUserService userService = new WxCpUserServiceImpl(this);
+  private WxCpChatService chatService = new WxCpChatServiceImpl(this);
   private WxCpDepartmentService departmentService = new WxCpDepartmentServiceImpl(this);
   private WxCpMediaService mediaService = new WxCpMediaServiceImpl(this);
   private WxCpMenuService menuService = new WxCpMenuServiceImpl(this);
@@ -184,7 +196,7 @@ public abstract class WxCpServiceAbstractImpl<H, P> implements WxCpService, Requ
             this.log.debug("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
             Thread.sleep(sleepMillis);
           } catch (InterruptedException e1) {
-            throw new RuntimeException(e1);
+            Thread.currentThread().interrupt();
           }
         } else {
           throw e;
@@ -334,7 +346,12 @@ public abstract class WxCpServiceAbstractImpl<H, P> implements WxCpService, Requ
   }
 
   @Override
-  public RequestHttp getRequestHttp() {
+  public WxCpChatService getChatService() {
+    return chatService;
+  }
+
+  @Override
+  public RequestHttp<?, ?> getRequestHttp() {
     return this;
   }
 

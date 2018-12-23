@@ -4,9 +4,7 @@ import java.io.File;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
+import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 
@@ -32,8 +30,14 @@ public class WxMaInMemoryConfig implements WxMaConfig {
   protected volatile String jsapiTicket;
   protected volatile long jsapiTicketExpiresTime;
 
+  //微信卡券的ticket单独缓存
+  protected volatile String cardApiTicket;
+  protected volatile long cardApiTicketExpiresTime;
+
+
   protected Lock accessTokenLock = new ReentrantLock();
   protected Lock jsapiTicketLock = new ReentrantLock();
+  protected Lock cardApiTicketLock = new ReentrantLock();
 
   /**
    * 临时文件目录
@@ -101,6 +105,34 @@ public class WxMaInMemoryConfig implements WxMaConfig {
     this.jsapiTicket = jsapiTicket;
     // 预留200秒的时间
     this.jsapiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
+  }
+
+
+  @Override
+  public String getCardApiTicket() {
+    return this.cardApiTicket;
+  }
+
+  @Override
+  public Lock getCardApiTicketLock() {
+    return this.cardApiTicketLock;
+  }
+
+  @Override
+  public boolean isCardApiTicketExpired() {
+    return System.currentTimeMillis() > this.cardApiTicketExpiresTime;
+  }
+
+  @Override
+  public void expireCardApiTicket() {
+    this.cardApiTicketExpiresTime = 0;
+  }
+
+  @Override
+  public void updateCardApiTicket(String cardApiTicket, int expiresInSeconds) {
+    this.cardApiTicket = cardApiTicket;
+    // 预留200秒的时间
+    this.cardApiTicketExpiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
   }
 
   @Override
@@ -191,7 +223,7 @@ public class WxMaInMemoryConfig implements WxMaConfig {
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    return WxMaGsonBuilder.create().toJson(this);
   }
 
   @Override

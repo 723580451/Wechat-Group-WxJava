@@ -6,11 +6,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github.binarywang</groupId>
-    <artifactId>weixin-java-parent</artifactId>
-    <version>3.2.0</version>
+    <artifactId>wx-java</artifactId>
+    <version>3.3.0</version>
   </parent>
   <artifactId>weixin-java-miniapp</artifactId>
-  <name>Weixin Java Tools - MiniApp</name>
+  <name>WxJava - MiniApp</name>
   <description>微信小程序Java SDK</description>
 
   <dependencies>

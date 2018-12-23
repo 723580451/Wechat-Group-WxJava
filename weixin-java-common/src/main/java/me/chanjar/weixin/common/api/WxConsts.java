@@ -250,6 +250,15 @@ public class WxConsts {
      */
     public static final String CARD_PAY_ORDER = "card_pay_order";
 
+    /**
+     * 小程序审核事件：审核通过
+     */
+    public static final String WEAPP_AUDIT_SUCCESS = "weapp_audit_success";
+
+    /**
+     * 小程序审核事件：审核不通过
+     */
+    public static final String WEAPP_AUDIT_FAIL = "weapp_audit_fail";
 
   }
 

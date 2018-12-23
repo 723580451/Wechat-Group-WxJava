@@ -1,5 +1,12 @@
 package me.chanjar.weixin.mp.api.impl;
 
+import java.io.IOException;
+import java.util.concurrent.locks.Lock;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,21 +19,41 @@ import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.common.util.DataUtils;
 import me.chanjar.weixin.common.util.RandomUtils;
 import me.chanjar.weixin.common.util.crypto.SHA1;
-import me.chanjar.weixin.common.util.http.*;
-import me.chanjar.weixin.mp.api.*;
+import me.chanjar.weixin.common.util.http.RequestExecutor;
+import me.chanjar.weixin.common.util.http.RequestHttp;
+import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
+import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
+import me.chanjar.weixin.common.util.http.URIUtil;
+import me.chanjar.weixin.mp.api.WxMpAiOpenService;
+import me.chanjar.weixin.mp.api.WxMpCardService;
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.mp.api.WxMpDataCubeService;
+import me.chanjar.weixin.mp.api.WxMpDeviceService;
+import me.chanjar.weixin.mp.api.WxMpKefuService;
+import me.chanjar.weixin.mp.api.WxMpMassMessageService;
+import me.chanjar.weixin.mp.api.WxMpMaterialService;
+import me.chanjar.weixin.mp.api.WxMpMemberCardService;
+import me.chanjar.weixin.mp.api.WxMpMenuService;
+import me.chanjar.weixin.mp.api.WxMpQrcodeService;
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.api.WxMpShakeService;
+import me.chanjar.weixin.mp.api.WxMpStoreService;
+import me.chanjar.weixin.mp.api.WxMpSubscribeMsgService;
+import me.chanjar.weixin.mp.api.WxMpTemplateMsgService;
+import me.chanjar.weixin.mp.api.WxMpUserBlacklistService;
+import me.chanjar.weixin.mp.api.WxMpUserService;
+import me.chanjar.weixin.mp.api.WxMpUserTagService;
+import me.chanjar.weixin.mp.api.WxMpWifiService;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpSemanticQueryResult;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.concurrent.locks.Lock;
+import me.chanjar.weixin.mp.enums.TicketType;
 
 /**
+ * 基础实现类.
+ *
  * @author someone
  */
 public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestHttp<H, P> {
@@ -71,31 +98,42 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   }
 
   @Override
-  public String getJsapiTicket() throws WxErrorException {
-    return getJsapiTicket(false);
+  public String getTicket(TicketType type) throws WxErrorException {
+    return this.getTicket(type, false);
   }
 
   @Override
-  public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
-    Lock lock = this.getWxMpConfigStorage().getJsapiTicketLock();
+  public String getTicket(TicketType type, boolean forceRefresh) throws WxErrorException {
+    Lock lock = this.getWxMpConfigStorage().getTicketLock(type);
     try {
       lock.lock();
       if (forceRefresh) {
-        this.getWxMpConfigStorage().expireJsapiTicket();
+        this.getWxMpConfigStorage().expireTicket(type);
       }
 
-      if (this.getWxMpConfigStorage().isJsapiTicketExpired()) {
-        String responseContent = execute(SimpleGetRequestExecutor.create(this), WxMpService.GET_JSAPI_TICKET_URL, null);
-        JsonElement tmpJsonElement = JSON_PARSER.parse(responseContent);
-        JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
+      if (this.getWxMpConfigStorage().isTicketExpired(type)) {
+        String responseContent = execute(SimpleGetRequestExecutor.create(this),
+          WxMpService.GET_TICKET_URL + type.getCode(), null);
+        JsonObject tmpJsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
         String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
         int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-        this.getWxMpConfigStorage().updateJsapiTicket(jsapiTicket, expiresInSeconds);
+        this.getWxMpConfigStorage().updateTicket(type, jsapiTicket, expiresInSeconds);
       }
     } finally {
       lock.unlock();
     }
-    return this.getWxMpConfigStorage().getJsapiTicket();
+
+    return this.getWxMpConfigStorage().getTicket(type);
+  }
+
+  @Override
+  public String getJsapiTicket() throws WxErrorException {
+    return this.getJsapiTicket(false);
+  }
+
+  @Override
+  public String getJsapiTicket(boolean forceRefresh) throws WxErrorException {
+    return this.getTicket(TicketType.JSAPI, forceRefresh);
   }
 
   @Override

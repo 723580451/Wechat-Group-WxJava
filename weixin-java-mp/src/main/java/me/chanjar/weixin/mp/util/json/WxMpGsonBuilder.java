@@ -16,7 +16,7 @@ import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 
 public class WxMpGsonBuilder {
 
-  public static final GsonBuilder INSTANCE = new GsonBuilder();
+  private static final GsonBuilder INSTANCE = new GsonBuilder();
 
   static {
     INSTANCE.disableHtmlEscaping();
@@ -25,6 +25,7 @@ public class WxMpGsonBuilder {
     INSTANCE.registerTypeAdapter(WxMpMassTagMessage.class, new WxMpMassTagMessageGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpMassOpenIdsMessage.class, new WxMpMassOpenIdsMessageGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpUser.class, new WxMpUserGsonAdapter());
+    INSTANCE.registerTypeAdapter(WxMpChangeOpenid.class, new WxMpChangeOpenidGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpUserList.class, new WxUserListGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpMassVideo.class, new WxMpMassVideoAdapter());
     INSTANCE.registerTypeAdapter(WxMpMassSendResult.class, new WxMpMassSendResultAdapter());

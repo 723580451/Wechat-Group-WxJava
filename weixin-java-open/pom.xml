@@ -7,11 +7,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github.binarywang</groupId>
-    <artifactId>weixin-java-parent</artifactId>
-    <version>3.2.0</version>
+    <artifactId>wx-java</artifactId>
+    <version>3.3.0</version>
   </parent>
   <artifactId>weixin-java-open</artifactId>
-  <name>Weixin Java Tools - Open</name>
+  <name>WxJava - Open</name>
   <description>微信开放平台Java SDK</description>
   <developers>
     <developer>

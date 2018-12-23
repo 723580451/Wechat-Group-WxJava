@@ -1,7 +1,5 @@
 package cn.binarywang.wx.miniapp.api;
 
-import java.io.File;
-
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -19,17 +17,6 @@ public interface WxMaService {
   String GET_ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
 
   String JSCODE_TO_SESSION_URL = "https://api.weixin.qq.com/sns/jscode2session";
-
-  String IMG_SEC_CHECK_URL = "https://api.weixin.qq.com/wxa/img_sec_check";
-
-  /**
-   * <pre>
-   * 校验一张图片是否含有违法违规内容.
-   * 应用场景举例：1）图片智能鉴黄：涉及拍照的工具类应用(如美拍，识图类应用)用户拍照上传检测；电商类商品上架图片检测；媒体类用户文章里的图片检测等；2）敏感人脸识别：用户头像；媒体类用户文章里的图片检测；社交类用户上传的图片检测等。频率限制：单个 appId 调用上限为 1000 次/分钟，100,000 次/天
-   * 详情请见: https://developers.weixin.qq.com/miniprogram/dev/api/imgSecCheck.html
-   * </pre>
-   */
-  boolean imgSecCheck(File file) throws WxErrorException;
 
   /**
    * 获取登录后的session信息.
@@ -152,32 +139,50 @@ public interface WxMaService {
   WxMaTemplateService getTemplateService();
 
   /**
-   * 数据分析相关查询服务
+   * 数据分析相关查询服务.
    *
    * @return WxMaAnalysisService
    */
   WxMaAnalysisService getAnalysisService();
 
   /**
-   * 返回代码操作相关的 API
+   * 返回代码操作相关的 API.
    *
    * @return WxMaCodeService
    */
   WxMaCodeService getCodeService();
 
   /**
-   * 返回jsapi操作相关的 API服务类对象
+   * 返回jsapi操作相关的 API服务类对象.
    *
    * @return WxMaJsapiService
    */
   WxMaJsapiService getJsapiService();
 
   /**
-   * 小程序修改服务器地址、成员管理 API
+   * 小程序修改服务器地址、成员管理 API.
    *
    * @return WxMaSettingService
    */
   WxMaSettingService getSettingService();
+
+  /**
+   * 返回分享相关查询服务.
+   * @return WxMaShareService
+   */
+  WxMaShareService getShareService();
+
+  /**
+   * 返回微信运动相关接口服务对象.
+   * @return WxMaShareService
+   */
+  WxMaRunService getRunService();
+
+  /**
+   * 返回内容安全相关接口服务对象.
+   * @return WxMaShareService
+   */
+  WxMaSecCheckService getSecCheckService();
 
   /**
    * 初始化http请求对象.

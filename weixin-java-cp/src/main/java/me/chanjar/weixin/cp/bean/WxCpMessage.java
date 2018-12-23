@@ -1,15 +1,22 @@
 package me.chanjar.weixin.cp.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.cp.bean.article.MpnewsArticle;
 import me.chanjar.weixin.cp.bean.article.NewArticle;
-import me.chanjar.weixin.cp.bean.messagebuilder.*;
+import me.chanjar.weixin.cp.bean.messagebuilder.FileBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.ImageBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.MpnewsBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.NewsBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.TextBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.TextCardBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.VideoBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.VoiceBuilder;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 消息.
@@ -114,7 +121,7 @@ public class WxCpMessage implements Serializable {
   }
 
   public String toJson() {
-    return WxCpGsonBuilder.INSTANCE.create().toJson(this);
+    return WxCpGsonBuilder.create().toJson(this);
   }
 
 }

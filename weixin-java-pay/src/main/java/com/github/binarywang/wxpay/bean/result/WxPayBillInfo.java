@@ -2,11 +2,9 @@ package com.github.binarywang.wxpay.bean.result;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 
 /**
  * 交易时间:2017-04-06 01:00:02 公众账号ID: 商户号: 子商户号:0 设备号:WEB 微信订单号: 商户订单号:2017040519091071873216 用户标识: 交易类型:NATIVE
@@ -17,12 +15,12 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class WxPayBillBaseResult implements Serializable {
+public class WxPayBillInfo implements Serializable {
   private static final long serialVersionUID = 2226245109137435453L;
 
   @Override
   public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    return WxGsonBuilder.create().toJson(this);
   }
 
   /**
@@ -38,7 +36,7 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String mchId;
   /**
-   * 子商户号.
+   * 特约商户号.
    */
   private String subMchId;
   /**
@@ -74,11 +72,11 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String feeType;
   /**
-   * 总金额.
+   * 应结订单金额.
    */
   private String totalFee;
   /**
-   * 企业红包金额.
+   * 代金券金额.
    */
   private String couponFee;
   /**
@@ -94,7 +92,7 @@ public class WxPayBillBaseResult implements Serializable {
    */
   private String settlementRefundFee;
   /**
-   * 企业红包退款金额.
+   * 充值券退款金额.
    */
   private String couponRefundFee;
   /**
@@ -121,5 +119,24 @@ public class WxPayBillBaseResult implements Serializable {
    * 费率.
    */
   private String poundageRate;
-
+  /**
+   * 订单金额.
+   */
+  private String totalAmount;
+  /**
+   * 申请退款金额.
+   */
+  private String appliedRefundAmount;
+  /**
+   * 费率备注.
+   */
+  private String feeRemark;
+  /**
+   * 退款申请时间
+   */
+  private String refundTime;
+  /**
+   * 退款成功时间
+   */
+  private String refundSuccessTime;
 }

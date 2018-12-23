@@ -1,6 +1,18 @@
 package me.chanjar.weixin.mp.api.impl;
 
-import com.google.gson.*;
+import java.util.Arrays;
+import java.util.concurrent.locks.Lock;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxError;
@@ -14,24 +26,20 @@ import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateRequest;
 import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateResult;
 import me.chanjar.weixin.mp.bean.card.WxMpCardQrcodeCreateResult;
 import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
+import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Binary Wang on 2016/7/27.
+ *
+ * @author BinaryWang
  */
 public class WxMpCardServiceImpl implements WxMpCardService {
-
   private final Logger log = LoggerFactory.getLogger(WxMpCardServiceImpl.class);
 
   private WxMpService wxMpService;
 
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON = WxMpGsonBuilder.create();
 
   public WxMpCardServiceImpl(WxMpService wxMpService) {
     this.wxMpService = wxMpService;
@@ -43,7 +51,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
   }
 
   /**
-   * 获得卡券api_ticket，不强制刷新卡券api_ticket
+   * 获得卡券api_ticket，不强制刷新卡券api_ticket.
    *
    * @return 卡券api_ticket
    * @see #getCardApiTicket(boolean)
@@ -55,7 +63,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
   /**
    * <pre>
-   * 获得卡券api_ticket
+   * 获得卡券api_ticket.
    * 获得时会检查卡券apiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
    *
    * 详情请见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD
@@ -68,26 +76,28 @@ public class WxMpCardServiceImpl implements WxMpCardService {
    */
   @Override
   public String getCardApiTicket(boolean forceRefresh) throws WxErrorException {
-    Lock lock = getWxMpService().getWxMpConfigStorage().getCardApiTicketLock();
+    final TicketType type = TicketType.WX_CARD;
+    Lock lock = getWxMpService().getWxMpConfigStorage().getTicketLock(type);
     try {
       lock.lock();
 
       if (forceRefresh) {
-        this.getWxMpService().getWxMpConfigStorage().expireCardApiTicket();
+        this.getWxMpService().getWxMpConfigStorage().expireTicket(type);
       }
 
-      if (this.getWxMpService().getWxMpConfigStorage().isCardApiTicketExpired()) {
-        String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor.create(this.getWxMpService().getRequestHttp()), CARD_GET_TICKET, null);
+      if (this.getWxMpService().getWxMpConfigStorage().isTicketExpired(type)) {
+        String responseContent = this.wxMpService.execute(SimpleGetRequestExecutor
+          .create(this.getWxMpService().getRequestHttp()), CARD_GET_TICKET, null);
         JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
         JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
         String cardApiTicket = tmpJsonObject.get("ticket").getAsString();
         int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-        this.getWxMpService().getWxMpConfigStorage().updateCardApiTicket(cardApiTicket, expiresInSeconds);
+        this.getWxMpService().getWxMpConfigStorage().updateTicket(type, cardApiTicket, expiresInSeconds);
       }
     } finally {
       lock.unlock();
     }
-    return this.getWxMpService().getWxMpConfigStorage().getCardApiTicket();
+    return this.getWxMpService().getWxMpConfigStorage().getTicket(type);
   }
 
   /**
@@ -141,7 +151,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
   }
 
   /**
-   * 卡券Code查询
+   * 卡券Code查询.
    *
    * @param cardId       卡券ID代表一类卡券
    * @param code         单张卡券的唯一标准
@@ -156,7 +166,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     param.addProperty("check_consume", checkConsume);
     String responseContent = this.wxMpService.post(CARD_CODE_GET, param.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    return WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    return WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpCardResult>() {
       }.getType());
   }
@@ -213,7 +223,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     param.addProperty("is_mark", isMark);
     String responseContent = this.getWxMpService().post(CARD_CODE_MARK, param.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-    WxMpCardResult cardResult = WxMpGsonBuilder.INSTANCE.create().fromJson(tmpJsonElement,
+    WxMpCardResult cardResult = WxMpGsonBuilder.create().fromJson(tmpJsonElement,
       new TypeToken<WxMpCardResult>() {
       }.getType());
     if (!"0".equals(cardResult.getErrorCode())) {
@@ -241,11 +251,11 @@ public class WxMpCardServiceImpl implements WxMpCardService {
   }
 
   /**
-   * 添加测试白名单
+   * 添加测试白名单.
    *
    * @param openid 用户的openid
-   * @return
    */
+  @Override
   public String addTestWhiteList(String openid) throws WxErrorException {
     JsonArray array = new JsonArray();
     array.add(openid);
@@ -256,25 +266,21 @@ public class WxMpCardServiceImpl implements WxMpCardService {
   }
 
   /**
-   * 创建卡券二维码
-   *
-   * @param cardId
-   * @param outerStr
-   * @return
+   * 创建卡券二维码.
    */
+  @Override
   public WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr) throws WxErrorException {
     return createQrcodeCard(cardId, outerStr, 0);
   }
 
   /**
-   * 创建卡券二维码
+   * 创建卡券二维码.
    *
    * @param cardId    卡券编号
    * @param outerStr  二维码标识
    * @param expiresIn 失效时间，单位秒，不填默认365天
-   * @return
-   * @throws WxErrorException
    */
+  @Override
   public WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr, int expiresIn) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("action_name", "QR_CARD");
@@ -287,42 +293,35 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     cardJson.addProperty("outer_str", outerStr);
     actionInfoJson.add("card", cardJson);
     jsonObject.add("action_info", actionInfoJson);
-    String response = this.wxMpService.post(CARD_QRCODE_CREAET, GSON.toJson(jsonObject));
-    return WxMpCardQrcodeCreateResult.fromJson(response);
+    return WxMpCardQrcodeCreateResult.fromJson(this.wxMpService.post(CARD_QRCODE_CREATE, GSON.toJson(jsonObject)));
   }
 
   /**
-   * 创建卡券货架接口
-   *
-   * @param request
-   * @return
-   * @throws WxErrorException
+   * 创建卡券货架接口.
    */
   @Override
   public WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest request) throws WxErrorException {
-    String response = this.wxMpService.post(CARD_LANDING_PAGE_CREAET, GSON.toJson(request));
+    String response = this.wxMpService.post(CARD_LANDING_PAGE_CREATE, GSON.toJson(request));
     return WxMpCardLandingPageCreateResult.fromJson(response);
   }
 
   /**
-   * 将用户的卡券设置为失效状态
+   * 将用户的卡券设置为失效状态.
    * 详见:https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272&anchor=9
    *
    * @param cardId 卡券编号
    * @param code   用户会员卡号
    * @param reason 设置为失效的原因
-   * @return
-   * @throws WxErrorException
    */
   @Override
   public String unavailableCardCode(String cardId, String code, String reason) throws WxErrorException {
-    if (StringUtils.isAnyBlank(cardId, code, reason))
+    if (StringUtils.isAnyBlank(cardId, code, reason)) {
       throw new WxErrorException(WxError.builder().errorCode(41012).errorMsg("参数不完整").build());
+    }
     JsonObject jsonRequest = new JsonObject();
     jsonRequest.addProperty("card_id", cardId);
     jsonRequest.addProperty("code", code);
     jsonRequest.addProperty("reason", reason);
-    String response = this.wxMpService.post(CARD_CODE_UNAVAILABLE, GSON.toJson(jsonRequest));
-    return response;
+    return this.wxMpService.post(CARD_CODE_UNAVAILABLE, GSON.toJson(jsonRequest));
   }
 }
