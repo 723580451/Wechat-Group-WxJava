@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
@@ -14,6 +15,7 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
+import me.chanjar.weixin.common.util.XmlUtils;
 import me.chanjar.weixin.common.util.xml.XStreamCDataConverter;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 import me.chanjar.weixin.cp.util.crypto.WxCpCryptUtil;
@@ -35,6 +37,11 @@ import me.chanjar.weixin.cp.util.xml.XStreamTransformer;
 @XStreamAlias("xml")
 public class WxCpXmlMessage implements Serializable {
   private static final long serialVersionUID = -1042994982179476410L;
+
+  /**
+   * 使用dom4j解析的存放所有xml属性和值的map.
+   */
+  private Map<String, Object> allFieldsMap;
 
   ///////////////////////
   // 以下都是微信推送过来的消息的xml的element所对应的属性
@@ -349,7 +356,9 @@ public class WxCpXmlMessage implements Serializable {
   protected static WxCpXmlMessage fromXml(String xml) {
     //修改微信变态的消息内容格式，方便解析
     xml = xml.replace("</PicList><PicList>", "");
-    return XStreamTransformer.fromXml(WxCpXmlMessage.class, xml);
+    final WxCpXmlMessage xmlMessage = XStreamTransformer.fromXml(WxCpXmlMessage.class, xml);
+    xmlMessage.setAllFieldsMap(XmlUtils.xml2Map(xml));
+    return xmlMessage;
   }
 
   protected static WxCpXmlMessage fromXml(InputStream is) {
