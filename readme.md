@@ -1,4 +1,4 @@
-## WxJava（原weixin-java-tools）微信Java开发工具包（SDK）
+## WxJava - 微信开发 Java SDK（开发工具包）
 
 [![码云Gitee](https://gitee.com/binary/weixin-java-tools/badge/star.svg?theme=blue)](https://gitee.com/binary/weixin-java-tools)
 [![Github](http://github-svg-buttons.herokuapp.com/star.svg?user=Wechat-Group&repo=WxJava&style=flat&background=1081C1)](https://github.com/Wechat-Group/WxJava)
@@ -76,15 +76,22 @@
 1. 小程序：树懒揽书+
 1. 小程序：广廉快线，鹏城巴士等
 1. 小程序：360考试宝典
-1. 平台：[小猪餐餐](http://www.xzcancan.com/)
-1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 小程序：当燃挑战、sportlight轻灵运动
+1. 小程序：360考试宝典
 1. 公众号：中国电信上海网厅（sh_189）
 1. 公众号：E答平台
+1. 公众号：宁夏生鲜365
+1. 公众号：通服货滴
+1. 公众号：神龙养车
 1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
 1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
 1. 公众号和小程序：民医台（可自行搜索）
-1. 洽洽企业号
 1. 高善人力资源
+1. 平台：[小猪餐餐](http://www.xzcancan.com/)
+1. 平台：[餐饮系统](http://canyin.daydao.com)
+1. 锐捷网络：Saleslink
+1. 洽洽企业号
+1. HTC企业微信
 1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
 
 ----------------------------------
