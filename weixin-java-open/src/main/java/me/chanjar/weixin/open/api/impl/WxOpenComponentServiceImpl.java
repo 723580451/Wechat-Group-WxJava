@@ -17,6 +17,7 @@ import me.chanjar.weixin.open.api.WxOpenMaService;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.bean.WxOpenAuthorizerAccessToken;
 import me.chanjar.weixin.open.bean.WxOpenComponentAccessToken;
+import me.chanjar.weixin.open.bean.WxOpenCreateResult;
 import me.chanjar.weixin.open.bean.WxOpenMaCodeTemplate;
 import me.chanjar.weixin.open.bean.auth.WxOpenAuthorizationInfo;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
@@ -386,5 +387,15 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     JsonObject param = new JsonObject();
     param.addProperty("template_id", templateId);
     post(DELETE_TEMPLATE_URL, param.toString(), "access_token");
+  }
+
+  @Override
+  public WxOpenCreateResult createOpenAccount(String appId) throws WxErrorException {
+    JsonObject param = new JsonObject();
+    param.addProperty("appid", appId);
+
+    String json = post(CREATE_OPEN_URL, param.toString(), "access_token");
+
+    return WxOpenCreateResult.fromJson(json);
   }
 }

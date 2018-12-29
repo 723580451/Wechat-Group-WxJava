@@ -3,6 +3,7 @@ package me.chanjar.weixin.mp.api.impl;
 import java.util.Arrays;
 import java.util.concurrent.locks.Lock;
 
+import me.chanjar.weixin.mp.bean.card.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,9 +23,6 @@ import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.mp.api.WxMpCardService;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateRequest;
-import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateResult;
-import me.chanjar.weixin.mp.bean.card.WxMpCardQrcodeCreateResult;
 import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
 import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
@@ -263,6 +261,13 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     jsonObject.add("openid", array);
     String respone = this.wxMpService.post(CARD_TEST_WHITELIST, GSON.toJson(jsonObject));
     return respone;
+  }
+
+  @Override
+  public WxMpCardCreateResult createCard(WxMpCardCreateMessage cardCreateMessage) throws WxErrorException {
+
+    String response = this.wxMpService.post(CARD_CREATE, GSON.toJson(cardCreateMessage));
+    return WxMpCardCreateResult.fromJson(response);
   }
 
   /**

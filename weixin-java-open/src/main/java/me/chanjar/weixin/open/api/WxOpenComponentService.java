@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
+import me.chanjar.weixin.open.bean.WxOpenCreateResult;
 import me.chanjar.weixin.open.bean.WxOpenMaCodeTemplate;
 import me.chanjar.weixin.open.bean.message.WxOpenXmlMessage;
 import me.chanjar.weixin.open.bean.result.WxOpenAuthorizerInfoResult;
@@ -41,6 +42,8 @@ public interface WxOpenComponentService {
   String OAUTH2_REFRESH_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/component/refresh_token?appid=%s&grant_type=refresh_token&refresh_token=%s&component_appid=%s";
 
   String MINIAPP_JSCODE_2_SESSION = "https://api.weixin.qq.com/sns/component/jscode2session?appid=%s&js_code=%s&grant_type=authorization_code&component_appid=%s";
+
+  String CREATE_OPEN_URL= "https://api.weixin.qq.com/cgi-bin/open/create";
 
   WxMpService getWxMpServiceByAppid(String appid);
 
@@ -168,4 +171,15 @@ public interface WxOpenComponentService {
    * @see #getTemplateList
    */
   void deleteTemplate(long templateId) throws WxErrorException;
+
+  /**
+   * https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1498704199_1bcax&token=6df5e3650041eff2cd3ec3662425ad8d7beec8d9&lang=zh_CN
+   * 创建 开放平台帐号并绑定公众号/小程序
+   *
+   * https://api.weixin.qq.com/cgi-bin/open/create
+   *
+   * @param appId 公众号/小程序的appId
+   * @return
+   */
+  WxOpenCreateResult createOpenAccount(String appId) throws WxErrorException;
 }
