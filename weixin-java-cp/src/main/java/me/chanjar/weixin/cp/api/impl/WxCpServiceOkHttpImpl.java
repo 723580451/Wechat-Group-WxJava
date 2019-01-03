@@ -11,7 +11,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 
-public class WxCpServiceOkHttpImpl extends WxCpServiceAbstractImpl<OkHttpClient, OkHttpProxyInfo> {
+public class WxCpServiceOkHttpImpl extends BaseWxCpServiceImpl<OkHttpClient, OkHttpProxyInfo> {
   protected OkHttpClient httpClient;
   protected OkHttpProxyInfo httpProxy;
 

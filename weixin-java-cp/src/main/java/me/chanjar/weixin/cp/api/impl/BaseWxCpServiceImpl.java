@@ -37,7 +37,7 @@ import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 
-public abstract class WxCpServiceAbstractImpl<H, P> implements WxCpService, RequestHttp<H, P> {
+public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestHttp<H, P> {
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
   private WxCpUserService userService = new WxCpUserServiceImpl(this);

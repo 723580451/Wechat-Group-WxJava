@@ -18,7 +18,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 
 import java.io.IOException;
 
-public class WxCpServiceApacheHttpClientImpl extends WxCpServiceAbstractImpl<CloseableHttpClient, HttpHost> {
+public class WxCpServiceApacheHttpClientImpl extends BaseWxCpServiceImpl<CloseableHttpClient, HttpHost> {
   protected CloseableHttpClient httpClient;
   protected HttpHost httpProxy;
 

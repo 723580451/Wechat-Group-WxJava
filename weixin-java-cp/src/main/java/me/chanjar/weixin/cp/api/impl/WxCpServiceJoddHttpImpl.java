@@ -8,7 +8,7 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 
-public class WxCpServiceJoddHttpImpl extends WxCpServiceAbstractImpl<HttpConnectionProvider, ProxyInfo> {
+public class WxCpServiceJoddHttpImpl extends BaseWxCpServiceImpl<HttpConnectionProvider, ProxyInfo> {
   protected HttpConnectionProvider httpClient;
   protected ProxyInfo httpProxy;
 
