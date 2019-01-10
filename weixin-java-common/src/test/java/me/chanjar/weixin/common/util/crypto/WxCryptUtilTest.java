@@ -40,6 +40,7 @@ public class WxCryptUtilTest {
 
     DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
     documentBuilderFactory.setExpandEntityReferences(false);
+    documentBuilderFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
     DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
     Document document = documentBuilder.parse(new InputSource(new StringReader(encryptedXml)));
 
@@ -83,6 +84,8 @@ public class WxCryptUtilTest {
       String afterEncrpt = pc.encrypt(this.replyMsg);
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       dbf.setExpandEntityReferences(false);
+      dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+
       DocumentBuilder db = dbf.newDocumentBuilder();
       StringReader sr = new StringReader(afterEncrpt);
       InputSource is = new InputSource(sr);
