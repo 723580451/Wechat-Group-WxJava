@@ -3,7 +3,7 @@ package me.chanjar.weixin.mp.api;
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.bean.card.*;
-import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardResult;
 
 /**
  * 卡券相关接口
@@ -80,8 +80,8 @@ public interface WxMpCardService {
   String decryptCardCode(String encryptCode) throws WxErrorException;
 
   /**
-   * 卡券Code查询
-   *
+   * 卡券Code查询.
+   * 文档地址： https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025272&anchor=1
    * @param cardId       卡券ID代表一类卡券
    * @param code         单张卡券的唯一标准
    * @param checkConsume 是否校验code核销状态，填入true和false时的code异常状态返回数据不同

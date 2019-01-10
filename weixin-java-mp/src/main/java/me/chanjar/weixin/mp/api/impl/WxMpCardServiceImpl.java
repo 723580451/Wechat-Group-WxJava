@@ -3,7 +3,6 @@ package me.chanjar.weixin.mp.api.impl;
 import java.util.Arrays;
 import java.util.concurrent.locks.Lock;
 
-import me.chanjar.weixin.mp.bean.card.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,12 @@ import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.mp.api.WxMpCardService;
 import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardCreateMessage;
+import me.chanjar.weixin.mp.bean.card.WxMpCardCreateResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateRequest;
+import me.chanjar.weixin.mp.bean.card.WxMpCardLandingPageCreateResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardQrcodeCreateResult;
+import me.chanjar.weixin.mp.bean.card.WxMpCardResult;
 import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
 
@@ -148,14 +152,6 @@ public class WxMpCardServiceImpl implements WxMpCardService {
     return jsonPrimitive.getAsString();
   }
 
-  /**
-   * 卡券Code查询.
-   *
-   * @param cardId       卡券ID代表一类卡券
-   * @param code         单张卡券的唯一标准
-   * @param checkConsume 是否校验code核销状态，填入true和false时的code异常状态返回数据不同
-   * @return WxMpCardResult对象
-   */
   @Override
   public WxMpCardResult queryCardCode(String cardId, String code, boolean checkConsume) throws WxErrorException {
     JsonObject param = new JsonObject();

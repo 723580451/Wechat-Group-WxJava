@@ -1,13 +1,27 @@
 package me.chanjar.weixin.mp.api.impl;
 
+import org.testng.annotations.*;
+
 import com.google.inject.Inject;
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.test.ApiTestModule;
-import me.chanjar.weixin.mp.bean.card.*;
-import me.chanjar.weixin.mp.bean.result.WxMpCardResult;
-import org.testng.annotations.*;
+import me.chanjar.weixin.mp.bean.card.BaseInfo;
+import me.chanjar.weixin.mp.bean.card.CashCard;
+import me.chanjar.weixin.mp.bean.card.CashCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.DateInfo;
+import me.chanjar.weixin.mp.bean.card.DiscountCard;
+import me.chanjar.weixin.mp.bean.card.DiscountCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.GeneralCard;
+import me.chanjar.weixin.mp.bean.card.GeneralCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.GiftCard;
+import me.chanjar.weixin.mp.bean.card.GiftCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.GrouponCard;
+import me.chanjar.weixin.mp.bean.card.GrouponCardCreateRequest;
+import me.chanjar.weixin.mp.bean.card.Sku;
+import me.chanjar.weixin.mp.bean.card.WxMpCardCreateMessage;
+import me.chanjar.weixin.mp.bean.card.WxMpCardResult;
 
 import static org.testng.AssertJUnit.*;
 
