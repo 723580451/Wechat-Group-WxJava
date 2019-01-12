@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -29,7 +30,9 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.google.common.base.Joiner;
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -50,6 +53,7 @@ import static cn.binarywang.wx.miniapp.constant.WxMaConstants.ErrorCode.*;
  */
 @Slf4j
 public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpClient, HttpHost> {
+  private static final JsonParser JSON_PARSER = new JsonParser();
   private CloseableHttpClient httpClient;
   private HttpHost httpProxy;
   private WxMaConfig wxMaConfig;
@@ -151,6 +155,33 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   }
 
   @Override
+  public String getPaidUnionId(String openid, String transactionId, String mchId, String outTradeNo)
+    throws WxErrorException {
+    Map<String, String> params = new HashMap<>(8);
+    params.put("openid", openid);
+
+    if (StringUtils.isNotEmpty(transactionId)) {
+      params.put("transaction_id", transactionId);
+    }
+
+    if (StringUtils.isNotEmpty(mchId)) {
+      params.put("mch_id", mchId);
+    }
+
+    if (StringUtils.isNotEmpty(outTradeNo)) {
+      params.put("out_trade_no", outTradeNo);
+    }
+
+    String responseContent = this.get(GET_PAID_UNION_ID_URL, Joiner.on("&").withKeyValueSeparator("=").join(params));
+    WxError error = WxError.fromJson(responseContent, WxType.MiniApp);
+    if (error.getErrorCode() != 0) {
+      throw new WxErrorException(error);
+    }
+
+    return JSON_PARSER.parse(responseContent).getAsJsonObject().get("unionid").getAsString();
+  }
+
+  @Override
   public WxMaJscode2SessionResult jsCode2SessionInfo(String jsCode) throws WxErrorException {
     final WxMaConfig config = getWxMaConfig();
     Map<String, String> params = new HashMap<>(8);
@@ -168,7 +199,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     try {
       return SHA1.gen(this.getWxMaConfig().getToken(), timestamp, nonce).equals(signature);
     } catch (Exception e) {
-      this.log.error("Checking signature failed, and the reason is :" + e.getMessage());
+      log.error("Checking signature failed, and the reason is :" + e.getMessage());
       return false;
     }
   }
@@ -246,7 +277,7 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
       if (error.getErrorCode() == ERR_40001
         || error.getErrorCode() == ERR_42001
         || error.getErrorCode() == ERR_40014) {
-        // 强制设置wxMpConfigStorage它的access token过期了，这样在下一次请求里就会刷新access token
+        // 强制设置WxMaConfig的access token过期了，这样在下一次请求里就会刷新access token
         this.getWxMaConfig().expireAccessToken();
         if (this.getWxMaConfig().autoRefreshToken()) {
           return this.execute(executor, uri, data);
