@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>weixin-java-common</artifactId>
-  <name>WxJava - Common</name>
+  <name>WxJava - Common Java SDK</name>
   <description>微信开发Java SDK公共模块</description>
 
   <dependencies>

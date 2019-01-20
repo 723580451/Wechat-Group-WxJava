@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>weixin-java-cp</artifactId>
-  <name>WxJava - CP</name>
+  <name>WxJava - CP Java SDK</name>
   <description>微信企业号/企业微信 Java SDK</description>
 
   <dependencies>

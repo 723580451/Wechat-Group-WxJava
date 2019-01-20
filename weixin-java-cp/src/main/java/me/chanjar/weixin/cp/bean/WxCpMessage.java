@@ -10,6 +10,7 @@ import me.chanjar.weixin.cp.bean.article.MpnewsArticle;
 import me.chanjar.weixin.cp.bean.article.NewArticle;
 import me.chanjar.weixin.cp.bean.messagebuilder.FileBuilder;
 import me.chanjar.weixin.cp.bean.messagebuilder.ImageBuilder;
+import me.chanjar.weixin.cp.bean.messagebuilder.MarkdownMsgBuilder;
 import me.chanjar.weixin.cp.bean.messagebuilder.MpnewsBuilder;
 import me.chanjar.weixin.cp.bean.messagebuilder.NewsBuilder;
 import me.chanjar.weixin.cp.bean.messagebuilder.TextBuilder;
@@ -95,6 +96,13 @@ public class WxCpMessage implements Serializable {
   }
 
   /**
+   * 获得markdown消息builder.
+   */
+  public static MarkdownMsgBuilder MARKDOWN() {
+    return new MarkdownMsgBuilder();
+  }
+
+  /**
    * 获得文件消息builder.
    */
   public static FileBuilder FILE() {
@@ -112,6 +120,7 @@ public class WxCpMessage implements Serializable {
    * {@link WxConsts.KefuMsgType#VIDEO}
    * {@link WxConsts.KefuMsgType#NEWS}
    * {@link WxConsts.KefuMsgType#MPNEWS}
+   * {@link WxConsts.KefuMsgType#MARKDOWN}
    * </pre>
    *
    * @param msgType 消息类型

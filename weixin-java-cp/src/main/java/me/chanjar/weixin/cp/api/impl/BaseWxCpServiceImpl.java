@@ -10,7 +10,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -141,9 +140,10 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
   public WxCpMessageSendResult messageSend(WxCpMessage message) throws WxErrorException {
     String url = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
     Integer agentId = message.getAgentId();
-    if(null == agentId){
+    if (null == agentId) {
       message.setAgentId(this.getWxCpConfigStorage().getAgentId());
     }
+
     return WxCpMessageSendResult.fromJson(this.post(url, message.toJson()));
   }
 
@@ -171,7 +171,7 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
   }
 
   /**
-   * 向微信端发送请求，在这里执行的策略是当发生access_token过期时才去刷新，然后重新执行请求，而不是全局定时请求
+   * 向微信端发送请求，在这里执行的策略是当发生access_token过期时才去刷新，然后重新执行请求，而不是全局定时请求.
    */
   @Override
   public <T, E> T execute(RequestExecutor<T, E> executor, String uri, E data) throws WxErrorException {

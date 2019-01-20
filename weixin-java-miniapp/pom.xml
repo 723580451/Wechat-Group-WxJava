@@ -9,9 +9,10 @@
     <artifactId>wx-java</artifactId>
     <version>3.3.2.B</version>
   </parent>
+
   <artifactId>weixin-java-miniapp</artifactId>
-  <name>WxJava - MiniApp</name>
-  <description>微信小程序Java SDK</description>
+  <name>WxJava - MiniApp Java SDK</name>
+  <description>微信小程序 Java SDK</description>
 
   <dependencies>
     <dependency>

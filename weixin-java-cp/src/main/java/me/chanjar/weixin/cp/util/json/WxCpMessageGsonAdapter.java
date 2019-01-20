@@ -8,14 +8,19 @@
  */
 package me.chanjar.weixin.cp.util.json;
 
-import com.google.gson.*;
+import java.lang.reflect.Type;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.article.MpnewsArticle;
 import me.chanjar.weixin.cp.bean.article.NewArticle;
-import org.apache.commons.lang3.StringUtils;
-
-import java.lang.reflect.Type;
 
 /**
  * @author Daniel Qian
@@ -37,10 +42,17 @@ public class WxCpMessageGsonAdapter implements JsonSerializer<WxCpMessage> {
     if (StringUtils.isNotBlank(message.getToTag())) {
       messageJson.addProperty("totag", message.getToTag());
     }
+
     if (WxConsts.KefuMsgType.TEXT.equals(message.getMsgType())) {
       JsonObject text = new JsonObject();
       text.addProperty("content", message.getContent());
       messageJson.add("text", text);
+    }
+
+    if (WxConsts.KefuMsgType.MARKDOWN.equals(message.getMsgType())) {
+      JsonObject text = new JsonObject();
+      text.addProperty("content", message.getContent());
+      messageJson.add("markdown", text);
     }
 
     if (WxConsts.KefuMsgType.TEXTCARD.equals(message.getMsgType())) {
