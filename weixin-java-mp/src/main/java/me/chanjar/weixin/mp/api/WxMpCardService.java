@@ -28,6 +28,11 @@ public interface WxMpCardService {
   String CARD_CODE_UNAVAILABLE = "https://api.weixin.qq.com/card/code/unavailable";
 
   /**
+   * 卡券删除
+   */
+  String CARD_DELETE = "https://api.weixin.qq.com/card/delete";
+
+  /**
    * 得到WxMpService
    */
   WxMpService getWxMpService();
@@ -188,5 +193,13 @@ public interface WxMpCardService {
    * @throws WxErrorException
    */
   String unavailableCardCode(String cardId, String code, String reason) throws WxErrorException;
+
+  /**
+   * 删除卡券接口
+   * @param cardId
+   * @return
+   * @throws WxErrorException
+   */
+  WxMpCardDeleteResult deleteCard(String cardId) throws WxErrorException;
 
 }

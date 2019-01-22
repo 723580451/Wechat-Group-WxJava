@@ -1,29 +1,16 @@
 package me.chanjar.weixin.mp.api.impl;
 
-import org.testng.annotations.*;
-
 import com.google.inject.Inject;
 import me.chanjar.weixin.common.bean.WxCardApiSignature;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.test.ApiTestModule;
-import me.chanjar.weixin.mp.bean.card.BaseInfo;
-import me.chanjar.weixin.mp.bean.card.CashCard;
-import me.chanjar.weixin.mp.bean.card.CashCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.DateInfo;
-import me.chanjar.weixin.mp.bean.card.DiscountCard;
-import me.chanjar.weixin.mp.bean.card.DiscountCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.GeneralCard;
-import me.chanjar.weixin.mp.bean.card.GeneralCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.GiftCard;
-import me.chanjar.weixin.mp.bean.card.GiftCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.GrouponCard;
-import me.chanjar.weixin.mp.bean.card.GrouponCardCreateRequest;
-import me.chanjar.weixin.mp.bean.card.Sku;
-import me.chanjar.weixin.mp.bean.card.WxMpCardCreateMessage;
-import me.chanjar.weixin.mp.bean.card.WxMpCardResult;
+import me.chanjar.weixin.mp.bean.card.*;
+import org.testng.annotations.Guice;
+import org.testng.annotations.Test;
 
-import static org.testng.AssertJUnit.*;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 
 /**
  * 测试代码仅供参考，未做严格测试，因原接口作者并未提供单元测试代码
@@ -210,4 +197,13 @@ public class WxMpCardServiceImplTest {
     generalMessage.setCardCreateRequest(generalCardCreateRequest);
     System.out.println(this.wxService.getCardService().createCard(generalMessage));
   }
+
+  @Test
+  public void testDeleteCard() throws Exception {
+    String cardId = "pwkrWjtw7W4_l50kCQcZ1in1yS6g";
+    WxMpCardDeleteResult result = this.wxService.getCardService().deleteCard(cardId);
+    assertEquals(result.isSuccess(), true);
+    System.out.println(result);
+  }
+
 }
