@@ -12,7 +12,7 @@
 #### 支持包括微信支付、开放平台、公众号（包括订阅号和服务号）、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
 
-[![coding](https://raw.githubusercontent.com/Wechat-Group/WxJava/master/banners/readme.jpg)](https://e.coding.net/?utm_source=WxJava)
+[![coding](https://gitee.com/binary/weixin-java-tools/raw/master/banners/readme.jpg)](https://e.coding.net/?utm_source=WxJava)
 
 ### 重要信息
 1. **2018-12-23 项目更名为WxJava，并发布 [【3.3.0正式版】](https://github.com/Wechat-Group/WxJava/releases)**！
