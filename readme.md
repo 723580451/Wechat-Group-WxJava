@@ -73,7 +73,8 @@
 ### 使用案例
 1. 开源项目：https://github.com/workcheng/weiya
 1. 开源项目：https://github.com/jmdhappy/xxpay-master 
-1. 微信点餐系统开源项目：http://www.sqmax.top/springboot-project/
+1. 开源工具：https://github.com/rememberber/WePush
+1. 开源项目（微信点餐系统）：http://www.sqmax.top/springboot-project/
 1. 小程序：（京东）友家铺子，友家铺子店长版，京粉精选
 1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
 1. 小程序：树懒揽书+
