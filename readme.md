@@ -8,7 +8,6 @@
 [![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com/?from=WxJava-weixin-java-tools)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
----------------------------------
 #### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
 
@@ -16,12 +15,12 @@
 
 ### 重要信息
 1. **2018-12-23 项目更名为WxJava，并发布 [【3.3.0正式版】](https://github.com/Wechat-Group/WxJava/releases)**！
+2. 项目合作事宜请发[邮件](mailto:a@binarywang.com)联系；
 1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/WxJava/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
 
 ---------------------------------
 ### 技术交流方式
-1. QQ群/微信群/企业微信等： 请扫码关注下面的公众号后，点击相关菜单加入；
-2. 付费QQ群：（**注意：付费群刚入群会有5分钟禁言，稍等片刻即可正常发言**） [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://shang.qq.com/wpa/qunwpa?idkey=731dc3e7ea31ebe25376cc1a791445468612c63fd0e9e05399b088ec81fd9e15) 或 [![加入QQ群](https://img.shields.io/badge/QQ群-343954419-blue.svg)](http://jq.qq.com/?_wv=1027&k=40lRskK)，推荐点击按钮入群，当然如果无法成功操作，请自行搜索群号`343954419`进行添加，另外Mac系统可能添加有问题，请更换其他客户端（比如手机QQ）尝试；由于群容量有限，为了维持运营千人QQ群的所需支付的QQ年费会员费用，故开启付费入群模式，申请者只需支付少量金额即可加入，这样也可以保证只有真实交流需求的人进入，避免闲杂做广告人员的乱入；当然如果确实因为各种原因无法付费入群的，请联系群主说明原因即可入群；
+1. QQ群/微信群/企业微信等： 请扫码关注下面的公众号后，点击相关菜单获取相关信息加入；
 1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
 1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki)；
 1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
