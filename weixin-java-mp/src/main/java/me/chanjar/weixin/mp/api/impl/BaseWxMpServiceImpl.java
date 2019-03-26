@@ -1,5 +1,15 @@
 package me.chanjar.weixin.mp.api.impl;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.concurrent.locks.Lock;
+
+import me.chanjar.weixin.mp.api.*;
+import me.chanjar.weixin.mp.util.WxMpConfigStorageHolder;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,21 +23,14 @@ import me.chanjar.weixin.common.util.DataUtils;
 import me.chanjar.weixin.common.util.RandomUtils;
 import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.*;
-import me.chanjar.weixin.mp.api.*;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpSemanticQueryResult;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.enums.TicketType;
-import me.chanjar.weixin.mp.util.WxMpConfigStorageHolder;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 /**
  * 基础实现类.
@@ -40,7 +43,6 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
   protected WxSessionManager sessionManager = new StandardSessionManager();
-  protected WxMpConfigStorage wxMpConfigStorage;
   private WxMpKefuService kefuService = new WxMpKefuServiceImpl(this);
   private WxMpMaterialService materialService = new WxMpMaterialServiceImpl(this);
   private WxMpMenuService menuService = new WxMpMenuServiceImpl(this);
@@ -62,7 +64,6 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpMarketingService marketingService = new WxMpMarketingServiceImpl(this);
 
   private Map<String, WxMpConfigStorage> wxMpConfigStoragePool;
-  private boolean isMultiWxApp = false;
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
@@ -334,24 +335,44 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public WxMpConfigStorage getWxMpConfigStorage() {
-    if (isMultiWxApp) {
-      return wxMpConfigStoragePool.get(WxMpConfigStorageHolder.get());
-    }
-
-    return this.wxMpConfigStorage;
+    return wxMpConfigStoragePool.get(WxMpConfigStorageHolder.get());
   }
 
   @Override
   public void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider) {
-    this.wxMpConfigStorage = wxConfigProvider;
-    this.initHttp();
+    Map<String, WxMpConfigStorage> map = new HashMap<>(1);
+    map.put(WxMpConfigStorageHolder.get(), wxConfigProvider);
+    setMultiWxMpConfigStorage(map, WxMpConfigStorageHolder.get());
   }
 
   @Override
   public void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages) {
+    String randomKey = configStorages.keySet().iterator().next();
+    setMultiWxMpConfigStorage(configStorages, randomKey);
+  }
+
+  @Override
+  public void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages, String defaultInitLabel) {
     wxMpConfigStoragePool = configStorages;
-    isMultiWxApp = true;
+    WxMpConfigStorageHolder.set(defaultInitLabel);
     this.initHttp();
+  }
+
+  @Override
+  public void addWxMpConfigStorage(String label, WxMpConfigStorage configStorages) {
+    synchronized (this) {
+      if (wxMpConfigStoragePool.containsKey(label)) {
+        throw new RuntimeException("该label已存在，请重新设置一个label");
+      }
+      wxMpConfigStoragePool.put(label, configStorages);
+    }
+  }
+
+  @Override
+  public void removeWxMpConfigStorage(String label) {
+    synchronized (this) {
+      wxMpConfigStoragePool.remove(label);
+    }
   }
 
   @Override

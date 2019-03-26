@@ -2,6 +2,8 @@ package me.chanjar.weixin.mp.api.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 import me.chanjar.weixin.mp.api.impl.WxMpServiceHttpClientImpl;
@@ -29,11 +31,14 @@ public class ApiTestModule implements Module {
 
       TestConfigStorage config = this.fromXml(TestConfigStorage.class, inputStream);
       config.setAccessTokenLock(new ReentrantLock());
-      WxMpService wxService = new WxMpServiceHttpClientImpl();
-      wxService.setWxMpConfigStorage(config);
+      WxMpService wxMpServiceMulti = new WxMpServiceHttpClientImpl();
 
-      binder.bind(WxMpService.class).toInstance(wxService);
+      // TODO 多WxAppId
+      wxMpServiceMulti.setWxMpConfigStorage(config);
+      wxMpServiceMulti.addWxMpConfigStorage("test-1", config);
+
       binder.bind(WxMpConfigStorage.class).toInstance(config);
+      binder.bind(WxMpService.class).toInstance(wxMpServiceMulti);
     } catch (IOException e) {
       this.log.error(e.getMessage(), e);
     }
