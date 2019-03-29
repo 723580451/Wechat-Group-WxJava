@@ -9,9 +9,11 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.test.ApiTestModule;
 import me.chanjar.weixin.mp.bean.menu.WxMpGetSelfMenuInfoResult;
 import me.chanjar.weixin.mp.bean.menu.WxMpMenu;
-import org.testng.annotations.*;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Guice;
+import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertNotNull;
 
 /**
  * 测试菜单
@@ -19,7 +21,7 @@ import static org.testng.Assert.*;
  * @author chanjarster
  * @author Binary Wang
  */
-@Test(groups = "menuAPI")
+@Test
 @Guice(modules = ApiTestModule.class)
 public class WxMpMenuServiceImplTest {
 
@@ -85,9 +87,6 @@ public class WxMpMenuServiceImplTest {
       "}";
 
     this.menuId = this.wxService.getMenuService().menuCreate(json);
-    if (this.wxService.switchover("test-1")) {
-      this.menuId = this.wxService.getMenuService().menuCreate(json);
-    }
     System.out.println(this.menuId);
   }
 
@@ -129,9 +128,7 @@ public class WxMpMenuServiceImplTest {
       "  \"language\":\"zh_CN\"\n" +
       "  }\n" +
       "}";
-    if (this.wxService.switchover("test-1")) {
-      this.menuId = this.wxService.getMenuService().menuCreate(json);
-    }
+    this.menuId = this.wxService.getMenuService().menuCreate(json);
     System.out.println(this.menuId);
   }
 
@@ -194,7 +191,7 @@ public class WxMpMenuServiceImplTest {
     System.out.println(wxMenu.toJson());
   }
 
-  @Test(dependsOnMethods = {"testMenuGet","testMenuCreate"})
+  @Test(dependsOnMethods = {"testMenuGet", "testMenuCreate"})
   public void testMenuDelete() throws WxErrorException {
     this.wxService.getMenuService().menuDelete();
   }

@@ -1,15 +1,7 @@
 package me.chanjar.weixin.mp.api.impl;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.concurrent.locks.Lock;
-
-import me.chanjar.weixin.mp.api.*;
-import me.chanjar.weixin.mp.util.WxMpConfigStorageHolder;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,14 +15,21 @@ import me.chanjar.weixin.common.util.DataUtils;
 import me.chanjar.weixin.common.util.RandomUtils;
 import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.*;
+import me.chanjar.weixin.mp.api.*;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpSemanticQueryResult;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.enums.TicketType;
+import me.chanjar.weixin.mp.util.WxMpConfigStorageHolder;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 基础实现类.
@@ -63,11 +62,10 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpWifiService wifiService = new WxMpWifiServiceImpl(this);
   private WxMpMarketingService marketingService = new WxMpMarketingServiceImpl(this);
 
-  private Map<String, WxMpConfigStorage> wxMpConfigStoragePool;
+  private Map<String, WxMpConfigStorage> configStorageMap;
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
-
 
   @Override
   public boolean checkSignature(String timestamp, String nonce, String signature) {
@@ -335,52 +333,62 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public WxMpConfigStorage getWxMpConfigStorage() {
-    return wxMpConfigStoragePool.get(WxMpConfigStorageHolder.get());
+    return this.configStorageMap.get(WxMpConfigStorageHolder.get());
   }
 
   @Override
   public void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider) {
-    Map<String, WxMpConfigStorage> map = new HashMap<>(1);
-    map.put(WxMpConfigStorageHolder.get(), wxConfigProvider);
-    setMultiWxMpConfigStorage(map, WxMpConfigStorageHolder.get());
+    final String defaultMpId = WxMpConfigStorageHolder.get();
+    this.setMultiConfigStorages(ImmutableMap.of(defaultMpId, wxConfigProvider), defaultMpId);
   }
 
   @Override
-  public void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages) {
-    String randomKey = configStorages.keySet().iterator().next();
-    setMultiWxMpConfigStorage(configStorages, randomKey);
+  public void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages) {
+    this.setMultiConfigStorages(configStorages, configStorages.keySet().iterator().next());
   }
 
   @Override
-  public void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages, String defaultInitLabel) {
-    wxMpConfigStoragePool = configStorages;
-    WxMpConfigStorageHolder.set(defaultInitLabel);
+  public void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages, String defaultMpId) {
+    this.configStorageMap = Maps.newHashMap(configStorages);
+    WxMpConfigStorageHolder.set(defaultMpId);
     this.initHttp();
   }
 
   @Override
-  public void addWxMpConfigStorage(String label, WxMpConfigStorage configStorages) {
+  public void addConfigStorage(String mpId, WxMpConfigStorage configStorages) {
     synchronized (this) {
-      if (wxMpConfigStoragePool.containsKey(label)) {
-        throw new RuntimeException("该label已存在，请重新设置一个label");
+      if (this.configStorageMap.containsKey(mpId)) {
+        throw new RuntimeException("该公众号标识已存在，请更换其他标识！");
       }
-      wxMpConfigStoragePool.put(label, configStorages);
+      this.configStorageMap.put(mpId, configStorages);
     }
   }
 
   @Override
-  public void removeWxMpConfigStorage(String label) {
+  public void removeConfigStorage(String mpId) {
     synchronized (this) {
-      wxMpConfigStoragePool.remove(label);
+      this.configStorageMap.remove(mpId);
     }
   }
 
   @Override
-  public boolean switchover(String label) {
-    if (wxMpConfigStoragePool.containsKey(label)) {
-      WxMpConfigStorageHolder.set(label);
+  public WxMpService switchover1(String mpId) {
+    if (this.configStorageMap.containsKey(mpId)) {
+      WxMpConfigStorageHolder.set(mpId);
+      return this;
+    }
+
+    throw new RuntimeException(String.format("无法找到对应【%s】的公众号配置信息，请核实！", mpId));
+  }
+
+  @Override
+  public boolean switchover(String mpId) {
+    if (this.configStorageMap.containsKey(mpId)) {
+      WxMpConfigStorageHolder.set(mpId);
       return true;
     }
+
+    log.error("无法找到对应【{}】的公众号配置信息，请核实！", mpId);
     return false;
   }
 

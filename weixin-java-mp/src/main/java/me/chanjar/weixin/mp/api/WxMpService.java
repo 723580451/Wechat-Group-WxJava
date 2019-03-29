@@ -5,6 +5,7 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
+import me.chanjar.weixin.mp.api.impl.BaseWxMpServiceImpl;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
@@ -304,42 +305,49 @@ public interface WxMpService {
   WxMpConfigStorage getWxMpConfigStorage();
 
   /**
-   * 注入 {@link WxMpConfigStorage} 的实现.
+   * 设置 {@link WxMpConfigStorage} 的实现. 兼容老版本
    */
   void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider);
 
   /**
-   * {@link Map<String, WxMpConfigStorage>} 加入新的 {@link WxMpConfigStorage}，适用于动态添加新的微信应用
-   * @param configStorages
+   * {@link Map<String, WxMpConfigStorage>} 加入新的 {@link WxMpConfigStorage}，适用于动态添加新的微信公众号配置
+   * @param configStorage 新的微信配置
    */
-  void addWxMpConfigStorage(String label, WxMpConfigStorage configStorages);
+  void addConfigStorage(String mpId, WxMpConfigStorage configStorage);
 
   /**
-   * 从{@link Map<String, WxMpConfigStorage>} 移除 {@link String label} 所对应的 {@link WxMpConfigStorage}，适用于动态移除的微信应用
-   * @param label
+   * 从{@link Map<String, WxMpConfigStorage>} 移除 {@link String mpId} 所对应的 {@link WxMpConfigStorage}，适用于动态移除微信公众号配置
+   * @param mpId 对应公众号的标识
    */
-  void removeWxMpConfigStorage(String label);
+  void removeConfigStorage(String mpId);
+
+  /**
+   * 注入多个 {@link WxMpConfigStorage} 的实现. 并为每个 {@link WxMpConfigStorage} 赋予不同的 {@link String mpId} 值
+   * 随机采用一个{@link String mpId}进行Http初始化操作
+   * @param configStorages WxMpConfigStorage map
+   */
+  void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages);
 
   /**
    * 注入多个 {@link WxMpConfigStorage} 的实现. 并为每个 {@link WxMpConfigStorage} 赋予不同的 {@link String label} 值
-   * 随机采用一个{@link String lable}进行Http初始化操作
-   * @param configStorages
+   * @param configStorages WxMpConfigStorage map
+   * @param defaultMpId 设置一个{@link WxMpConfigStorage} 所对应的{@link String mpId}进行Http初始化
    */
-  void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages);
+  void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages, String defaultMpId);
 
   /**
-   * 注入多个 {@link WxMpConfigStorage} 的实现. 并为每个 {@link WxMpConfigStorage} 赋予不同的 {@link String label} 值
-   * @param configStorages
-   * @param defaultInitLabel 设置一个{@link WxMpConfigStorage} 所对应的{@link String label}进行Http初始化
+   * 进行相应的公众号切换
+   * @param mpId 公众号标识
+   * @return 切换是否成功
    */
-  void setMultiWxMpConfigStorage(Map<String, WxMpConfigStorage> configStorages, String defaultInitLabel);
+  boolean switchover(String mpId);
 
   /**
-   * 进行相应的 WxApp 切换
-   * @param label
-   * @return
+   * 进行相应的公众号切换
+   * @param mpId 公众号标识
+   * @return 切换成功，则返回当前对象，方便链式调用，否则抛出异常
    */
-  boolean switchover(String label);
+  WxMpService switchover1(String mpId);
 
   /**
    * 返回客服接口方法实现类，以方便调用其各个接口.
