@@ -196,14 +196,17 @@ public class WxOpenComponentServiceImpl implements WxOpenComponentService {
     return getPreAuthUrl(redirectURI, null, null);
   }
 
+  @Override
   public String getPreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException {
     return createPreAuthUrl(redirectURI, authType, bizAppid, false);
   }
 
+  @Override
   public String getMobilePreAuthUrl(String redirectURI) throws WxErrorException {
     return getMobilePreAuthUrl(redirectURI, null, null);
   }
 
+  @Override
   public String getMobilePreAuthUrl(String redirectURI, String authType, String bizAppid) throws WxErrorException {
     return createPreAuthUrl(redirectURI, authType, bizAppid, true);
   }
