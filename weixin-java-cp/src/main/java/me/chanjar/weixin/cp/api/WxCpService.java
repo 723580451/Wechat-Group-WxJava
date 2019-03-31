@@ -16,6 +16,13 @@ import me.chanjar.weixin.cp.config.WxCpConfigStorage;
  * @author chanjaster
  */
 public interface WxCpService {
+  String GET_JSAPI_TICKET = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket";
+  String MESSAGE_SEND = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
+  String GET_CALLBACK_IP = "https://qyapi.weixin.qq.com/cgi-bin/getcallbackip";
+  String BATCH_REPLACE_PARTY = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty";
+  String BATCH_REPLACE_USER = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser";
+  String BATCH_GET_RESULT = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?jobid=";
+
   /**
    * <pre>
    * 验证推送过来的消息的正确性

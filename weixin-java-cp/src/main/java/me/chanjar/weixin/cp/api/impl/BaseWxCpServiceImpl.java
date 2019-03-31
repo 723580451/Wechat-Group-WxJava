@@ -36,6 +36,9 @@ import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 
+/**
+ * @author chanjarster
+ */
 public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestHttp<H, P> {
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -99,8 +102,7 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
     if (this.configStorage.isJsapiTicketExpired()) {
       synchronized (this.globalJsapiTicketRefreshLock) {
         if (this.configStorage.isJsapiTicketExpired()) {
-          String url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket";
-          String responseContent = execute(SimpleGetRequestExecutor.create(this), url, null);
+          String responseContent = execute(SimpleGetRequestExecutor.create(this), WxCpService.GET_JSAPI_TICKET, null);
           JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
           JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
           String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
@@ -138,19 +140,17 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
 
   @Override
   public WxCpMessageSendResult messageSend(WxCpMessage message) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
     Integer agentId = message.getAgentId();
     if (null == agentId) {
       message.setAgentId(this.getWxCpConfigStorage().getAgentId());
     }
 
-    return WxCpMessageSendResult.fromJson(this.post(url, message.toJson()));
+    return WxCpMessageSendResult.fromJson(this.post(WxCpService.MESSAGE_SEND, message.toJson()));
   }
 
   @Override
   public String[] getCallbackIp() throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/getcallbackip";
-    String responseContent = get(url, null);
+    String responseContent = get(WxCpService.GET_CALLBACK_IP, null);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     JsonArray jsonArray = tmpJsonElement.getAsJsonObject().get("ip_list").getAsJsonArray();
     String[] ips = new String[jsonArray.size()];
@@ -292,23 +292,21 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
 
   @Override
   public String replaceParty(String mediaId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty";
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("media_id", mediaId);
-    return post(url, jsonObject.toString());
+    return post(WxCpService.BATCH_REPLACE_PARTY, jsonObject.toString());
   }
 
   @Override
   public String replaceUser(String mediaId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser";
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("media_id", mediaId);
-    return post(url, jsonObject.toString());
+    return post(WxCpService.BATCH_REPLACE_USER, jsonObject.toString());
   }
 
   @Override
   public String getTaskResult(String joinId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?jobid=" + joinId;
+    String url = WxCpService.BATCH_GET_RESULT + joinId;
     return get(url, null);
   }
 
