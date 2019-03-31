@@ -6,7 +6,7 @@
 [![GitHub release](https://img.shields.io/github/release/Wechat-Group/WxJava.svg)](https://github.com/Wechat-Group/WxJava/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/wx-java.svg)](http://mvnrepository.com/artifact/com.github.binarywang/wx-java)
 [![Build Status](https://travis-ci.org/Wechat-Group/WxJava.svg?branch=develop)](https://travis-ci.org/Wechat-Group/WxJava)
-[![HitCount](http://hits.dwyl.io/binarywang/Wechat-Group/WxJava.svg)](http://hits.dwyl.io/binarywang/Wechat-Group/WxJava)
+[![HitCount](http://hits.dwyl.io/Wechat-Group/WxJava.svg)](http://hits.dwyl.io/Wechat-Group/WxJava)
 [![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com/?from=WxJava-weixin-java-tools)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
