@@ -1,11 +1,5 @@
 package me.chanjar.weixin.cp.api.impl;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,18 +17,15 @@ import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.cp.api.WxCpAgentService;
-import me.chanjar.weixin.cp.api.WxCpChatService;
-import me.chanjar.weixin.cp.api.WxCpDepartmentService;
-import me.chanjar.weixin.cp.api.WxCpMediaService;
-import me.chanjar.weixin.cp.api.WxCpMenuService;
-import me.chanjar.weixin.cp.api.WxCpOAuth2Service;
-import me.chanjar.weixin.cp.api.WxCpService;
-import me.chanjar.weixin.cp.api.WxCpTagService;
-import me.chanjar.weixin.cp.api.WxCpUserService;
+import me.chanjar.weixin.cp.api.*;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author chanjarster
@@ -61,14 +52,19 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
    */
   protected final Object globalJsapiTicketRefreshLock = new Object();
 
+  /**
+   * 全局的是否正在刷新agent的jsapi_ticket的锁
+   */
+  protected final Object globalAgentJsapiTicketRefreshLock = new Object();
+
   protected WxCpConfigStorage configStorage;
 
+  private WxSessionManager sessionManager = new StandardSessionManager();
 
-  protected WxSessionManager sessionManager = new StandardSessionManager();
   /**
    * 临时文件目录
    */
-  protected File tmpDirFile;
+  private File tmpDirFile;
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
 
@@ -88,6 +84,30 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
     return getAccessToken(false);
   }
 
+  @Override
+  public String getAgentJsapiTicket() throws WxErrorException {
+    return this.getAgentJsapiTicket(false);
+  }
+
+  @Override
+  public String getAgentJsapiTicket(boolean forceRefresh) throws WxErrorException {
+    if (forceRefresh) {
+      this.configStorage.expireAgentJsapiTicket();
+    }
+
+    if (this.configStorage.isAgentJsapiTicketExpired()) {
+      synchronized (this.globalAgentJsapiTicketRefreshLock) {
+        if (this.configStorage.isAgentJsapiTicketExpired()) {
+          String responseContent = this.get(WxCpService.GET_AGENT_CONFIG_TICKET, null);
+          JsonObject jsonObject = new JsonParser().parse(responseContent).getAsJsonObject();
+          this.configStorage.updateAgentJsapiTicket(jsonObject.get("ticket").getAsString(),
+            jsonObject.get("expires_in").getAsInt());
+        }
+      }
+    }
+
+    return this.configStorage.getAgentJsapiTicket();
+  }
 
   @Override
   public String getJsapiTicket() throws WxErrorException {
@@ -99,19 +119,18 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
     if (forceRefresh) {
       this.configStorage.expireJsapiTicket();
     }
+
     if (this.configStorage.isJsapiTicketExpired()) {
       synchronized (this.globalJsapiTicketRefreshLock) {
         if (this.configStorage.isJsapiTicketExpired()) {
-          String responseContent = execute(SimpleGetRequestExecutor.create(this), WxCpService.GET_JSAPI_TICKET, null);
-          JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
-          JsonObject tmpJsonObject = tmpJsonElement.getAsJsonObject();
-          String jsapiTicket = tmpJsonObject.get("ticket").getAsString();
-          int expiresInSeconds = tmpJsonObject.get("expires_in").getAsInt();
-          this.configStorage.updateJsapiTicket(jsapiTicket,
-            expiresInSeconds);
+          String responseContent = this.get(WxCpService.GET_JSAPI_TICKET, null);
+          JsonObject tmpJsonObject = new JsonParser().parse(responseContent).getAsJsonObject();
+          this.configStorage.updateJsapiTicket(tmpJsonObject.get("ticket").getAsString(),
+            tmpJsonObject.get("expires_in").getAsInt());
         }
       }
     }
+
     return this.configStorage.getJsapiTicket();
   }
 

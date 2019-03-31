@@ -17,6 +17,7 @@ import me.chanjar.weixin.cp.config.WxCpConfigStorage;
  */
 public interface WxCpService {
   String GET_JSAPI_TICKET = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket";
+  String GET_AGENT_CONFIG_TICKET = "https://qyapi.weixin.qq.com/cgi-bin/ticket/get?&type=agent_config";
   String MESSAGE_SEND = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
   String GET_CALLBACK_IP = "https://qyapi.weixin.qq.com/cgi-bin/getcallbackip";
   String BATCH_REPLACE_PARTY = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty";
@@ -74,6 +75,33 @@ public interface WxCpService {
    * @param forceRefresh 强制刷新
    */
   String getJsapiTicket(boolean forceRefresh) throws WxErrorException;
+
+  /**
+   * 获得jsapi_ticket,不强制刷新jsapi_ticket
+   * 应用的jsapi_ticket用于计算agentConfig（参见“通过agentConfig注入应用的权限”）的签名，签名计算方法与上述介绍的config的签名算法完全相同，但需要注意以下区别：
+   *
+   * 签名的jsapi_ticket必须使用以下接口获取。且必须用wx.agentConfig中的agentid对应的应用secret去获取access_token。
+   * 签名用的noncestr和timestamp必须与wx.agentConfig中的nonceStr和timestamp相同。
+   * @see #getJsapiTicket(boolean)
+   */
+  String getAgentJsapiTicket() throws WxErrorException;
+
+  /**
+   * <pre>
+   * 获取应用的jsapi_ticket
+   * 应用的jsapi_ticket用于计算agentConfig（参见“通过agentConfig注入应用的权限”）的签名，签名计算方法与上述介绍的config的签名算法完全相同，但需要注意以下区别：
+   *
+   * 签名的jsapi_ticket必须使用以下接口获取。且必须用wx.agentConfig中的agentid对应的应用secret去获取access_token。
+   * 签名用的noncestr和timestamp必须与wx.agentConfig中的nonceStr和timestamp相同。
+   *
+   * 获得时会检查jsapiToken是否过期，如果过期了，那么就刷新一下，否则就什么都不干
+   *
+   * 详情请见：https://work.weixin.qq.com/api/doc#10029/%E8%8E%B7%E5%8F%96%E5%BA%94%E7%94%A8%E7%9A%84jsapi_ticket
+   * </pre>
+   *
+   * @param forceRefresh 强制刷新
+   */
+  String getAgentJsapiTicket(boolean forceRefresh) throws WxErrorException;
 
   /**
    * <pre>
