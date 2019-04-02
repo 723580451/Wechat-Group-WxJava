@@ -313,7 +313,7 @@ public interface WxPayService {
    *   请求方式：POST
    * </pre>
    *
-   * @param mchBillNo 商户发放红包的商户订单号，比如10000098201411111234567890
+   * @param request 红包查询请求
    * @return the wx pay redpack query result
    * @throws WxPayException the wx pay exception
    */
@@ -691,10 +691,7 @@ public interface WxPayService {
    * 文档地址：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_17&index=10
    * </pre>
    *
-   * @param beginDate 开始时间
-   * @param endDate   结束时间
-   * @param offset    位移
-   * @param limit     条数，建议填null，否则接口会报签名错误
+   * @param request 查询请求
    * @return the string
    * @throws WxPayException the wx pay exception
    */
