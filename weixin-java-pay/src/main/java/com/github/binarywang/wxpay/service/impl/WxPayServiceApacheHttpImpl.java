@@ -4,6 +4,13 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import javax.net.ssl.SSLContext;
 
+import com.github.binarywang.wxpay.bean.WxPayApiData;
+import com.github.binarywang.wxpay.bean.request.WxPayQueryCommentRequest;
+import com.github.binarywang.wxpay.bean.request.WxPayRedpackQueryRequest;
+import com.github.binarywang.wxpay.bean.result.WxPayCommonResult;
+import com.github.binarywang.wxpay.bean.result.WxPayRedpackQueryResult;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import jodd.util.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
