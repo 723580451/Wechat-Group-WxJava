@@ -333,6 +333,11 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public WxMpConfigStorage getWxMpConfigStorage() {
+    if (this.configStorageMap.size() == 1) {
+      // 只有一个公众号，直接返回其配置即可
+      return this.configStorageMap.values().iterator().next();
+    }
+
     return this.configStorageMap.get(WxMpConfigStorageHolder.get());
   }
 
