@@ -377,7 +377,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   }
 
   @Override
-  public WxMpService switchover1(String mpId) {
+  public WxMpService switchoverTo(String mpId) {
     if (this.configStorageMap.containsKey(mpId)) {
       WxMpConfigStorageHolder.set(mpId);
       return this;
