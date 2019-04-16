@@ -13,8 +13,20 @@
 
 #### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
-
-[![coding](https://gitee.com/binary/weixin-java-tools/raw/master/banners/readme.jpg)](https://coding.net/?utm_source=WxJava)
+<table>
+	<tbody>
+		<tr>
+			<td align="left" valign="middle">
+				<img width="200" src="https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/mp.jpg">
+			</td>
+			<td align="right" valign="middle">
+				<a href="https://coding.net/?utm_source=WxJava" target="_blank">
+					<img width="700" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/readme.jpg">
+				</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
 
 ### 重要信息
 1. **2018-12-23 项目更名为WxJava，并发布 [【3.3.0正式版】](https://github.com/Wechat-Group/WxJava/releases)**！
@@ -23,9 +35,6 @@
 ---------------------------------
 ### 技术交流方式
 1. QQ群/微信群/企业微信/钉钉企业群等： 请扫码关注公众号【WxJava】后，点击相关菜单获取相关信息加入，也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识；
-
-![微信公众号WxJava](qrcodes/mp.jpg) 
-
 1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
 1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki)；
 1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com 
