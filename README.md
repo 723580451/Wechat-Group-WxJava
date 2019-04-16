@@ -41,7 +41,7 @@
 1. **2018-12-23 项目更名为WxJava，并发布 [【3.3.0正式版】](https://github.com/Wechat-Group/WxJava/releases)**！
 1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/WxJava/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
 1. QQ群/微信群/企业微信/钉钉企业群等，请扫描上面的二维码关注微信公众号【WxJava】后，点击相关菜单获取相关信息加入，也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识；
-1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/.jpg) 申请加入。
+1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/ding.jpg) 申请加入。
 1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki)；
 1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com 
 
