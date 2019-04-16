@@ -2,15 +2,14 @@
 
 [![LICENSE](https://img.shields.io/badge/License-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![Badge](https://img.shields.io/badge/Link-996.icu-red.svg)](https://996.icu/#/zh_CN)
-[![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com/?from=WxJava-weixin-java-tools)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 [![码云Gitee](https://gitee.com/binary/weixin-java-tools/badge/star.svg?theme=blue)](https://gitee.com/binary/weixin-java-tools)
 [![Github](http://github-svg-buttons.herokuapp.com/star.svg?user=Wechat-Group&repo=WxJava&style=flat&background=1081C1)](https://github.com/Wechat-Group/WxJava)
 [![GitHub release](https://img.shields.io/github/release/Wechat-Group/WxJava.svg)](https://github.com/Wechat-Group/WxJava/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/wx-java.svg)](http://mvnrepository.com/artifact/com.github.binarywang/wx-java)
-[![HitCount](http://hits.dwyl.io/Wechat-Group/WxJava.svg)](http://hits.dwyl.io/Wechat-Group/WxJava)
 [![Build Status](https://travis-ci.org/Wechat-Group/WxJava.svg?branch=develop)](https://travis-ci.org/Wechat-Group/WxJava)
+[![使用IntelliJ IDEA开发维护](https://img.shields.io/badge/IntelliJ%20IDEA-提供支持-blue.svg)](https://www.jetbrains.com/?from=WxJava-weixin-java-tools)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 #### 支持包括微信支付、开放平台、公众号、企业微信/企业号、小程序等微信功能的后端开发。
 ---------------------------------
@@ -23,13 +22,12 @@
 
 ---------------------------------
 ### 技术交流方式
-1. QQ群/微信群/企业微信等： 请扫码关注下面的公众号后，点击相关菜单获取相关信息加入；
+1. QQ群/微信群/企业微信等： 请扫码关注公众号【WxJava】后，点击相关菜单获取相关信息加入，也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识；
+![微信公众号WxJava](qrcodes/mp.jpg) 
+
 1. 钉钉企业群：[请点击链接申请加入](https://h5.dingtalk.com/inviteColleague/index.html#/invite/9ed100cc4a/E1DF918E32E398D191E7FE61FE0552A6) 或者 [用手机钉钉APP扫码](qrcodes/ding_qrcode.jpg) 申请加入。
 1. 新手提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki)；
-1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com
-1. **另外，想要得到更多开发交流讨论方式，请扫描以下二维码，关注微信公众号【WxJava】，或者加入企业微信，当然也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识。**
-
-![微信公众号及企业微信](qrcodes/cp_mp_qrcodes.png) 
+1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com 
 
 --------------------------------
 ### 其他说明
@@ -39,11 +37,13 @@
 1. 本SDK要求的最低JDK版本是1.7，还在使用JDK6的用户请参考[【此项目】]( https://github.com/binarywang/weixin-java-tools-for-jdk6) ，而其他更早的JDK版本则需要自己改造实现。
 1. [开源中国本项目的首页](https://www.oschina.net/p/weixin-java-tools-new)，欢迎大家积极留言评分 🙂
 1. SDK详细开发文档请查阅 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki)，部分文档可能未能及时更新，如有发现，可以及时上报或者自行修改。
-1. **如果本SDK对您有所帮助，欢迎对我们的努力进行肯定，可以扫描[【支付宝付款码】](qrcodes/alipay_qrcode.jpg)或者[【微信支付二维码】](qrcodes/wepay_qrcode.jpg)进行打赏，或者直接前往[【托管于码云的项目首页】](http://gitee.com/binary/weixin-java-tools)，在评论区上方可以找到“捐助”按钮。非常感谢各位打赏和捐助的同学！**
+1. **如果本SDK对您有所帮助，欢迎对我们的努力进行肯定，可以扫描[【支付宝付款码】](qrcodes/alipay.jpg)或者[【微信支付二维码】](qrcodes/wepay.jpg)进行打赏，或者直接前往[【托管于码云的项目首页】](http://gitee.com/binary/weixin-java-tools)，在评论区上方可以找到“捐助”按钮。非常感谢各位打赏和捐助的同学！**
 1. 各个模块的Javadoc可以在线查看：[weixin-java-miniapp](http://binary.ac.cn/weixin-java-miniapp-javadoc/)、[weixin-java-pay](http://binary.ac.cn/weixin-java-pay-javadoc/)、[weixin-java-mp](http://binary.ac.cn/weixin-java-mp-javadoc/)、[weixin-java-common](http://binary.ac.cn/weixin-java-common-javadoc/)、[weixin-java-cp](http://binary.ac.cn/weixin-java-cp-javadoc/)、[weixin-java-open](http://binary.ac.cn/weixin-java-open-javadoc/)
 1. 本SDK项目在以下代码托管网站同步更新:
 * 码云：https://gitee.com/binary/weixin-java-tools
 * GitHub：https://github.com/wechat-group/WxJava
+
+[![HitCount](http://hits.dwyl.io/Wechat-Group/WxJava.svg)](http://hits.dwyl.io/Wechat-Group/WxJava)
 
 ---------------------------------
 ### SDK使用方式
