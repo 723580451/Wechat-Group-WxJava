@@ -15,7 +15,7 @@
 		<tr>
 			<td align="left" valign="middle">
         <a href="http://mp.weixin.qq.com/mp/homepage?__biz=MzI3MzAwMzk4OA==&hid=1&sn=f31af3bf562b116b061c9ab4edf70b61&scene=18#wechat_redirect" target="_blank">
-				  <img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/mp.jpg">
+				  <img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/mp.png">
         </a>
 			</td>
 			<td align="center" valign="middle">
