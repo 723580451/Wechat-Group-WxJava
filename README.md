@@ -13,19 +13,24 @@
 <table border="0">
 	<tbody>
 		<tr>
-			<td border="0" align="left" valign="middle">
+			<td align="left" valign="middle">
         <a href="http://mp.weixin.qq.com/mp/homepage?__biz=MzI3MzAwMzk4OA==&hid=1&sn=f31af3bf562b116b061c9ab4edf70b61&scene=18#wechat_redirect" target="_blank">
-				  <img width="110" src="https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/mp.jpg">
+				  <img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/qrcodes/mp.jpg">
         </a>
 			</td>
-			<td border="0" align="center" valign="middle">
-				<a href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=7makzf5h" target="_blank">
-					<img width="300" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/aliyun.jpg">
+			<td align="center" valign="middle">
+				<a href="https://cloud.tencent.com/redirect.php?redirect=1014&cps_key=a4c06ffe004dbcda44036daa1bf8f876&from=console" target="_blank">
+					<img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/tcloud.jpg">
 				</a>
 			</td>
-			<td border="0" align="right" valign="middle">
+			<td align="center" valign="middle">
+				<a href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=7makzf5h" target="_blank">
+					<img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/aliyun.jpg">
+				</a>
+			</td>
+			<td align="right" valign="middle">
 				<a href="https://coding.net/?utm_source=WxJava" target="_blank">
-					<img width="300" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/coding.jpg">
+					<img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/banners/coding.jpg">
 				</a>
 			</td>
 		</tr>
