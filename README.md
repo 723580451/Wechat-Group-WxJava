@@ -70,19 +70,29 @@
   <version>3.3.0</version>
 </dependency>
 ```
-* 各模块的`artifactId`：
+
+<details>
+<summary>各模块的`artifactId`，请点击此处展开查看</summary>
+  
   - 微信小程序：`weixin-java-miniapp`   
   - 微信支付：`weixin-java-pay`
   - 微信开放平台：`weixin-java-open`   
   - 公众号（包括订阅号和服务号）：`weixin-java-mp`    
   - 企业号/企业微信：`weixin-java-cp`
+</details>
 
 ---------------------------------
 ### 版本说明
+
+<details>
+<summary>点此展开查看</summary>
+  
 1. 本项目定为大约每两个月发布一次正式版，版本号格式为X.X.0（如2.1.0，2.2.0等），遇到重大问题需修复会及时提交新版本，欢迎大家随时提交Pull Request；
 1. BUG修复和新特性一般会先发布成小版本作为临时测试版本（如3.1.8.B，即尾号不为0，并添加B，以区别于正式版）；
 1. 目前最新版本号为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/wx-java.svg)](http://mvnrepository.com/artifact/com.github.binarywang/wx-java) ，也可以通过访问链接 [【微信支付】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-pay%22) 、[【微信小程序】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-miniapp%22) 、[【公众号】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-mp%22) 、[【企业微信】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-cp%22)、[【开放平台】](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.binarywang%22%20AND%20a%3A%22weixin-java-open%22)
 分别查看所有最新的版本。 
+
+</details>
 
 ----------------------------------
 ### 使用案例
