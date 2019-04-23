@@ -86,6 +86,11 @@
 
 ----------------------------------
 ### 使用案例
+完整案例登记列表，请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)查看，欢迎提供更多的案例。
+
+<details>
+<summary>已整理过的案例列表，请点击此处展开查看</summary>
+
 1. 开源项目：https://github.com/workcheng/weiya
 1. 开源项目：https://github.com/jmdhappy/xxpay-master 
 1. 开源工具：https://github.com/rememberber/WePush
@@ -111,12 +116,15 @@
 1. 锐捷网络：Saleslink
 1. 洽洽企业号
 1. HTC企业微信
-1. 其他更多案例请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)，持续更新中。
+  
+</details>
 
 ----------------------------------
 ### 贡献者列表
-特别感谢参与贡献的所有同学！所有贡献者列表请在[此处](https://github.com/Wechat-Group/WxJava/graphs/contributors)查看。
-以下仅列出贡献次数最多的几位，欢迎大家踊跃贡献代码！
+特别感谢参与贡献的所有同学，所有贡献者列表请在[此处](https://github.com/Wechat-Group/WxJava/graphs/contributors)查看，欢迎大家继续踊跃贡献代码！
+<details>
+<summary>点击此处展开查看贡献次数最多的几位同学</summary>
+
 1. [chanjarster (Daniel Qian)](http://github.com/chanjarster)
 1. [binarywang (Binary Wang)](http://github.com/binarywang)
 1. [mgcnrx11](http://github.com/mgcnrx11)
@@ -127,3 +135,5 @@
 1. [tianmu](http://github.com/tianmu)
 1. [rememberber (周波)](http://github.com/rememberber)
 1. [charmingoh (Charming)](http://github.com/charmingoh)
+
+</details>
