@@ -39,14 +39,14 @@
 
 ### 重要信息
 1. **2018-12-23 项目更名为WxJava，并发布 [【3.3.0正式版】](https://github.com/Wechat-Group/WxJava/releases)**！
-1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用maven或gradle引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/WxJava/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
-1. QQ群/微信群/企业微信/钉钉企业群等，请扫描上面的二维码关注微信公众号【WxJava】后，点击相关菜单获取相关信息加入，也可以在微信中搜索 `weixin-java-tools`或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识；
+1. 新手重要提示：本项目仅是一个SDK开发工具包，未提供Web实现，建议使用 `maven` 或 `gradle` 引用本项目即可使用本SDK提供的各种功能，详情可参考 **[【Demo项目】](demo.md)** 或本项目中的部分单元测试代码；另外微信开发新手请务必阅读[【开发文档 Wiki 首页】](https://github.com/Wechat-Group/WxJava/wiki)的常见问题部分，可以少走很多弯路，节省不少时间。
+1. QQ群/微信群/企业微信/钉钉企业群等，请扫描上面的二维码关注微信公众号 `WxJava` 后，点击相关菜单获取相关信息加入，也可以在微信中搜索 `weixin-java-tools` 或 `WxJava` 关注公众号，公众号会及时通知SDK相关更新信息，并不定期分享微信Java开发相关技术知识；
 1. 微信开发新手或者Java开发新手在群内提问或新开Issue提问前，请先阅读[【提问的智慧】](http://www.binarywang.com/article/smart-questions)，并确保已查阅过 [【开发文档Wiki】](https://github.com/wechat-group/WxJava/wiki) ，避免浪费大家的宝贵时间；
-1. 寻求帮助时需贴代码或大长串异常信息的，请利用http://paste.ubuntu.com 
+1. 寻求帮助时需贴代码或大长串异常信息的，请利用 http://paste.ubuntu.com 
 
 --------------------------------
 ### 其他说明
-1. **阅读源码的同学请注意，本SDK为简化代码编译时加入了lombok支持，如果不了解lombok的话，请先学习下相关知识，比如可以阅读[此文章](https://mp.weixin.qq.com/s/cUc-bUcprycADfNepnSwZQ)；**
+1. **阅读源码的同学请注意，本SDK为简化代码编译时加入了`lombok`支持，如果不了解`lombok`的话，请先学习下相关知识，比如可以阅读[此文章](https://mp.weixin.qq.com/s/cUc-bUcprycADfNepnSwZQ)；**
 1. 如有新功能需求，发现BUG，或者由于微信官方接口调整导致的代码问题，可以直接在[【Issues】](https://github.com/Wechat-Group/WxJava/issues)页提出issue，便于讨论追踪问题；
 1. 如果想贡献代码，请阅读[【代码贡献指南】](CONTRIBUTING.md)；
 1. 本SDK要求的最低JDK版本是1.7，还在使用JDK6的用户请参考[【此项目】]( https://github.com/binarywang/weixin-java-tools-for-jdk6) ，而其他更早的JDK版本则需要自己改造实现。
@@ -59,7 +59,7 @@
 * GitHub：https://github.com/wechat-group/WxJava
 
 ---------------------------------
-### SDK使用方式
+### Maven 引用方式
 注意：最新版本（包括测试版）为 [![Maven Central](https://img.shields.io/maven-central/v/com.github.binarywang/wx-java.svg)](http://mvnrepository.com/artifact/com.github.binarywang/wx-java)，以下为最新正式版。
 
 ```xml
