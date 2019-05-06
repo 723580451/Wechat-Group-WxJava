@@ -1,6 +1,6 @@
 ---
-name: 新功能请求
-about: Suggest an idea for this project
+name: Custom issue template
+about: Describe this issue template's purpose here.
 title: ''
 labels: ''
 assignees: ''
