@@ -36,6 +36,8 @@ public class WxMaUniformMessageGsonAdapter implements JsonSerializer<WxMaUniform
         miniProgramJson.addProperty("appid", miniProgram.getAppid());
         if (miniProgram.isUsePath()) {
           miniProgramJson.addProperty("path", miniProgram.getPagePath());
+        } else if (miniProgram.isUsePagePath()) {
+          miniProgramJson.addProperty("pagePath", miniProgram.getPagePath());
         } else {
           miniProgramJson.addProperty("pagepath", miniProgram.getPagePath());
         }
