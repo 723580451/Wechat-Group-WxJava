@@ -79,9 +79,6 @@ public class WxMaUniformMessageGsonAdapter implements JsonSerializer<WxMaUniform
       for (WxMaTemplateData templateData : message.getData()) {
         JsonObject dataJson = new JsonObject();
         dataJson.addProperty("value", templateData.getValue());
-        if (templateData.getColor() != null) {
-          dataJson.addProperty("color", templateData.getColor());
-        }
         data.add(templateData.getName(), dataJson);
       }
     }
