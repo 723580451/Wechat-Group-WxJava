@@ -5,12 +5,12 @@
   <parent>
     <groupId>com.github.binarywang</groupId>
     <artifactId>wx-java</artifactId>
-    <version>3.3.0</version>
+    <version>3.4.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>weixin-java-pay</artifactId>
-  <name>WxJava - PAY</name>
+  <name>WxJava - PAY Java SDK</name>
   <description>微信支付 Java SDK</description>
 
   <dependencies>

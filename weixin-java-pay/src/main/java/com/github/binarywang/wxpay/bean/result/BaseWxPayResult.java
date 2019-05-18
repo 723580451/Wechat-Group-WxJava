@@ -189,6 +189,7 @@ public abstract class BaseWxPayResult implements Serializable {
     try {
       final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       factory.setExpandEntityReferences(false);
+      factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
       this.xmlDoc = factory.newDocumentBuilder()
         .parse(new ByteArrayInputStream(this.xmlString.getBytes(StandardCharsets.UTF_8)));
       return xmlDoc;

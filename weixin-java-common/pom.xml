@@ -1,17 +1,16 @@
 <?xml version="1.0"?>
-<project
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.github.binarywang</groupId>
     <artifactId>wx-java</artifactId>
-    <version>3.3.0</version>
+    <version>3.4.0</version>
   </parent>
 
   <artifactId>weixin-java-common</artifactId>
-  <name>WxJava - Common</name>
+  <name>WxJava - Common Java SDK</name>
   <description>微信开发Java SDK公共模块</description>
 
   <dependencies>

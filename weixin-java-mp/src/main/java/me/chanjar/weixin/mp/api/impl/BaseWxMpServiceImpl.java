@@ -1,12 +1,7 @@
 package me.chanjar.weixin.mp.api.impl;
 
-import java.io.IOException;
-import java.util.concurrent.locks.Lock;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -19,37 +14,22 @@ import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.common.util.DataUtils;
 import me.chanjar.weixin.common.util.RandomUtils;
 import me.chanjar.weixin.common.util.crypto.SHA1;
-import me.chanjar.weixin.common.util.http.RequestExecutor;
-import me.chanjar.weixin.common.util.http.RequestHttp;
-import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
-import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.common.util.http.URIUtil;
-import me.chanjar.weixin.mp.api.WxMpAiOpenService;
-import me.chanjar.weixin.mp.api.WxMpCardService;
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpDataCubeService;
-import me.chanjar.weixin.mp.api.WxMpDeviceService;
-import me.chanjar.weixin.mp.api.WxMpKefuService;
-import me.chanjar.weixin.mp.api.WxMpMassMessageService;
-import me.chanjar.weixin.mp.api.WxMpMaterialService;
-import me.chanjar.weixin.mp.api.WxMpMemberCardService;
-import me.chanjar.weixin.mp.api.WxMpMenuService;
-import me.chanjar.weixin.mp.api.WxMpQrcodeService;
-import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.api.WxMpShakeService;
-import me.chanjar.weixin.mp.api.WxMpStoreService;
-import me.chanjar.weixin.mp.api.WxMpSubscribeMsgService;
-import me.chanjar.weixin.mp.api.WxMpTemplateMsgService;
-import me.chanjar.weixin.mp.api.WxMpUserBlacklistService;
-import me.chanjar.weixin.mp.api.WxMpUserService;
-import me.chanjar.weixin.mp.api.WxMpUserTagService;
-import me.chanjar.weixin.mp.api.WxMpWifiService;
+import me.chanjar.weixin.common.util.http.*;
+import me.chanjar.weixin.mp.api.*;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpSemanticQueryResult;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.enums.TicketType;
+import me.chanjar.weixin.mp.util.WxMpConfigStorageHolder;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 基础实现类.
@@ -62,7 +42,6 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
   protected WxSessionManager sessionManager = new StandardSessionManager();
-  protected WxMpConfigStorage wxMpConfigStorage;
   private WxMpKefuService kefuService = new WxMpKefuServiceImpl(this);
   private WxMpMaterialService materialService = new WxMpMaterialServiceImpl(this);
   private WxMpMenuService menuService = new WxMpMenuServiceImpl(this);
@@ -81,10 +60,12 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpMassMessageService massMessageService = new WxMpMassMessageServiceImpl(this);
   private WxMpAiOpenService aiOpenService = new WxMpAiOpenServiceImpl(this);
   private WxMpWifiService wifiService = new WxMpWifiServiceImpl(this);
+  private WxMpMarketingService marketingService = new WxMpMarketingServiceImpl(this);
+
+  private Map<String, WxMpConfigStorage> configStorageMap;
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
-
 
   @Override
   public boolean checkSignature(String timestamp, String nonce, String signature) {
@@ -352,13 +333,68 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public WxMpConfigStorage getWxMpConfigStorage() {
-    return this.wxMpConfigStorage;
+    if (this.configStorageMap.size() == 1) {
+      // 只有一个公众号，直接返回其配置即可
+      return this.configStorageMap.values().iterator().next();
+    }
+
+    return this.configStorageMap.get(WxMpConfigStorageHolder.get());
   }
 
   @Override
   public void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider) {
-    this.wxMpConfigStorage = wxConfigProvider;
+    final String defaultMpId = WxMpConfigStorageHolder.get();
+    this.setMultiConfigStorages(ImmutableMap.of(defaultMpId, wxConfigProvider), defaultMpId);
+  }
+
+  @Override
+  public void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages) {
+    this.setMultiConfigStorages(configStorages, configStorages.keySet().iterator().next());
+  }
+
+  @Override
+  public void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages, String defaultMpId) {
+    this.configStorageMap = Maps.newHashMap(configStorages);
+    WxMpConfigStorageHolder.set(defaultMpId);
     this.initHttp();
+  }
+
+  @Override
+  public void addConfigStorage(String mpId, WxMpConfigStorage configStorages) {
+    synchronized (this) {
+      if (this.configStorageMap.containsKey(mpId)) {
+        throw new RuntimeException("该公众号标识已存在，请更换其他标识！");
+      }
+      this.configStorageMap.put(mpId, configStorages);
+    }
+  }
+
+  @Override
+  public void removeConfigStorage(String mpId) {
+    synchronized (this) {
+      this.configStorageMap.remove(mpId);
+    }
+  }
+
+  @Override
+  public WxMpService switchoverTo(String mpId) {
+    if (this.configStorageMap.containsKey(mpId)) {
+      WxMpConfigStorageHolder.set(mpId);
+      return this;
+    }
+
+    throw new RuntimeException(String.format("无法找到对应【%s】的公众号配置信息，请核实！", mpId));
+  }
+
+  @Override
+  public boolean switchover(String mpId) {
+    if (this.configStorageMap.containsKey(mpId)) {
+      WxMpConfigStorageHolder.set(mpId);
+      return true;
+    }
+
+    log.error("无法找到对应【{}】的公众号配置信息，请核实！", mpId);
+    return false;
   }
 
   @Override
@@ -544,5 +580,15 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   @Override
   public WxMpWifiService getWifiService() {
     return this.wifiService;
+  }
+
+  @Override
+  public WxMpMarketingService getMarketingService() {
+    return this.marketingService;
+  }
+
+  @Override
+  public void setMarketingService(WxMpMarketingService marketingService) {
+    this.marketingService = marketingService;
   }
 }

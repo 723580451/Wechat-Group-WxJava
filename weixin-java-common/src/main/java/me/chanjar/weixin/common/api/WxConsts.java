@@ -63,6 +63,11 @@ public class WxConsts {
      */
     public static final String MPNEWS = "mpnews";
     /**
+     * markdown消息.
+     * （目前仅支持markdown语法的子集，微工作台（原企业号）不支持展示markdown消息）
+     */
+    public static final String MARKDOWN = "markdown";
+    /**
      * 发送文件（CP专用）.
      */
     public static final String FILE = "file";
@@ -83,6 +88,11 @@ public class WxConsts {
      * 小程序卡片(要求小程序与公众号已关联)
      */
     public static final String MINIPROGRAMPAGE = "miniprogrampage";
+
+    /**
+     * 任务卡片消息
+     */
+    public static final String TASKCARD = "taskcard";
   }
 
   /**

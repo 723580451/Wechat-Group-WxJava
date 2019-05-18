@@ -3,9 +3,12 @@ package me.chanjar.weixin.mp.util.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.chanjar.weixin.mp.bean.*;
+import me.chanjar.weixin.mp.bean.card.WxMpCard;
+import me.chanjar.weixin.mp.bean.card.WxMpCardResult;
 import me.chanjar.weixin.mp.bean.datacube.WxDataCubeUserCumulate;
 import me.chanjar.weixin.mp.bean.datacube.WxDataCubeUserSummary;
 import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
+import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardActivateTempInfoResult;
 import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardUpdateResult;
 import me.chanjar.weixin.mp.bean.membercard.WxMpMemberCardUserInfoResult;
 import me.chanjar.weixin.mp.bean.material.*;
@@ -56,6 +59,7 @@ public class WxMpGsonBuilder {
     INSTANCE.registerTypeAdapter(WxMpUserBlacklistGetResult.class, new WxUserBlacklistGetResultGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpMemberCardUserInfoResult.class, new WxMpMemberCardUserInfoResultGsonAdapter());
     INSTANCE.registerTypeAdapter(WxMpMemberCardUpdateResult.class, new WxMpMemberCardUpdateResultGsonAdapter());
+    INSTANCE.registerTypeAdapter(WxMpMemberCardActivateTempInfoResult.class, new WxMpMemberCardActivateTempInfoResultGsonAdapter());
   }
 
   public static Gson create() {

@@ -5,12 +5,15 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
+import me.chanjar.weixin.mp.api.impl.BaseWxMpServiceImpl;
 import me.chanjar.weixin.mp.bean.WxMpSemanticQuery;
 import me.chanjar.weixin.mp.bean.result.WxMpCurrentAutoReplyInfo;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpSemanticQueryResult;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import me.chanjar.weixin.mp.enums.TicketType;
+
+import java.util.Map;
 
 /**
  * 微信公众号API的Service.
@@ -302,9 +305,49 @@ public interface WxMpService {
   WxMpConfigStorage getWxMpConfigStorage();
 
   /**
-   * 注入 {@link WxMpConfigStorage} 的实现.
+   * 设置 {@link WxMpConfigStorage} 的实现. 兼容老版本
    */
   void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider);
+
+  /**
+   * {@link Map<String, WxMpConfigStorage>} 加入新的 {@link WxMpConfigStorage}，适用于动态添加新的微信公众号配置
+   * @param configStorage 新的微信配置
+   */
+  void addConfigStorage(String mpId, WxMpConfigStorage configStorage);
+
+  /**
+   * 从{@link Map<String, WxMpConfigStorage>} 移除 {@link String mpId} 所对应的 {@link WxMpConfigStorage}，适用于动态移除微信公众号配置
+   * @param mpId 对应公众号的标识
+   */
+  void removeConfigStorage(String mpId);
+
+  /**
+   * 注入多个 {@link WxMpConfigStorage} 的实现. 并为每个 {@link WxMpConfigStorage} 赋予不同的 {@link String mpId} 值
+   * 随机采用一个{@link String mpId}进行Http初始化操作
+   * @param configStorages WxMpConfigStorage map
+   */
+  void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages);
+
+  /**
+   * 注入多个 {@link WxMpConfigStorage} 的实现. 并为每个 {@link WxMpConfigStorage} 赋予不同的 {@link String label} 值
+   * @param configStorages WxMpConfigStorage map
+   * @param defaultMpId 设置一个{@link WxMpConfigStorage} 所对应的{@link String mpId}进行Http初始化
+   */
+  void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages, String defaultMpId);
+
+  /**
+   * 进行相应的公众号切换
+   * @param mpId 公众号标识
+   * @return 切换是否成功
+   */
+  boolean switchover(String mpId);
+
+  /**
+   * 进行相应的公众号切换
+   * @param mpId 公众号标识
+   * @return 切换成功，则返回当前对象，方便链式调用，否则抛出异常
+   */
+  WxMpService switchoverTo(String mpId);
 
   /**
    * 返回客服接口方法实现类，以方便调用其各个接口.
@@ -412,6 +455,13 @@ public interface WxMpService {
   WxMpMemberCardService getMemberCardService();
 
   /**
+   * 返回营销相关接口方法的实现类对象，以方便调用其各个接口.
+   *
+   * @return WxMpMarketingService
+   */
+  WxMpMarketingService getMarketingService();
+
+  /**
    * 初始化http请求对象.
    */
   void initHttp();
@@ -473,4 +523,6 @@ public interface WxMpService {
   void setMassMessageService(WxMpMassMessageService massMessageService);
 
   void setAiOpenService(WxMpAiOpenService aiOpenService);
+
+  void setMarketingService(WxMpMarketingService marketingService);
 }

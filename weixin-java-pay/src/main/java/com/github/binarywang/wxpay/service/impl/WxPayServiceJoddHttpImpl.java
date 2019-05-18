@@ -3,6 +3,10 @@ package com.github.binarywang.wxpay.service.impl;
 import java.nio.charset.StandardCharsets;
 import javax.net.ssl.SSLContext;
 
+import com.github.binarywang.wxpay.bean.request.WxPayQueryCommentRequest;
+import com.github.binarywang.wxpay.bean.request.WxPayRedpackQueryRequest;
+import com.github.binarywang.wxpay.bean.result.WxPayCommonResult;
+import com.github.binarywang.wxpay.bean.result.WxPayRedpackQueryResult;
 import org.apache.commons.lang3.StringUtils;
 
 import com.github.binarywang.wxpay.bean.WxPayApiData;
@@ -15,6 +19,10 @@ import jodd.http.ProxyInfo.ProxyType;
 import jodd.http.net.SSLSocketHttpConnectionProvider;
 import jodd.http.net.SocketHttpConnectionProvider;
 import jodd.util.Base64;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.net.ssl.SSLContext;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 微信支付请求实现类，jodd-http实现.
@@ -76,6 +84,10 @@ public class WxPayServiceJoddHttpImpl extends BaseWxPayServiceImpl {
     }
 
     if (StringUtils.isNotBlank(this.getConfig().getHttpProxyHost()) && this.getConfig().getHttpProxyPort() > 0) {
+      if (StringUtils.isEmpty(this.getConfig().getHttpProxyUsername())) {
+        this.getConfig().setHttpProxyUsername("whatever");
+      }
+
       ProxyInfo httpProxy = new ProxyInfo(ProxyType.HTTP, this.getConfig().getHttpProxyHost(), this.getConfig().getHttpProxyPort(),
         this.getConfig().getHttpProxyUsername(), this.getConfig().getHttpProxyPassword());
       HttpConnectionProvider provider = request.connectionProvider();
