@@ -93,9 +93,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/wechat-group/weixin-java-tools.git</connection>
-    <developerConnection>scm:git:git@github.com:wechat-group/weixin-java-tools.git</developerConnection>
-    <url>https://github.com/wechat-group/weixin-java-tools</url>
+    <connection>scm:git:https://github.com/Wechat-Group/WxJava.git</connection>
+    <developerConnection>scm:git:git@github.com:Wechat-Group/WxJava.git</developerConnection>
+    <url>https://github.com/Wechat-Group/WxJava</url>
   </scm>
 
   <modules>
