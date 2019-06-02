@@ -1,4 +1,4 @@
-package me.chanjar.weixin.cp;
+package me.chanjar.weixin.cp.constant;
 
 /**
  * <pre>

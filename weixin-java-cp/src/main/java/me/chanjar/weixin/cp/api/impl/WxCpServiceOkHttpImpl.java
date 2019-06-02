@@ -1,25 +1,23 @@
 package me.chanjar.weixin.cp.api.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.common.util.http.okhttp.OkHttpProxyInfo;
-import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
-import okhttp3.Authenticator;
-import okhttp3.Credentials;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.Route;
+import okhttp3.*;
 
 import java.io.IOException;
+
+import static me.chanjar.weixin.cp.constant.WxCpApiPathConsts.GET_TOKEN;
 
 /**
  * @author someone
  */
+@Slf4j
 public class WxCpServiceOkHttpImpl extends BaseWxCpServiceImpl<OkHttpClient, OkHttpProxyInfo> {
   private OkHttpClient httpClient;
   private OkHttpProxyInfo httpProxy;
@@ -50,7 +48,7 @@ public class WxCpServiceOkHttpImpl extends BaseWxCpServiceImpl<OkHttpClient, OkH
       OkHttpClient client = getRequestHttpClient();
       //请求的request
       Request request = new Request.Builder()
-        .url(String.format(this.configStorage.getApiUrl(WxCpService.GET_TOKEN), this.configStorage.getCorpId(), this.configStorage.getCorpSecret()))
+        .url(String.format(this.configStorage.getApiUrl(GET_TOKEN), this.configStorage.getCorpId(), this.configStorage.getCorpSecret()))
         .get()
         .build();
       String resultContent = null;
@@ -58,7 +56,7 @@ public class WxCpServiceOkHttpImpl extends BaseWxCpServiceImpl<OkHttpClient, OkH
         Response response = client.newCall(request).execute();
         resultContent = response.body().string();
       } catch (IOException e) {
-        this.log.error(e.getMessage(), e);
+        log.error(e.getMessage(), e);
       }
 
       WxError error = WxError.fromJson(resultContent, WxType.CP);
@@ -74,7 +72,7 @@ public class WxCpServiceOkHttpImpl extends BaseWxCpServiceImpl<OkHttpClient, OkH
 
   @Override
   public void initHttp() {
-    this.log.debug("WxCpServiceOkHttpImpl initHttp");
+    log.debug("WxCpServiceOkHttpImpl initHttp");
     //设置代理
     if (configStorage.getHttpProxyHost() != null && configStorage.getHttpProxyPort() > 0) {
       httpProxy = OkHttpProxyInfo.httpProxy(configStorage.getHttpProxyHost(),

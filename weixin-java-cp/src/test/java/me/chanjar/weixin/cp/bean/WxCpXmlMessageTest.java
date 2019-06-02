@@ -3,7 +3,7 @@ package me.chanjar.weixin.cp.bean;
 import me.chanjar.weixin.common.api.WxConsts;
 import org.testng.annotations.Test;
 
-import static me.chanjar.weixin.cp.WxCpConsts.EventType.TASKCARD_CLICK;
+import static me.chanjar.weixin.cp.constant.WxCpConsts.EventType.TASKCARD_CLICK;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 

@@ -2,6 +2,7 @@ package me.chanjar.weixin.cp.config;
 
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 
 import java.io.File;
@@ -12,7 +13,6 @@ import java.io.File;
  * @author Daniel Qian
  */
 public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
-
   protected volatile String corpId;
   protected volatile String corpSecret;
 
@@ -49,7 +49,7 @@ public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
   @Override
   public String getApiUrl(String path) {
     if (baseApiUrl == null) {
-      baseApiUrl = "https://qyapi.weixin.qq.com";
+      baseApiUrl = WxCpApiPathConsts.DEFAULT_CP_BASE_URL;
     }
     return baseApiUrl + path;
   }

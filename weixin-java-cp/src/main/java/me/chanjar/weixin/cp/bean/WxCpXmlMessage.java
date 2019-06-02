@@ -162,7 +162,7 @@ public class WxCpXmlMessage implements Serializable {
 
   /**
    * 通讯录变更事件.
-   * 请参考常量 me.chanjar.weixin.cp.WxCpConsts.ContactChangeType
+   * 请参考常量 me.chanjar.weixin.cp.constant.WxCpConsts.ContactChangeType
    */
   @XStreamAlias("ChangeType")
   @XStreamConverter(value = XStreamCDataConverter.class)

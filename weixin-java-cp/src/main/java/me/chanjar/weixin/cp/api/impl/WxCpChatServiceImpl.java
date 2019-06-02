@@ -1,12 +1,14 @@
 package me.chanjar.weixin.cp.api.impl;
 
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 import me.chanjar.weixin.cp.api.WxCpChatService;
 import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.bean.WxCpAppChatMessage;
 import me.chanjar.weixin.cp.bean.WxCpChat;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,23 +16,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static me.chanjar.weixin.cp.constant.WxCpApiPathConsts.Chat.*;
+
 /**
  * 群聊服务实现.
  *
  * @author gaigeshen
  */
+@RequiredArgsConstructor
 public class WxCpChatServiceImpl implements WxCpChatService {
   private static final JsonParser JSON_PARSER = new JsonParser();
   private final WxCpService cpService;
-
-  /**
-   * 创建群聊服务实现的实例.
-   *
-   * @param cpService 企业微信的服务
-   */
-  WxCpChatServiceImpl(WxCpService cpService) {
-    this.cpService = cpService;
-  }
 
   @Override
   public String chatCreate(String name, String owner, List<String> users, String chatId) throws WxErrorException {
@@ -98,7 +94,7 @@ public class WxCpChatServiceImpl implements WxCpChatService {
 
   @Override
   public void sendMsg(WxCpAppChatMessage message) throws WxErrorException {
-    this.cpService.post(this.cpService.getWxCpConfigStorage().getApiUrl(WxCpChatService.APPCHAT_SEND), message.toJson());
+    this.cpService.post(this.cpService.getWxCpConfigStorage().getApiUrl(APPCHAT_SEND), message.toJson());
   }
 
 }

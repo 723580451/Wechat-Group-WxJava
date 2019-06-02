@@ -10,6 +10,7 @@ import me.chanjar.weixin.cp.bean.WxCpTag;
 import me.chanjar.weixin.cp.bean.WxCpTagAddOrRemoveUsersResult;
 import me.chanjar.weixin.cp.bean.WxCpTagGetResult;
 import me.chanjar.weixin.cp.bean.WxCpUser;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
@@ -82,7 +83,7 @@ public class WxCpTagServiceImplTest {
   public void testGet() throws WxErrorException {
     String apiResultJson = "{\"errcode\": 0,\"errmsg\": \"ok\",\"userlist\": [{\"userid\": \"0124035\",\"name\": \"王五\"},{\"userid\": \"0114035\",\"name\": \"梦雪\"}],\"partylist\": [9576,9567,9566],\"tagname\": \"测试标签-001\"}";
     WxCpService wxService = mock(WxCpService.class);
-    when(wxService.get(String.format(wxService.getWxCpConfigStorage().getApiUrl(WxCpTagService.TAG_GET), 150), null)).thenReturn(apiResultJson);
+    when(wxService.get(String.format(wxService.getWxCpConfigStorage().getApiUrl(WxCpApiPathConsts.Tag.TAG_GET), 150), null)).thenReturn(apiResultJson);
     when(wxService.getTagService()).thenReturn(new WxCpTagServiceImpl(wxService));
 
     WxCpTagService wxCpTagService = wxService.getTagService();

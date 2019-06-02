@@ -17,18 +17,6 @@ import java.util.Map;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpUserService {
-  String URL_AUTHENTICATE = "/cgi-bin/user/authsucc?userid=";
-  String URL_USER_CREATE = "/cgi-bin/user/create";
-  String URL_USER_UPDATE = "/cgi-bin/user/update";
-  String URL_USER_DELETE = "/cgi-bin/user/delete?userid=";
-  String URL_USER_BATCH_DELETE = "/cgi-bin/user/batchdelete";
-  String URL_USER_GET = "/cgi-bin/user/get?userid=";
-  String URL_USER_LIST = "/cgi-bin/user/list?department_id=";
-  String URL_USER_SIMPLE_LIST = "/cgi-bin/user/simplelist?department_id=";
-  String URL_BATCH_INVITE = "/cgi-bin/batch/invite";
-  String URL_CONVERT_TO_OPENID = "/cgi-bin/user/convert_to_openid";
-  String URL_CONVERT_TO_USERID = "/cgi-bin/user/convert_to_userid";
-  String URL_GET_EXTERNAL_CONTACT = "/cgi-bin/crm/get_external_contact?external_userid=";
 
   /**
    * <pre>

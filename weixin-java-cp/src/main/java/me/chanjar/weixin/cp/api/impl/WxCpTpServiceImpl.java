@@ -6,7 +6,7 @@ package me.chanjar.weixin.cp.api.impl;
  * Created by zhenjun cai.
  * </pre>
  *
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
+ * @author zhenjun cai
  */
 public class WxCpTpServiceImpl extends WxCpTpServiceApacheHttpClientImpl {
 }

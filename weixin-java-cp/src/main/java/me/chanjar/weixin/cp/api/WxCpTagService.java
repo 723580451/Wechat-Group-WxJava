@@ -17,13 +17,6 @@ import java.util.List;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpTagService {
-  String TAG_CREATE = "/cgi-bin/tag/create";
-  String TAG_UPDATE = "/cgi-bin/tag/update";
-  String TAG_DELETE = "/cgi-bin/tag/delete?tagid=%s";
-  String TAG_LIST = "/cgi-bin/tag/list";
-  String TAG_GET = "/cgi-bin/tag/get?tagid=%s";
-  String TAG_ADDTAGUSERS = "/cgi-bin/tag/addtagusers";
-  String TAG_DELTAGUSERS = "/cgi-bin/tag/deltagusers";
 
   /**
    * 创建标签.

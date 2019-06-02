@@ -8,8 +8,8 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -23,8 +23,8 @@ import java.io.IOException;
  * @author someone
  */
 public class WxCpServiceApacheHttpClientImpl extends BaseWxCpServiceImpl<CloseableHttpClient, HttpHost> {
-  protected CloseableHttpClient httpClient;
-  protected HttpHost httpProxy;
+  private CloseableHttpClient httpClient;
+  private HttpHost httpProxy;
 
   @Override
   public CloseableHttpClient getRequestHttpClient() {
@@ -48,7 +48,7 @@ public class WxCpServiceApacheHttpClientImpl extends BaseWxCpServiceImpl<Closeab
     }
 
     synchronized (this.globalAccessTokenRefreshLock) {
-      String url = String.format(this.configStorage.getApiUrl(WxCpService.GET_TOKEN), this.configStorage.getCorpId(), this.configStorage.getCorpSecret());
+      String url = String.format(this.configStorage.getApiUrl(WxCpApiPathConsts.GET_TOKEN), this.configStorage.getCorpId(), this.configStorage.getCorpSecret());
 
       try {
         HttpGet httpGet = new HttpGet(url);

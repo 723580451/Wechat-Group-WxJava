@@ -16,10 +16,6 @@ import java.io.InputStream;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpMediaService {
-  String MEDIA_GET_URL = "/cgi-bin/media/get";
-  String MEDIA_UPLOAD_URL = "/cgi-bin/media/upload?type=";
-  String IMG_UPLOAD_URL = "/cgi-bin/media/uploadimg";
-  String JSSDK_MEDIA_GET_URL = "/cgi-bin/media/get/jssdk";
 
   /**
    * <pre>

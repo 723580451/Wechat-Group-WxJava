@@ -1,23 +1,22 @@
 package me.chanjar.weixin.cp.api.impl;
 
 import com.google.common.collect.Maps;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.cp.WxCpConsts;
 import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.api.WxCpUserService;
 import me.chanjar.weixin.cp.bean.WxCpInviteResult;
 import me.chanjar.weixin.cp.bean.WxCpUser;
 import me.chanjar.weixin.cp.bean.WxCpUserExternalContactInfo;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 
 import java.util.List;
 import java.util.Map;
+
+import static me.chanjar.weixin.cp.constant.WxCpApiPathConsts.User.*;
 
 /**
  * <pre>
@@ -26,34 +25,31 @@ import java.util.Map;
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
+@RequiredArgsConstructor
 public class WxCpUserServiceImpl implements WxCpUserService {
   private final WxCpService mainService;
 
-  public WxCpUserServiceImpl(WxCpService mainService) {
-    this.mainService = mainService;
-  }
-
   @Override
   public void authenticate(String userId) throws WxErrorException {
-    this.mainService.get(this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_AUTHENTICATE + userId), null);
+    this.mainService.get(this.mainService.getWxCpConfigStorage().getApiUrl(USER_AUTHENTICATE + userId), null);
   }
 
   @Override
   public void create(WxCpUser user) throws WxErrorException {
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_CREATE);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_CREATE);
     this.mainService.post(url, user.toJson());
   }
 
   @Override
   public void update(WxCpUser user) throws WxErrorException {
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_UPDATE);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_UPDATE);
     this.mainService.post(url, user.toJson());
   }
 
   @Override
   public void delete(String... userIds) throws WxErrorException {
     if (userIds.length == 1) {
-      String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_DELETE + userIds[0]);
+      String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_DELETE + userIds[0]);
       this.mainService.get(url, null);
       return;
     }
@@ -65,12 +61,12 @@ public class WxCpUserServiceImpl implements WxCpUserService {
     }
 
     jsonObject.add("useridlist", jsonArray);
-    this.mainService.post(WxCpUserService.URL_USER_BATCH_DELETE, jsonObject.toString());
+    this.mainService.post(USER_BATCH_DELETE, jsonObject.toString());
   }
 
   @Override
   public WxCpUser getById(String userid) throws WxErrorException {
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_GET + userid);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_GET + userid);
     String responseContent = this.mainService.get(url, null);
     return WxCpUser.fromJson(responseContent);
   }
@@ -87,7 +83,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       params += "&status=0";
     }
 
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_LIST + departId);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_LIST + departId);
     String responseContent = this.mainService.get(url, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxCpGsonBuilder.create()
@@ -109,7 +105,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       params += "&status=0";
     }
 
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_USER_SIMPLE_LIST + departId);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_SIMPLE_LIST + departId);
     String responseContent = this.mainService.get(url, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxCpGsonBuilder.create()
@@ -147,13 +143,13 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       jsonObject.add("tag", jsonArray);
     }
 
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_BATCH_INVITE);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(BATCH_INVITE);
     return WxCpInviteResult.fromJson(this.mainService.post(url, jsonObject.toString()));
   }
 
   @Override
   public Map<String, String> userId2Openid(String userId, Integer agentId) throws WxErrorException {
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_CONVERT_TO_OPENID);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_CONVERT_TO_OPENID);
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("userid", userId);
     if (agentId != null) {
@@ -178,7 +174,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
   public String openid2UserId(String openid) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("openid", openid);
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_CONVERT_TO_USERID);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(USER_CONVERT_TO_USERID);
     String responseContent = this.mainService.post(url, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return tmpJsonElement.getAsJsonObject().get("userid").getAsString();
@@ -186,7 +182,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
   @Override
   public WxCpUserExternalContactInfo getExternalContact(String userId) throws WxErrorException {
-    String url = this.mainService.getWxCpConfigStorage().getApiUrl(WxCpUserService.URL_GET_EXTERNAL_CONTACT + userId);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(GET_EXTERNAL_CONTACT + userId);
     String responseContent = this.mainService.get(url, null);
     return WxCpUserExternalContactInfo.fromJson(responseContent);
   }

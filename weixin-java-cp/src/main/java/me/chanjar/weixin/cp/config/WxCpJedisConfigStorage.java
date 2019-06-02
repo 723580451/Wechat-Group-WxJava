@@ -2,6 +2,7 @@ package me.chanjar.weixin.cp.config;
 
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -48,7 +49,7 @@ public class WxCpJedisConfigStorage implements WxCpConfigStorage {
   @Override
   public String getApiUrl(String path) {
     if (baseApiUrl == null) {
-      baseApiUrl = "https://qyapi.weixin.qq.com";
+      baseApiUrl = WxCpApiPathConsts.DEFAULT_CP_BASE_URL;
     }
     return baseApiUrl + path;
   }

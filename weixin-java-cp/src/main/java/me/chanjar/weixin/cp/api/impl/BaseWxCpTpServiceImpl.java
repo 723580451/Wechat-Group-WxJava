@@ -1,17 +1,9 @@
 package me.chanjar.weixin.cp.api.impl;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.google.common.base.Joiner;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
+import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.error.WxError;
@@ -22,34 +14,37 @@ import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.api.WxCpTpService;
 import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 import me.chanjar.weixin.cp.bean.WxCpTpCorp;
 import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author zhenjun cai
  */
+@Slf4j
 public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, RequestHttp<H, P> {
-  protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
   /**
-   * 全局的是否正在刷新access token的锁
+   * 全局的是否正在刷新access token的锁.
    */
   protected final Object globalSuiteAccessTokenRefreshLock = new Object();
 
   /**
-   * 全局的是否正在刷新jsapi_ticket的锁
+   * 全局的是否正在刷新jsapi_ticket的锁.
    */
   protected final Object globalSuiteTicketRefreshLock = new Object();
 
-
   protected WxCpTpConfigStorage configStorage;
 
-
   /**
-   * 临时文件目录
+   * 临时文件目录.
    */
   private File tmpDirFile;
   private int retrySleepMillis = 1000;
@@ -61,7 +56,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
       return SHA1.gen(this.configStorage.getToken(), timestamp, nonce, data)
         .equals(msgSignature);
     } catch (Exception e) {
-      this.log.error("Checking signature failed, and the reason is :" + e.getMessage());
+      log.error("Checking signature failed, and the reason is :" + e.getMessage());
       return false;
     }
   }
@@ -83,11 +78,11 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
 //      this.configStorage.expireSuiteTicket();
 //    }
 
-	if (this.configStorage.isSuiteTicketExpired()) {
-//	   本地suite ticket 不存在或者过期	
-	  WxError wxError = WxError.fromJson("{\"errcode\":40085, \"errmsg\":\"invaild suite ticket\"}", WxType.CP);
-	  throw new WxErrorException(wxError);
-	}
+    if (this.configStorage.isSuiteTicketExpired()) {
+      // 本地suite ticket 不存在或者过期
+      WxError wxError = WxError.fromJson("{\"errcode\":40085, \"errmsg\":\"invaild suite ticket\"}", WxType.CP);
+      throw new WxErrorException(wxError);
+    }
     return this.configStorage.getSuiteTicket();
   }
 
@@ -98,28 +93,28 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
     params.put("js_code", jsCode);
     params.put("grant_type", "authorization_code");
 
-    String result = this.get(configStorage.getApiUrl(JSCODE_TO_SESSION_URL), Joiner.on("&").withKeyValueSeparator("=").join(params));
+    String result = this.get(configStorage.getApiUrl(WxCpApiPathConsts.Tp.JSCODE_TO_SESSION), Joiner.on("&").withKeyValueSeparator("=").join(params));
     return WxCpMaJsCode2SessionResult.fromJson(result);
   }
 
 
   @Override
   public WxAccessToken getCorpToken(String authCorpid, String permanentCode) throws WxErrorException {
-	JsonObject jsonObject = new JsonObject();
-	jsonObject.addProperty("auth_corpid", authCorpid);
-	jsonObject.addProperty("permanent_code", permanentCode);
-	String result = post(configStorage.getApiUrl(GET_CORP_TOKEN), jsonObject.toString());
-	
-	return WxAccessToken.fromJson(result);
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("auth_corpid", authCorpid);
+    jsonObject.addProperty("permanent_code", permanentCode);
+    String result = post(configStorage.getApiUrl(WxCpApiPathConsts.Tp.GET_CORP_TOKEN), jsonObject.toString());
+
+    return WxAccessToken.fromJson(result);
   }
-  
+
 
   @Override
   public WxCpTpCorp getPermanentCode(String authCode) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("auth_code", authCode);
 
-    String result = post(configStorage.getApiUrl(GET_PERMANENT_CODE), jsonObject.toString());
+    String result = post(configStorage.getApiUrl(WxCpApiPathConsts.Tp.GET_PERMANENT_CODE), jsonObject.toString());
     jsonObject = new JsonParser().parse(result).getAsJsonObject();
     WxCpTpCorp wxCpTpCorp = WxCpTpCorp.fromJson(jsonObject.get("auth_corp_info").getAsString());
     wxCpTpCorp.setPermanentCode(jsonObject.get("permanent_code").getAsString());
@@ -147,7 +142,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
         return this.executeInternal(executor, uri, data);
       } catch (WxErrorException e) {
         if (retryTimes + 1 > this.maxRetryTimes) {
-          this.log.warn("重试达到最大次数【{}】", this.maxRetryTimes);
+          log.warn("重试达到最大次数【{}】", this.maxRetryTimes);
           //最后一次重试失败后，直接抛出异常，不再等待
           throw new RuntimeException("微信服务端异常，超出重试次数");
         }
@@ -159,7 +154,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
         if (error.getErrorCode() == -1) {
           int sleepMillis = this.retrySleepMillis * (1 << retryTimes);
           try {
-            this.log.debug("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
+            log.debug("微信系统繁忙，{} ms 后重试(第{}次)", sleepMillis, retryTimes + 1);
             Thread.sleep(sleepMillis);
           } catch (InterruptedException e1) {
             Thread.currentThread().interrupt();
@@ -170,7 +165,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
       }
     } while (retryTimes++ < this.maxRetryTimes);
 
-    this.log.warn("重试达到最大次数【{}】", this.maxRetryTimes);
+    log.warn("重试达到最大次数【{}】", this.maxRetryTimes);
     throw new RuntimeException("微信服务端异常，超出重试次数");
   }
 
@@ -186,7 +181,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
 
     try {
       T result = executor.execute(uriWithAccessToken, data);
-      this.log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
+      log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
       return result;
     } catch (WxErrorException e) {
       WxError error = e.getError();
@@ -201,12 +196,12 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
       }
 
       if (error.getErrorCode() != 0) {
-        this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
+        log.error("\n【请求地址】: {}\n【请求参数】：{}\n【错误信息】：{}", uriWithAccessToken, dataForLog, error);
         throw new WxErrorException(error, e);
       }
       return null;
     } catch (IOException e) {
-      this.log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, dataForLog, e.getMessage());
+      log.error("\n【请求地址】: {}\n【请求参数】：{}\n【异常信息】：{}", uriWithAccessToken, dataForLog, e.getMessage());
       throw new RuntimeException(e);
     }
   }

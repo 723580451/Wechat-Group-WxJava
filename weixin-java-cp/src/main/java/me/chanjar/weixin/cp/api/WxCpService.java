@@ -17,16 +17,6 @@ import me.chanjar.weixin.cp.config.WxCpConfigStorage;
  * @author chanjaster
  */
 public interface WxCpService {
-  String GET_JSAPI_TICKET = "/cgi-bin/get_jsapi_ticket";
-  String GET_AGENT_CONFIG_TICKET = "/cgi-bin/ticket/get?&type=agent_config";
-  String MESSAGE_SEND = "/cgi-bin/message/send";
-  String GET_CALLBACK_IP = "/cgi-bin/getcallbackip";
-  String BATCH_REPLACE_PARTY = "/cgi-bin/batch/replaceparty";
-  String BATCH_REPLACE_USER = "/cgi-bin/batch/replaceuser";
-  String BATCH_GET_RESULT = "/cgi-bin/batch/getresult?jobid=";
-  String JSCODE_TO_SESSION_URL = "/cgi-bin/miniprogram/jscode2session";
-  String GET_TOKEN = "/cgi-bin/gettoken?&corpid=%s&corpsecret=%s";
-
   /**
    * <pre>
    * 验证推送过来的消息的正确性

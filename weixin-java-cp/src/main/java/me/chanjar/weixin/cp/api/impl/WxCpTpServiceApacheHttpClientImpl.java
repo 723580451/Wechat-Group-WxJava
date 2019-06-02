@@ -9,8 +9,8 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import me.chanjar.weixin.cp.api.WxCpTpService;
 import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import org.apache.http.Consts;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -52,7 +52,7 @@ public class WxCpTpServiceApacheHttpClientImpl extends BaseWxCpTpServiceImpl<Clo
 
     synchronized (this.globalSuiteAccessTokenRefreshLock) {
       try {
-        HttpPost httpPost = new HttpPost(configStorage.getApiUrl(WxCpTpService.GET_SUITE_TOKEN));
+        HttpPost httpPost = new HttpPost(configStorage.getApiUrl(WxCpApiPathConsts.Tp.GET_SUITE_TOKEN));
         if (this.httpProxy != null) {
           RequestConfig config = RequestConfig.custom()
             .setProxy(this.httpProxy).build();

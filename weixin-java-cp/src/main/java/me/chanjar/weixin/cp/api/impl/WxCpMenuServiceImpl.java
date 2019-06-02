@@ -1,11 +1,14 @@
 package me.chanjar.weixin.cp.api.impl;
 
+import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.cp.WxCpConsts;
 import me.chanjar.weixin.cp.api.WxCpMenuService;
 import me.chanjar.weixin.cp.api.WxCpService;
+import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
+
+import static me.chanjar.weixin.cp.constant.WxCpApiPathConsts.Menu.*;
 
 /**
  * <pre>
@@ -15,12 +18,9 @@ import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
+@RequiredArgsConstructor
 public class WxCpMenuServiceImpl implements WxCpMenuService {
-  private WxCpService mainService;
-
-  public WxCpMenuServiceImpl(WxCpService mainService) {
-    this.mainService = mainService;
-  }
+  private final WxCpService mainService;
 
   @Override
   public void create(WxMenu menu) throws WxErrorException {
@@ -29,7 +29,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public void create(Integer agentId, WxMenu menu) throws WxErrorException {
-    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(WxCpMenuService.MENU_CREATE), agentId);
+    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(MENU_CREATE), agentId);
     this.mainService.post(url, menu.toJson());
   }
 
@@ -40,7 +40,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public void delete(Integer agentId) throws WxErrorException {
-    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(WxCpMenuService.MENU_DELETE), agentId);
+    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(MENU_DELETE), agentId);
     this.mainService.get(url, null);
   }
 
@@ -51,7 +51,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public WxMenu get(Integer agentId) throws WxErrorException {
-    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(WxCpMenuService.MENU_GET), agentId);
+    String url = String.format(this.mainService.getWxCpConfigStorage().getApiUrl(MENU_GET), agentId);
     try {
       String resultContent = this.mainService.get(url, null);
       return WxCpGsonBuilder.create().fromJson(resultContent, WxMenu.class);

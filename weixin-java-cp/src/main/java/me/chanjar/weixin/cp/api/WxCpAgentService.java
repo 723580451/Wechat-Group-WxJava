@@ -15,10 +15,6 @@ import java.util.List;
  * @author <a href="https://github.com/huansinho">huansinho</a>
  */
 public interface WxCpAgentService {
-  String GET_AGENT = "/cgi-bin/agent/get?agentid=%d";
-  String AGENT_SET = "/cgi-bin/agent/set";
-  String AGENT_LIST = "/cgi-bin/agent/list";
-
   /**
    * <pre>
    * 获取企业号应用信息
