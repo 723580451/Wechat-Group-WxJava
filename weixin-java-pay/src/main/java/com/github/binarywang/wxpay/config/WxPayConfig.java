@@ -1,19 +1,15 @@
 package com.github.binarywang.wxpay.config;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.KeyStore;
-import javax.net.ssl.SSLContext;
-
+import com.github.binarywang.wxpay.exception.WxPayException;
+import lombok.Data;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.ssl.SSLContexts;
 
-import com.github.binarywang.wxpay.exception.WxPayException;
-import lombok.Data;
+import javax.net.ssl.SSLContext;
+import java.io.*;
+import java.net.URL;
+import java.security.KeyStore;
 
 /**
  * 微信支付配置
@@ -130,6 +126,15 @@ public class WxPayConfig {
         inputStream = WxPayConfig.class.getResourceAsStream(path);
         if (inputStream == null) {
           throw new WxPayException(fileNotFoundMsg);
+        }
+      } else if (this.getKeyPath().startsWith("http://") || this.getKeyPath().startsWith("https://")) {
+        try {
+          inputStream = new URL(this.keyPath).openStream();
+          if (inputStream == null) {
+            throw new WxPayException(fileNotFoundMsg);
+          }
+        } catch (IOException e) {
+          throw new WxPayException(fileNotFoundMsg, e);
         }
       } else {
         try {
