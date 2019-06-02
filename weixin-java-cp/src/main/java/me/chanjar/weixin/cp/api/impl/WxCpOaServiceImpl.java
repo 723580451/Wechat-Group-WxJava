@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.cp.api.WxCpOAService;
+import me.chanjar.weixin.cp.api.WxCpOaService;
 import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.bean.WxCpApprovalDataResult;
 import me.chanjar.weixin.cp.bean.WxCpCheckinData;
@@ -19,22 +19,19 @@ import java.util.List;
 
 /**
  * @author Element
- * @Package me.chanjar.weixin.cp.api.impl
  * @date 2019-04-06 11:20
- * @Description: TODO
  */
-public class WxCpOAServiceImpl implements WxCpOAService {
-
+public class WxCpOaServiceImpl implements WxCpOaService {
   private WxCpService mainService;
 
-  public WxCpOAServiceImpl(WxCpService mainService) {
+  public WxCpOaServiceImpl(WxCpService mainService) {
     this.mainService = mainService;
   }
 
   @Override
-  public List<WxCpCheckinData> getCheckinData(Integer openCheckinDataType, Date starttime, Date endtime, List<String> userIdList) throws WxErrorException {
+  public List<WxCpCheckinData> getCheckinData(Integer openCheckinDataType, Date startTime, Date endTime, List<String> userIdList) throws WxErrorException {
 
-    if (starttime == null || endtime == null) {
+    if (startTime == null || endTime == null) {
       throw new RuntimeException("starttime and endtime can't be null");
     }
 
@@ -42,14 +39,12 @@ public class WxCpOAServiceImpl implements WxCpOAService {
       throw new RuntimeException("用户列表不能为空，不超过100个，若用户超过100个，请分批获取");
     }
 
-    long endtimestamp = endtime.getTime() / 1000L;
-    long starttimestamp = starttime.getTime() / 1000L;
+    long endtimestamp = endTime.getTime() / 1000L;
+    long starttimestamp = startTime.getTime() / 1000L;
 
     if (endtimestamp - starttimestamp < 0 || endtimestamp - starttimestamp >= 30 * 24 * 60 * 60) {
       throw new RuntimeException("获取记录时间跨度不超过一个月");
     }
-
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata";
 
     JsonObject jsonObject = new JsonObject();
     JsonArray jsonArray = new JsonArray();
@@ -64,7 +59,7 @@ public class WxCpOAServiceImpl implements WxCpOAService {
 
     jsonObject.add("useridlist", jsonArray);
 
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpOaService.GET_CHECKIN_DATA, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxCpGsonBuilder.create()
       .fromJson(
@@ -76,7 +71,6 @@ public class WxCpOAServiceImpl implements WxCpOAService {
 
   @Override
   public List<WxCpCheckinOption> getCheckinOption(Date datetime, List<String> userIdList) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckinoption";
     if (datetime == null) {
       throw new RuntimeException("datetime can't be null");
     }
@@ -94,7 +88,7 @@ public class WxCpOAServiceImpl implements WxCpOAService {
     jsonObject.addProperty("datetime", datetime.getTime() / 1000L);
     jsonObject.add("useridlist", jsonArray);
 
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpOaService.GET_CHECKIN_OPTION, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
 
     return WxCpGsonBuilder.create()
@@ -106,24 +100,20 @@ public class WxCpOAServiceImpl implements WxCpOAService {
   }
 
   @Override
-  public WxCpApprovalDataResult getApprovalData(Date starttime, Date endtime, Long nextSpnum) throws WxErrorException {
-
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata";
+  public WxCpApprovalDataResult getApprovalData(Date startTime, Date endTime, Long nextSpnum) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty("starttime", starttime.getTime() / 1000L);
-    jsonObject.addProperty("endtime", endtime.getTime() / 1000L);
+    jsonObject.addProperty("starttime", startTime.getTime() / 1000L);
+    jsonObject.addProperty("endtime", endTime.getTime() / 1000L);
     if (nextSpnum != null) {
       jsonObject.addProperty("next_spnum", nextSpnum);
     }
 
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpOaService.GET_APPROVAL_DATA, jsonObject.toString());
     return WxCpGsonBuilder.create().fromJson(responseContent, WxCpApprovalDataResult.class);
   }
 
   @Override
-  public List<WxCpDialRecord> getDialRecord(Date starttime, Date endtime, Integer offset, Integer limit) throws WxErrorException {
-
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/dial/get_dial_record";
+  public List<WxCpDialRecord> getDialRecord(Date startTime, Date endTime, Integer offset, Integer limit) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
 
     if (offset == null) {
@@ -137,10 +127,10 @@ public class WxCpOAServiceImpl implements WxCpOAService {
     jsonObject.addProperty("offset", offset);
     jsonObject.addProperty("limit", limit);
 
-    if (starttime != null && endtime != null) {
+    if (startTime != null && endTime != null) {
 
-      long endtimestamp = endtime.getTime() / 1000L;
-      long starttimestamp = starttime.getTime() / 1000L;
+      long endtimestamp = endTime.getTime() / 1000L;
+      long starttimestamp = startTime.getTime() / 1000L;
 
       if (endtimestamp - starttimestamp < 0 || endtimestamp - starttimestamp >= 30 * 24 * 60 * 60) {
         throw new RuntimeException("受限于网络传输，起止时间的最大跨度为30天，如超过30天，则以结束时间为基准向前取30天进行查询");
@@ -148,11 +138,9 @@ public class WxCpOAServiceImpl implements WxCpOAService {
 
       jsonObject.addProperty("start_time", starttimestamp);
       jsonObject.addProperty("end_time", endtimestamp);
-
-
     }
 
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpOaService.GET_DIAL_RECORD, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
 
     return WxCpGsonBuilder.create()

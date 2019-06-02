@@ -1,8 +1,16 @@
 package me.chanjar.weixin.cp.api.impl;
 
 
-import java.io.IOException;
-
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import me.chanjar.weixin.common.WxType;
+import me.chanjar.weixin.common.error.WxError;
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.common.util.http.HttpType;
+import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.api.WxCpTpService;
+import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
 import org.apache.http.Consts;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -12,20 +20,14 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import java.io.IOException;
 
-import me.chanjar.weixin.common.WxType;
-import me.chanjar.weixin.common.error.WxError;
-import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.common.util.http.HttpType;
-import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
-import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
-import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
-
+/**
+ * @author someone
+ */
 public class WxCpTpServiceApacheHttpClientImpl extends BaseWxCpTpServiceImpl<CloseableHttpClient, HttpHost> {
-  protected CloseableHttpClient httpClient;
-  protected HttpHost httpProxy;
+  private CloseableHttpClient httpClient;
+  private HttpHost httpProxy;
 
   @Override
   public CloseableHttpClient getRequestHttpClient() {
@@ -49,9 +51,8 @@ public class WxCpTpServiceApacheHttpClientImpl extends BaseWxCpTpServiceImpl<Clo
     }
 
     synchronized (this.globalSuiteAccessTokenRefreshLock) {
-      String url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
       try {
-    	HttpPost httpPost = new HttpPost(url);
+        HttpPost httpPost = new HttpPost(WxCpTpService.GET_SUITE_TOKEN);
         if (this.httpProxy != null) {
           RequestConfig config = RequestConfig.custom()
             .setProxy(this.httpProxy).build();
@@ -63,7 +64,7 @@ public class WxCpTpServiceApacheHttpClientImpl extends BaseWxCpTpServiceImpl<Clo
         jsonObject.addProperty("suite_ticket", this.getSuiteTicket());
         StringEntity entity = new StringEntity(jsonObject.toString(), Consts.UTF_8);
         httpPost.setEntity(entity);
-        
+
         String resultContent;
         try (CloseableHttpClient httpclient = getRequestHttpClient();
              CloseableHttpResponse response = httpclient.execute(httpPost)) {
@@ -88,8 +89,7 @@ public class WxCpTpServiceApacheHttpClientImpl extends BaseWxCpTpServiceImpl<Clo
 
   @Override
   public void initHttp() {
-    ApacheHttpClientBuilder apacheHttpClientBuilder = this.configStorage
-      .getApacheHttpClientBuilder();
+    ApacheHttpClientBuilder apacheHttpClientBuilder = this.configStorage.getApacheHttpClientBuilder();
     if (null == apacheHttpClientBuilder) {
       apacheHttpClientBuilder = DefaultApacheHttpClientBuilder.get();
     }

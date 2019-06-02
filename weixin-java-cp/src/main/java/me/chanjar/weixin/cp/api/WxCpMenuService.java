@@ -12,6 +12,10 @@ import me.chanjar.weixin.common.error.WxErrorException;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpMenuService {
+  String MENU_CREATE = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?agentid=%d";
+  String MENU_DELETE = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?agentid=%d";
+  String MENU_GET = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?agentid=%d";
+
   /**
    * <pre>
    * 自定义菜单创建接口

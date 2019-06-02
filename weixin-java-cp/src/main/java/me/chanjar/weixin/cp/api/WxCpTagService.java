@@ -17,6 +17,14 @@ import java.util.List;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpTagService {
+  String TAG_CREATE = "https://qyapi.weixin.qq.com/cgi-bin/tag/create";
+  String TAG_UPDATE = "https://qyapi.weixin.qq.com/cgi-bin/tag/update";
+  String TAG_DELETE = "https://qyapi.weixin.qq.com/cgi-bin/tag/delete?tagid=%s";
+  String TAG_LIST = "https://qyapi.weixin.qq.com/cgi-bin/tag/list";
+  String TAG_GET = "https://qyapi.weixin.qq.com/cgi-bin/tag/get?tagid=%s";
+  String TAG_ADDTAGUSERS = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers";
+  String TAG_DELTAGUSERS = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers";
+
   /**
    * 创建标签.
    *
@@ -52,6 +60,14 @@ public interface WxCpTagService {
   List<WxCpUser> listUsersByTagId(String tagId) throws WxErrorException;
 
   /**
+   * 获取标签成员.
+   * 对应: http://qydev.weixin.qq.com/wiki/index.php?title=管理标签 中的get接口
+   *
+   * @param tagId 标签id
+   */
+  WxCpTagGetResult get(String tagId) throws WxErrorException;
+
+  /**
    * 增加标签成员.
    *
    * @param tagId    标签id
@@ -68,14 +84,5 @@ public interface WxCpTagService {
    * @param partyIds 企业部门ID列表
    */
   WxCpTagAddOrRemoveUsersResult removeUsersFromTag(String tagId, List<String> userIds, List<String> partyIds) throws WxErrorException;
-
-
-  /**
-   * 获取标签成员.
-   * 对应: http://qydev.weixin.qq.com/wiki/index.php?title=管理标签 中的get接口
-   *
-   * @param tagId 标签id
-   */
-  WxCpTagGetResult get(String tagId) throws WxErrorException;
 
 }

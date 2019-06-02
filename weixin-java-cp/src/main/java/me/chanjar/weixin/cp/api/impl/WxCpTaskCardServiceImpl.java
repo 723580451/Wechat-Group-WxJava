@@ -33,7 +33,6 @@ public class WxCpTaskCardServiceImpl implements WxCpTaskCardService {
     data.put("task_id", taskId);
     data.put("clicked_key", clickedKey);
 
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/message/update_taskcard";
-    this.mainService.post(url, WxGsonBuilder.create().toJson(data));
+    this.mainService.post(MESSAGE_UPDATE_TASKCARD, WxGsonBuilder.create().toJson(data));
   }
 }

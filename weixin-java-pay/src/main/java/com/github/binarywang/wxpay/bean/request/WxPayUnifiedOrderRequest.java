@@ -5,6 +5,7 @@ import com.github.binarywang.wxpay.constant.WxPayConstants.TradeType;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
+import lombok.experimental.Accessors;
 import me.chanjar.weixin.common.annotation.Required;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("xml")
+@Accessors(chain = true)
 public class WxPayUnifiedOrderRequest extends BaseWxPayRequest {
   private static final long serialVersionUID = 4611350167813931828L;
 

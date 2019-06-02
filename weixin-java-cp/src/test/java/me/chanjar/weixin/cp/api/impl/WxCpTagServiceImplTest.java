@@ -22,10 +22,10 @@ import static org.testng.Assert.assertNotEquals;
 
 /**
  * <pre>
- *
  * Created by Binary Wang on 2017-6-25.
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  * </pre>
+ *
+ * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 @Guice(modules = ApiTestModule.class)
 public class WxCpTagServiceImplTest {
@@ -35,7 +35,7 @@ public class WxCpTagServiceImplTest {
   @Inject
   protected ApiTestModule.WxXmlCpInMemoryConfigStorage configStorage;
 
-  protected String tagId;
+  private String tagId;
 
   @Test
   public void testCreate() throws Exception {
@@ -83,7 +83,7 @@ public class WxCpTagServiceImplTest {
   public void testGet() throws WxErrorException {
     String apiResultJson = "{\"errcode\": 0,\"errmsg\": \"ok\",\"userlist\": [{\"userid\": \"0124035\",\"name\": \"王五\"},{\"userid\": \"0114035\",\"name\": \"梦雪\"}],\"partylist\": [9576,9567,9566],\"tagname\": \"测试标签-001\"}";
     WxCpService wxService = mock(WxCpService.class);
-    when(wxService.get("https://qyapi.weixin.qq.com/cgi-bin/tag/get?tagId=150", null)).thenReturn(apiResultJson);
+    when(wxService.get(String.format(WxCpTagService.TAG_GET, 150), null)).thenReturn(apiResultJson);
     when(wxService.getTagService()).thenReturn(new WxCpTagServiceImpl(wxService));
 
     WxCpTagService wxCpTagService = wxService.getTagService();
@@ -95,7 +95,6 @@ public class WxCpTagServiceImplTest {
     assertEquals(2, wxCpTagGetResult.getUserlist().size());
     assertEquals(3, wxCpTagGetResult.getPartylist().size());
     assertEquals("测试标签-001", wxCpTagGetResult.getTagname());
-
 
   }
 

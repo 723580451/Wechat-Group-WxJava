@@ -8,10 +8,11 @@ import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 
 /**
  * <pre>
- * 菜单管理相关接口
+ * 菜单管理相关接口.
  * Created by Binary Wang on 2017-6-25.
- * @author <a href="https://github.com/binarywang">Binary Wang</a>
  * </pre>
+ *
+ * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxCpMenuServiceImpl implements WxCpMenuService {
   private WxCpService mainService;
@@ -27,8 +28,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public void create(Integer agentId, WxMenu menu) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/menu/create?agentid=" + agentId;
-    this.mainService.post(url, menu.toJson());
+    this.mainService.post(String.format(WxCpMenuService.MENU_CREATE, agentId), menu.toJson());
   }
 
   @Override
@@ -38,7 +38,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public void delete(Integer agentId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/menu/delete?agentid=" + agentId;
+    String url = String.format(WxCpMenuService.MENU_DELETE, agentId);
     this.mainService.get(url, null);
   }
 
@@ -49,7 +49,7 @@ public class WxCpMenuServiceImpl implements WxCpMenuService {
 
   @Override
   public WxMenu get(Integer agentId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/menu/get?agentid=" + agentId;
+    String url = String.format(WxCpMenuService.MENU_GET, agentId);
     try {
       String resultContent = this.mainService.get(url, null);
       return WxCpGsonBuilder.create().fromJson(resultContent, WxMenu.class);

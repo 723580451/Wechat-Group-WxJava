@@ -14,6 +14,8 @@ import java.util.List;
  * @date 2019-05-16
  */
 public interface WxCpTaskCardService {
+  String MESSAGE_UPDATE_TASKCARD = "https://qyapi.weixin.qq.com/cgi-bin/message/update_taskcard";
+
   /**
    * <pre>
    * 更新任务卡片消息状态

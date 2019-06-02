@@ -14,6 +14,10 @@ import me.chanjar.weixin.cp.bean.WxCpDepart;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpDepartmentService {
+  String DEPARTMENT_CREATE = "https://qyapi.weixin.qq.com/cgi-bin/department/create";
+  String DEPARTMENT_UPDATE = "https://qyapi.weixin.qq.com/cgi-bin/department/update";
+  String DEPARTMENT_DELETE = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?id=%d";
+  String DEPARTMENT_LIST = "https://qyapi.weixin.qq.com/cgi-bin/department/list";
 
   /**
    * <pre>

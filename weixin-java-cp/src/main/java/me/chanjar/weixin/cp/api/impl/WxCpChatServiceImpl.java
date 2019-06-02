@@ -98,7 +98,7 @@ public class WxCpChatServiceImpl implements WxCpChatService {
 
   @Override
   public void sendMsg(WxCpAppChatMessage message) throws WxErrorException {
-    this.cpService.post("https://qyapi.weixin.qq.com/cgi-bin/appchat/send", message.toJson());
+    this.cpService.post(WxCpChatService.APPCHAT_SEND, message.toJson());
   }
 
 }

@@ -13,7 +13,7 @@ import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 
 /**
- * 微信API的Service
+ * 微信API的Service.
  * @author chanjaster
  */
 public interface WxCpService {
@@ -25,6 +25,7 @@ public interface WxCpService {
   String BATCH_REPLACE_USER = "https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser";
   String BATCH_GET_RESULT = "https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?jobid=";
   String JSCODE_TO_SESSION_URL = "https://qyapi.weixin.qq.com/cgi-bin/miniprogram/jscode2session";
+  String GET_TOKEN = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?&corpid=%s&corpsecret=%s";
 
   /**
    * <pre>
@@ -310,7 +311,7 @@ public interface WxCpService {
 
   WxCpAgentService getAgentService();
 
-  WxCpOAService getOAService();
+  WxCpOaService getOAService();
 
   /**
    * http请求对象

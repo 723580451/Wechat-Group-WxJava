@@ -26,7 +26,7 @@ import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public class WxCpUserServiceImpl implements WxCpUserService {
-  private WxCpService mainService;
+  private final WxCpService mainService;
 
   public WxCpUserServiceImpl(WxCpService mainService) {
     this.mainService = mainService;
@@ -34,50 +34,44 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
   @Override
   public void authenticate(String userId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?userid=" + userId;
-    this.mainService.get(url, null);
+    this.mainService.get(WxCpUserService.URL_AUTHENTICATE + userId, null);
   }
 
   @Override
   public void create(WxCpUser user) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/create";
-    this.mainService.post(url, user.toJson());
+    this.mainService.post(WxCpUserService.URL_USER_CREATE, user.toJson());
   }
 
   @Override
   public void update(WxCpUser user) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/update";
-    this.mainService.post(url, user.toJson());
+    this.mainService.post(WxCpUserService.URL_USER_UPDATE, user.toJson());
   }
 
   @Override
   public void delete(String... userIds) throws WxErrorException {
     if (userIds.length == 1) {
-      String url = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?userid=" + userIds[0];
-      this.mainService.get(url, null);
+      this.mainService.get(WxCpUserService.URL_USER_DELETE + userIds[0], null);
       return;
     }
 
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete";
     JsonObject jsonObject = new JsonObject();
     JsonArray jsonArray = new JsonArray();
-    for (String userid : userIds) {
-      jsonArray.add(new JsonPrimitive(userid));
+    for (String userId : userIds) {
+      jsonArray.add(new JsonPrimitive(userId));
     }
+
     jsonObject.add("useridlist", jsonArray);
-    this.mainService.post(url, jsonObject.toString());
+    this.mainService.post(WxCpUserService.URL_USER_BATCH_DELETE, jsonObject.toString());
   }
 
   @Override
   public WxCpUser getById(String userid) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=" + userid;
-    String responseContent = this.mainService.get(url, null);
+    String responseContent = this.mainService.get(WxCpUserService.URL_USER_GET + userid, null);
     return WxCpUser.fromJson(responseContent);
   }
 
   @Override
   public List<WxCpUser> listByDepartment(Long departId, Boolean fetchChild, Integer status) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/list?department_id=" + departId;
     String params = "";
     if (fetchChild != null) {
       params += "&fetch_child=" + (fetchChild ? "1" : "0");
@@ -88,7 +82,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       params += "&status=0";
     }
 
-    String responseContent = this.mainService.get(url, params);
+    String responseContent = this.mainService.get(WxCpUserService.URL_USER_LIST + departId, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxCpGsonBuilder.create()
       .fromJson(tmpJsonElement.getAsJsonObject().get("userlist"),
@@ -99,7 +93,6 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
   @Override
   public List<WxCpUser> listSimpleByDepartment(Long departId, Boolean fetchChild, Integer status) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?department_id=" + departId;
     String params = "";
     if (fetchChild != null) {
       params += "&fetch_child=" + (fetchChild ? "1" : "0");
@@ -110,7 +103,7 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       params += "&status=0";
     }
 
-    String responseContent = this.mainService.get(url, params);
+    String responseContent = this.mainService.get(WxCpUserService.URL_USER_SIMPLE_LIST + departId, params);
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return WxCpGsonBuilder.create()
       .fromJson(
@@ -122,7 +115,6 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
   @Override
   public WxCpInviteResult invite(List<String> userIds, List<String> partyIds, List<String> tagIds) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/batch/invite";
     JsonObject jsonObject = new JsonObject();
     if (userIds != null) {
       JsonArray jsonArray = new JsonArray();
@@ -148,19 +140,18 @@ public class WxCpUserServiceImpl implements WxCpUserService {
       jsonObject.add("tag", jsonArray);
     }
 
-    return WxCpInviteResult.fromJson(this.mainService.post(url, jsonObject.toString()));
+    return WxCpInviteResult.fromJson(this.mainService.post(WxCpUserService.URL_BATCH_INVITE, jsonObject.toString()));
   }
 
   @Override
   public Map<String, String> userId2Openid(String userId, Integer agentId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid";
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("userid", userId);
     if (agentId != null) {
       jsonObject.addProperty("agentid", agentId);
     }
 
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpUserService.URL_CONVERT_TO_OPENID, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     Map<String, String> result = Maps.newHashMap();
     if (tmpJsonElement.getAsJsonObject().get("openid") != null) {
@@ -176,18 +167,16 @@ public class WxCpUserServiceImpl implements WxCpUserService {
 
   @Override
   public String openid2UserId(String openid) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid";
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("openid", openid);
-    String responseContent = this.mainService.post(url, jsonObject.toString());
+    String responseContent = this.mainService.post(WxCpUserService.URL_CONVERT_TO_USERID, jsonObject.toString());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return tmpJsonElement.getAsJsonObject().get("userid").getAsString();
   }
 
   @Override
   public WxCpUserExternalContactInfo getExternalContact(String userId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact?external_userid=" + userId;
-    String responseContent = this.mainService.get(url, null);
+    String responseContent = this.mainService.get(WxCpUserService.URL_GET_EXTERNAL_CONTACT + userId, null);
     return WxCpUserExternalContactInfo.fromJson(responseContent);
   }
 }

@@ -29,27 +29,25 @@ public class WxCpDepartmentServiceImpl implements WxCpDepartmentService {
 
   @Override
   public Long create(WxCpDepart depart) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/department/create";
-    String responseContent = this.mainService.post(url, depart.toJson());
+    String responseContent = this.mainService.post(WxCpDepartmentService.DEPARTMENT_CREATE, depart.toJson());
     JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
     return GsonHelper.getAsLong(tmpJsonElement.getAsJsonObject().get("id"));
   }
 
   @Override
   public void update(WxCpDepart group) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/department/update";
-    this.mainService.post(url, group.toJson());
+    this.mainService.post(WxCpDepartmentService.DEPARTMENT_UPDATE, group.toJson());
   }
 
   @Override
   public void delete(Long departId) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/department/delete?id=" + departId;
+    String url = String.format(WxCpDepartmentService.DEPARTMENT_DELETE, departId);
     this.mainService.get(url, null);
   }
 
   @Override
   public List<WxCpDepart> list(Long id) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/department/list";
+    String url = WxCpDepartmentService.DEPARTMENT_LIST;
     if (id != null) {
       url += "?id=" + id;
     }

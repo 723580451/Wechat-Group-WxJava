@@ -37,15 +37,13 @@ public class WxCpAgentServiceImpl implements WxCpAgentService {
       throw new IllegalArgumentException("缺少agentid参数");
     }
 
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/agent/get?agentid=" + agentId;
-    String responseContent = this.mainService.get(url, null);
+    String responseContent = this.mainService.get(String.format(WxCpAgentService.GET_AGENT, agentId), null);
     return WxCpAgent.fromJson(responseContent);
   }
 
   @Override
   public void set(WxCpAgent agentInfo) throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/agent/set";
-    String responseContent = this.mainService.post(url, agentInfo.toJson());
+    String responseContent = this.mainService.post(WxCpAgentService.AGENT_SET, agentInfo.toJson());
     JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
     if (jsonObject.get("errcode").getAsInt() != 0) {
       throw new WxErrorException(WxError.fromJson(responseContent));
@@ -54,8 +52,7 @@ public class WxCpAgentServiceImpl implements WxCpAgentService {
 
   @Override
   public List<WxCpAgent> list() throws WxErrorException {
-    String url = "https://qyapi.weixin.qq.com/cgi-bin/agent/list";
-    String responseContent = this.mainService.get(url, null);
+    String responseContent = this.mainService.get(WxCpAgentService.AGENT_LIST, null);
     JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
     if (jsonObject.get("errcode").getAsInt() != 0) {
       throw new WxErrorException(WxError.fromJson(responseContent));

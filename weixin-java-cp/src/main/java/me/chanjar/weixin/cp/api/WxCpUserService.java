@@ -17,6 +17,19 @@ import me.chanjar.weixin.cp.bean.WxCpUserExternalContactInfo;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public interface WxCpUserService {
+  String URL_AUTHENTICATE = "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?userid=";
+  String URL_USER_CREATE = "https://qyapi.weixin.qq.com/cgi-bin/user/create";
+  String URL_USER_UPDATE = "https://qyapi.weixin.qq.com/cgi-bin/user/update";
+  String URL_USER_DELETE = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?userid=";
+  String URL_USER_BATCH_DELETE = "https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete";
+  String URL_USER_GET = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=";
+  String URL_USER_LIST = "https://qyapi.weixin.qq.com/cgi-bin/user/list?department_id=";
+  String URL_USER_SIMPLE_LIST = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?department_id=";
+  String URL_BATCH_INVITE = "https://qyapi.weixin.qq.com/cgi-bin/batch/invite";
+  String URL_CONVERT_TO_OPENID = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid";
+  String URL_CONVERT_TO_USERID = "https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid";
+  String URL_GET_EXTERNAL_CONTACT = "https://qyapi.weixin.qq.com/cgi-bin/crm/get_external_contact?external_userid=";
+
   /**
    * <pre>
    *   用在二次验证的时候.
