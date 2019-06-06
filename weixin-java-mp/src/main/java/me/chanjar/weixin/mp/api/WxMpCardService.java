@@ -11,27 +11,6 @@ import me.chanjar.weixin.mp.bean.card.*;
  * @author yuanqixun 2018-08-29
  */
 public interface WxMpCardService {
-  String CARD_CREATE = "https://api.weixin.qq.com/card/create";
-  String CARD_GET = "https://api.weixin.qq.com/card/get";
-  String CARD_GET_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=wx_card";
-  String CARD_CODE_DECRYPT = "https://api.weixin.qq.com/card/code/decrypt";
-  String CARD_CODE_GET = "https://api.weixin.qq.com/card/code/get";
-  String CARD_CODE_CONSUME = "https://api.weixin.qq.com/card/code/consume";
-  String CARD_CODE_MARK = "https://api.weixin.qq.com/card/code/mark";
-  String CARD_TEST_WHITELIST = "https://api.weixin.qq.com/card/testwhitelist/set";
-  String CARD_QRCODE_CREATE = "https://api.weixin.qq.com/card/qrcode/create";
-  String CARD_LANDING_PAGE_CREATE = "https://api.weixin.qq.com/card/landingpage/create";
-
-  /**
-   * 将用户的卡券设置为失效状态.
-   */
-  String CARD_CODE_UNAVAILABLE = "https://api.weixin.qq.com/card/code/unavailable";
-
-  /**
-   * 卡券删除.
-   */
-  String CARD_DELETE = "https://api.weixin.qq.com/card/delete";
-
   /**
    * 得到WxMpService.
    */

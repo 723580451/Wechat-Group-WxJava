@@ -8,12 +8,15 @@ import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpService;
 
 import java.util.concurrent.locks.Lock;
 
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Other.GET_ACCESS_TOKEN_URL;
+
 /**
- * jodd-http方式实现
+ * jodd-http方式实现.
+ *
+ * @author someone
  */
 public class WxMpServiceJoddHttpImpl extends BaseWxMpServiceImpl<HttpConnectionProvider, ProxyInfo> {
   private HttpConnectionProvider httpClient;
@@ -55,7 +58,7 @@ public class WxMpServiceJoddHttpImpl extends BaseWxMpServiceImpl<HttpConnectionP
     Lock lock = this.getWxMpConfigStorage().getAccessTokenLock();
     lock.lock();
     try {
-      String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL,
+      String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(),
         this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
 
       HttpRequest request = HttpRequest.get(url);

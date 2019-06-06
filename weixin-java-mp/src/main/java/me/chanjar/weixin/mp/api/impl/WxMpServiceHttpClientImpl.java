@@ -8,7 +8,7 @@ import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -19,8 +19,12 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Other.*;
+
 /**
  * apache http client方式实现.
+ *
+ * @author someone
  */
 public class WxMpServiceHttpClientImpl extends BaseWxMpServiceImpl<CloseableHttpClient, HttpHost> {
   private CloseableHttpClient httpClient;
@@ -70,7 +74,7 @@ public class WxMpServiceHttpClientImpl extends BaseWxMpServiceImpl<CloseableHttp
     Lock lock = this.getWxMpConfigStorage().getAccessTokenLock();
     lock.lock();
     try {
-      String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL,
+      String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(),
         this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
       try {
         HttpGet httpGet = new HttpGet(url);

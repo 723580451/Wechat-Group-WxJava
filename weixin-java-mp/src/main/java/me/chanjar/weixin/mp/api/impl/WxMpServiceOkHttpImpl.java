@@ -7,14 +7,18 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.HttpType;
 import me.chanjar.weixin.common.util.http.okhttp.OkHttpProxyInfo;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 import okhttp3.*;
 
 import java.io.IOException;
 import java.util.concurrent.locks.Lock;
 
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Other.*;
+
 /**
- * okhttp实现
+ * okhttp实现.
+ *
+ * @author someone
  */
 public class WxMpServiceOkHttpImpl extends BaseWxMpServiceImpl<OkHttpClient, OkHttpProxyInfo> {
   private OkHttpClient httpClient;
@@ -44,7 +48,7 @@ public class WxMpServiceOkHttpImpl extends BaseWxMpServiceImpl<OkHttpClient, OkH
     Lock lock = this.getWxMpConfigStorage().getAccessTokenLock();
     lock.lock();
     try {
-      String url = String.format(WxMpService.GET_ACCESS_TOKEN_URL,
+      String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(),
         this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
 
       Request request = new Request.Builder().url(url).get().build();

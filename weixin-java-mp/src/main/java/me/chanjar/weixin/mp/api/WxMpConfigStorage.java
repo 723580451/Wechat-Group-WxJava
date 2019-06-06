@@ -13,7 +13,6 @@ import me.chanjar.weixin.mp.enums.TicketType;
  * @author chanjarster
  */
 public interface WxMpConfigStorage {
-
   String getAccessToken();
 
   Lock getAccessTokenLock();

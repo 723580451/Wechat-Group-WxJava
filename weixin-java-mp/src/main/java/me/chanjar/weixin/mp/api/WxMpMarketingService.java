@@ -18,8 +18,6 @@ import java.util.List;
  * @author <a href="https://github.com/007gzs">007</a>
  */
 public interface WxMpMarketingService {
-  String API_URL_PREFIX = "https://api.weixin.qq.com/marketing/";
-
   /**
    * <pre>
    * 创建数据源
