@@ -7,9 +7,9 @@ import me.chanjar.weixin.mp.api.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.WxMpSubscribeMsgService;
 import me.chanjar.weixin.mp.bean.subscribe.WxMpSubscribeMessage;
-import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 
-import static me.chanjar.weixin.mp.enums.WxMpApiUrl.SubscribeMsg.*;
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.SubscribeMsg.SEND_MESSAGE_URL;
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.SubscribeMsg.SUBSCRIBE_MESSAGE_AUTHORIZE_URL;
 
 /**
  * 一次性订阅消息接口.
@@ -24,8 +24,8 @@ public class WxMpSubscribeMsgServiceImpl implements WxMpSubscribeMsgService {
   @Override
   public String subscribeMsgAuthorizationUrl(String redirectURI, int scene, String reserved) {
     WxMpConfigStorage storage = this.wxMpService.getWxMpConfigStorage();
-    return String.format(SUBSCRIBE_MESSAGE_AUTHORIZE_URL.getUrl(),
-      storage.getAppId(), scene, storage.getTemplateId(), URIUtil.encodeURIComponent(redirectURI), reserved);
+    return String.format(SUBSCRIBE_MESSAGE_AUTHORIZE_URL.getUrl(), storage.getAppId(), scene, storage.getTemplateId(),
+      URIUtil.encodeURIComponent(redirectURI), reserved);
   }
 
   @Override

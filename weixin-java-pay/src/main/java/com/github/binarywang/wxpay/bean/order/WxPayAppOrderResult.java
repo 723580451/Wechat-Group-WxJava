@@ -17,6 +17,8 @@ import java.io.Serializable;
 @Data
 @Builder
 public class WxPayAppOrderResult implements Serializable {
+  private static final long serialVersionUID = 5408678833978707228L;
+
   private String sign;
   private String prepayId;
   private String partnerId;

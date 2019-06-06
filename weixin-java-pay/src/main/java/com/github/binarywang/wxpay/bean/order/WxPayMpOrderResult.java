@@ -18,6 +18,8 @@ import java.io.Serializable;
 @Data
 @Builder
 public class WxPayMpOrderResult implements Serializable {
+  private static final long serialVersionUID = -7966682379048446567L;
+
   private String appId;
   private String timeStamp;
   private String nonceStr;
