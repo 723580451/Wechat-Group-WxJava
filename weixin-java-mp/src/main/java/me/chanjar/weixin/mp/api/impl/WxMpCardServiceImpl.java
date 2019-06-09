@@ -185,22 +185,39 @@ public class WxMpCardServiceImpl implements WxMpCardService {
 
   @Override
   public WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr) throws WxErrorException {
-    return createQrcodeCard(cardId, outerStr, 0);
+    return this.createQrcodeCard(cardId, outerStr, 0);
   }
 
   @Override
   public WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr, int expiresIn) throws WxErrorException {
+    return this.createQrcodeCard(cardId, outerStr, expiresIn, null, null, false);
+  }
+
+  @Override
+  public WxMpCardQrcodeCreateResult createQrcodeCard(String cardId, String outerStr, int expiresIn, String openid,
+                                                     String code, boolean isUniqueCode) throws WxErrorException {
     JsonObject jsonObject = new JsonObject();
     jsonObject.addProperty("action_name", "QR_CARD");
     if (expiresIn > 0) {
       jsonObject.addProperty("expire_seconds", expiresIn);
     }
+
     JsonObject actionInfoJson = new JsonObject();
     JsonObject cardJson = new JsonObject();
+    if (openid != null) {
+      cardJson.addProperty("openid", openid);
+    }
+
+    if (code != null) {
+      cardJson.addProperty("code", code);
+    }
+
+    cardJson.addProperty("is_unique_code", isUniqueCode);
     cardJson.addProperty("card_id", cardId);
     cardJson.addProperty("outer_str", outerStr);
     actionInfoJson.add("card", cardJson);
     jsonObject.add("action_info", actionInfoJson);
+
     return WxMpCardQrcodeCreateResult.fromJson(this.wxMpService.post(WxMpApiUrl.Card.CARD_QRCODE_CREATE, GSON.toJson(jsonObject)));
   }
 
