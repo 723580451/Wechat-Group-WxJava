@@ -634,10 +634,16 @@ public class WxMpXmlMessage implements Serializable {
   private String regionCode;
 
   /**
-   * 审核未通过的原因。
+   * 审核未通过的原因.
    */
   @XStreamAlias("ReasonMsg")
   private String reasonMsg;
+
+  /**
+   * 给用户发菜单消息类型的客服消息后，用户所点击的菜单ID.
+   */
+  @XStreamAlias("bizmsgmenuid")
+  private String bizMsgMenuId;
 
   public static WxMpXmlMessage fromXml(String xml) {
     //修改微信变态的消息内容格式，方便解析

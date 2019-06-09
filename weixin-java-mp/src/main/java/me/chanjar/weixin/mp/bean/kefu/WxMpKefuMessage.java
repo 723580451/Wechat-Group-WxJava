@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 客服消息
+ * 客服消息.
  *
  * @author chanjarster
  */
@@ -34,64 +34,79 @@ public class WxMpKefuMessage implements Serializable {
   private String miniProgramPagePath;
   private List<WxArticle> articles = new ArrayList<>();
 
+  private String headContent;
+  private String tailContent;
   /**
-   * 获得文本消息builder
+   * 菜单消息里的菜单内容.
+   * 请使用逗号分割的形式将id和content连起来放在数组的里面
+   */
+  private String[] msgMenuList;
+
+  /**
+   * 获得文本消息builder.
    */
   public static TextBuilder TEXT() {
     return new TextBuilder();
   }
 
   /**
-   * 获得图片消息builder
+   * 获得图片消息builder.
    */
   public static ImageBuilder IMAGE() {
     return new ImageBuilder();
   }
 
   /**
-   * 获得语音消息builder
+   * 获得语音消息builder.
    */
   public static VoiceBuilder VOICE() {
     return new VoiceBuilder();
   }
 
   /**
-   * 获得视频消息builder
+   * 获得视频消息builder.
    */
   public static VideoBuilder VIDEO() {
     return new VideoBuilder();
   }
 
   /**
-   * 获得音乐消息builder
+   * 获得音乐消息builder.
    */
   public static MusicBuilder MUSIC() {
     return new MusicBuilder();
   }
 
   /**
-   * 获得图文消息（点击跳转到外链）builder
+   * 获得图文消息（点击跳转到外链）builder.
    */
   public static NewsBuilder NEWS() {
     return new NewsBuilder();
   }
 
   /**
-   * 获得图文消息（点击跳转到图文消息页面）builder
+   * 获得图文消息（点击跳转到图文消息页面）builder.
    */
   public static MpNewsBuilder MPNEWS() {
     return new MpNewsBuilder();
   }
 
   /**
-   * 获得卡券消息builder
+   * 获得卡券消息builder.
    */
   public static WxCardBuilder WXCARD() {
     return new WxCardBuilder();
   }
 
   /**
-   * 小程序卡片
+   * 获得菜单消息builder.
+   */
+  public static WxMsgMenuBuilder MSGMENU() {
+    return new WxMsgMenuBuilder();
+  }
+
+  /**
+   * 小程序卡片.
    */
   public static MiniProgramPageBuilder MINIPROGRAMPAGE() {
     return new MiniProgramPageBuilder();
@@ -110,8 +125,8 @@ public class WxMpKefuMessage implements Serializable {
    * {@link WxConsts.KefuMsgType#WXCARD}
    * {@link WxConsts.KefuMsgType#MINIPROGRAMPAGE}
    * {@link WxConsts.KefuMsgType#TASKCARD}
+   * {@link WxConsts.KefuMsgType#MSGMENU}
    * </pre>
-   *
    */
   public void setMsgType(String msgType) {
     this.msgType = msgType;

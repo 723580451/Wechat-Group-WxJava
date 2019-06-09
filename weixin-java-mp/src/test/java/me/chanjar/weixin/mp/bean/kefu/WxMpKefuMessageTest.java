@@ -5,6 +5,8 @@ import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage.WxArticle;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Test
 public class WxMpKefuMessageTest {
 
@@ -141,7 +143,6 @@ public class WxMpKefuMessageTest {
   }
 
   public void testMiniProgramPageBuild() {
-
     WxMpKefuMessage reply = WxMpKefuMessage.MINIPROGRAMPAGE()
       .toUser("OPENID")
       .title("title")
@@ -152,6 +153,18 @@ public class WxMpKefuMessageTest {
 
     Assert.assertEquals(reply.toJson(),
       "{\"touser\":\"OPENID\",\"msgtype\":\"miniprogrampage\",\"miniprogrampage\":{\"title\":\"title\",\"appid\":\"appid\",\"pagepath\":\"pagepath\",\"thumb_media_id\":\"thumb_media_id\"}}");
+  }
+
+  public void testMsgMenuBuild() {
+    WxMpKefuMessage reply = WxMpKefuMessage.MSGMENU()
+      .toUser("OPENID")
+      .msgMenuList("101,满意", "102,不满意")
+      .headContent("您对本次服务是否满意呢?")
+      .tailContent("欢迎再次光临")
+      .build();
+
+    assertThat(reply.toJson())
+      .isEqualTo("{\"touser\":\"OPENID\",\"msgtype\":\"msgmenu\",\"msgmenu\":{\"head_content\":\"您对本次服务是否满意呢?\",\"list\":[{\"id\":\"101\",\"content\":\"满意\"},{\"id\":\"102\",\"content\":\"不满意\"}],\"tail_content\":\"欢迎再次光临\"}}");
   }
 
 }
