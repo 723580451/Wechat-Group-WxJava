@@ -53,7 +53,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
 
   @Override
   public WxMediaUploadResult mediaUpload(String mediaType, File file) throws WxErrorException {
-    String url = String.format(MEDIA_UPLOAD_URL.getUrl(), mediaType);
+    String url = String.format(MEDIA_UPLOAD_URL.getUrl(this.wxMpService.getWxMpConfigStorage()), mediaType);
     return this.wxMpService.execute(MediaUploadRequestExecutor.create(this.wxMpService.getRequestHttp()), url, file);
   }
 
@@ -72,7 +72,7 @@ public class WxMpMaterialServiceImpl implements WxMpMaterialService {
 
   @Override
   public WxMpMaterialUploadResult materialFileUpload(String mediaType, WxMpMaterial material) throws WxErrorException {
-    String url = String.format(MATERIAL_ADD_URL.getUrl(), mediaType);
+    String url = String.format(MATERIAL_ADD_URL.getUrl(this.wxMpService.getWxMpConfigStorage()), mediaType);
     return this.wxMpService.execute(MaterialUploadRequestExecutor.create(this.wxMpService.getRequestHttp()), url, material);
   }
 

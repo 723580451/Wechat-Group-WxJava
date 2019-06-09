@@ -24,7 +24,7 @@ public class WxMpSubscribeMsgServiceImpl implements WxMpSubscribeMsgService {
   @Override
   public String subscribeMsgAuthorizationUrl(String redirectURI, int scene, String reserved) {
     WxMpConfigStorage storage = this.wxMpService.getWxMpConfigStorage();
-    return String.format(SUBSCRIBE_MESSAGE_AUTHORIZE_URL.getUrl(), storage.getAppId(), scene, storage.getTemplateId(),
+    return String.format(SUBSCRIBE_MESSAGE_AUTHORIZE_URL.getUrl(storage), storage.getAppId(), scene, storage.getTemplateId(),
       URIUtil.encodeURIComponent(redirectURI), reserved);
   }
 

@@ -105,7 +105,8 @@ public class WxMpQrcodeServiceImpl implements WxMpQrcodeService {
   @Override
   public String qrCodePictureUrl(String ticket, boolean needShortUrl) throws WxErrorException {
     try {
-      String resultUrl = String.format(SHOW_QRCODE_WITH_TICKET.getUrl(), URLEncoder.encode(ticket, StandardCharsets.UTF_8.name()));
+      String resultUrl = String.format(SHOW_QRCODE_WITH_TICKET.getUrl(this.wxMpService.getWxMpConfigStorage()),
+        URLEncoder.encode(ticket, StandardCharsets.UTF_8.name()));
       if (needShortUrl) {
         return this.wxMpService.shortUrl(resultUrl);
       }

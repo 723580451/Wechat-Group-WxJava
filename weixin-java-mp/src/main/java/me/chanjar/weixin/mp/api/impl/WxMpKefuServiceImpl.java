@@ -13,7 +13,6 @@ import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
 import me.chanjar.weixin.mp.bean.kefu.request.WxMpKfAccountRequest;
 import me.chanjar.weixin.mp.bean.kefu.request.WxMpKfSessionRequest;
 import me.chanjar.weixin.mp.bean.kefu.result.*;
-import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 
 import java.io.File;
 import java.util.Date;
@@ -68,13 +67,14 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
   public boolean kfAccountUploadHeadImg(String kfAccount, File imgFile) throws WxErrorException {
     WxMediaUploadResult responseContent = this.wxMpService
       .execute(MediaUploadRequestExecutor.create(this.wxMpService.getRequestHttp()),
-        String.format(KFACCOUNT_UPLOAD_HEAD_IMG.getUrl(), kfAccount), imgFile);
+        String.format(KFACCOUNT_UPLOAD_HEAD_IMG.getUrl(this.wxMpService.getWxMpConfigStorage()), kfAccount), imgFile);
     return responseContent != null;
   }
 
   @Override
   public boolean kfAccountDel(String kfAccount) throws WxErrorException {
-    String responseContent = this.wxMpService.get(String.format(KFACCOUNT_DEL.getUrl(), kfAccount), null);
+    String responseContent = this.wxMpService.get(String.format(KFACCOUNT_DEL.getUrl(this.wxMpService.getWxMpConfigStorage()),
+      kfAccount), null);
     return responseContent != null;
   }
 
@@ -94,13 +94,15 @@ public class WxMpKefuServiceImpl implements WxMpKefuService {
 
   @Override
   public WxMpKfSessionGetResult kfSessionGet(String openid) throws WxErrorException {
-    String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION.getUrl(), openid), null);
+    String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION
+      .getUrl(this.wxMpService.getWxMpConfigStorage()), openid), null);
     return WxMpKfSessionGetResult.fromJson(responseContent);
   }
 
   @Override
   public WxMpKfSessionList kfSessionList(String kfAccount) throws WxErrorException {
-    String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION_LIST.getUrl(), kfAccount), null);
+    String responseContent = this.wxMpService.get(String.format(KFSESSION_GET_SESSION_LIST
+      .getUrl(this.wxMpService.getWxMpConfigStorage()), kfAccount), null);
     return WxMpKfSessionList.fromJson(responseContent);
   }
 

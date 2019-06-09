@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import lombok.Data;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.mp.bean.WxMpHostConfig;
 import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
 
@@ -177,6 +178,11 @@ public class WxMpInMemoryConfigStorage implements WxMpConfigStorage, Serializabl
   @Override
   public boolean autoRefreshToken() {
     return true;
+  }
+
+  @Override
+  public WxMpHostConfig getHostConfig() {
+    return null;
   }
 
 }

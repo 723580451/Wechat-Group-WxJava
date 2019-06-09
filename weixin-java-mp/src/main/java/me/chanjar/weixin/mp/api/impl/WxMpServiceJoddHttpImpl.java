@@ -51,15 +51,15 @@ public class WxMpServiceJoddHttpImpl extends BaseWxMpServiceImpl<HttpConnectionP
 
   @Override
   public String getAccessToken(boolean forceRefresh) throws WxErrorException {
-    if (!this.getWxMpConfigStorage().isAccessTokenExpired() && !forceRefresh) {
-      return this.getWxMpConfigStorage().getAccessToken();
+    final WxMpConfigStorage config = this.getWxMpConfigStorage();
+    if (!config.isAccessTokenExpired() && !forceRefresh) {
+      return config.getAccessToken();
     }
 
-    Lock lock = this.getWxMpConfigStorage().getAccessTokenLock();
+    Lock lock = config.getAccessTokenLock();
     lock.lock();
     try {
-      String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(),
-        this.getWxMpConfigStorage().getAppId(), this.getWxMpConfigStorage().getSecret());
+      String url = String.format(GET_ACCESS_TOKEN_URL.getUrl(config), config.getAppId(), config.getSecret());
 
       HttpRequest request = HttpRequest.get(url);
 
@@ -76,9 +76,9 @@ public class WxMpServiceJoddHttpImpl extends BaseWxMpServiceImpl<HttpConnectionP
         throw new WxErrorException(error);
       }
       WxAccessToken accessToken = WxAccessToken.fromJson(resultContent);
-      this.getWxMpConfigStorage().updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
+      config.updateAccessToken(accessToken.getAccessToken(), accessToken.getExpiresIn());
 
-      return this.getWxMpConfigStorage().getAccessToken();
+      return config.getAccessToken();
     } finally {
       lock.unlock();
     }

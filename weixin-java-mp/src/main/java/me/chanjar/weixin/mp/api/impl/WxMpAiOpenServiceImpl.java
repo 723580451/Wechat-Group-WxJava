@@ -8,7 +8,6 @@ import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpAiOpenService;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.enums.AiLangType;
-import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 import me.chanjar.weixin.mp.util.requestexecuter.voice.VoiceUploadRequestExecutor;
 
 import java.io.File;
@@ -34,7 +33,7 @@ public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
     }
 
     this.wxMpService.execute(VoiceUploadRequestExecutor.create(this.wxMpService.getRequestHttp()),
-      String.format(VOICE_UPLOAD_URL.getUrl(), "mp3", voiceId, lang.getCode()),
+      String.format(VOICE_UPLOAD_URL.getUrl(this.wxMpService.getWxMpConfigStorage()), "mp3", voiceId, lang.getCode()),
       voiceFile);
   }
 
@@ -46,7 +45,8 @@ public class WxMpAiOpenServiceImpl implements WxMpAiOpenService {
 
   @Override
   public String translate(AiLangType langFrom, AiLangType langTo, String content) throws WxErrorException {
-    String response = this.wxMpService.post(String.format(TRANSLATE_URL.getUrl(), langFrom.getCode(), langTo.getCode()), content);
+    String response = this.wxMpService.post(String.format(TRANSLATE_URL.getUrl(this.wxMpService.getWxMpConfigStorage()),
+      langFrom.getCode(), langTo.getCode()), content);
 
     WxError error = WxError.fromJson(response, WxType.MP);
     if (error.getErrorCode() != 0) {

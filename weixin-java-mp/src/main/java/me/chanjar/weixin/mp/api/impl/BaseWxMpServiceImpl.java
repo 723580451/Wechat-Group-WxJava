@@ -157,13 +157,13 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public String oauth2buildAuthorizationUrl(String redirectURI, String scope, String state) {
-    return String.format(CONNECT_OAUTH2_AUTHORIZE_URL.getUrl(),
+    return String.format(CONNECT_OAUTH2_AUTHORIZE_URL.getUrl(this.getWxMpConfigStorage()),
       this.getWxMpConfigStorage().getAppId(), URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
   }
 
   @Override
   public String buildQrConnectUrl(String redirectURI, String scope, String state) {
-    return String.format(QRCONNECT_URL.getUrl(), this.getWxMpConfigStorage().getAppId(),
+    return String.format(QRCONNECT_URL.getUrl(this.getWxMpConfigStorage()), this.getWxMpConfigStorage().getAppId(),
       URIUtil.encodeURIComponent(redirectURI), scope, StringUtils.trimToEmpty(state));
   }
 
@@ -179,14 +179,14 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public WxMpOAuth2AccessToken oauth2getAccessToken(String code) throws WxErrorException {
-    String url = String.format(OAUTH2_ACCESS_TOKEN_URL.getUrl(), this.getWxMpConfigStorage().getAppId(),
+    String url = String.format(OAUTH2_ACCESS_TOKEN_URL.getUrl(this.getWxMpConfigStorage()), this.getWxMpConfigStorage().getAppId(),
       this.getWxMpConfigStorage().getSecret(), code);
     return this.getOAuth2AccessToken(url);
   }
 
   @Override
   public WxMpOAuth2AccessToken oauth2refreshAccessToken(String refreshToken) throws WxErrorException {
-    String url = String.format(OAUTH2_REFRESH_TOKEN_URL.getUrl(), this.getWxMpConfigStorage().getAppId(), refreshToken);
+    String url = String.format(OAUTH2_REFRESH_TOKEN_URL.getUrl(this.getWxMpConfigStorage()), this.getWxMpConfigStorage().getAppId(), refreshToken);
     return this.getOAuth2AccessToken(url);
   }
 
@@ -196,7 +196,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
       lang = "zh_CN";
     }
 
-    String url = String.format(OAUTH2_USERINFO_URL.getUrl(), token.getAccessToken(), token.getOpenId(), lang);
+    String url = String.format(OAUTH2_USERINFO_URL.getUrl(this.getWxMpConfigStorage()), token.getAccessToken(), token.getOpenId(), lang);
 
     try {
       RequestExecutor<String, String> executor = SimpleGetRequestExecutor.create(this);
@@ -209,7 +209,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public boolean oauth2validateAccessToken(WxMpOAuth2AccessToken token) {
-    String url = String.format(OAUTH2_VALIDATE_TOKEN_URL.getUrl(), token.getAccessToken(), token.getOpenId());
+    String url = String.format(OAUTH2_VALIDATE_TOKEN_URL.getUrl(this.getWxMpConfigStorage()), token.getAccessToken(), token.getOpenId());
 
     try {
       SimpleGetRequestExecutor.create(this).execute(url, null);
@@ -252,7 +252,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public String get(WxMpApiUrl url, String queryParam) throws WxErrorException {
-    return this.get(url.getUrl(), queryParam);
+    return this.get(url.getUrl(this.getWxMpConfigStorage()), queryParam);
   }
 
   @Override
@@ -262,12 +262,12 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
   @Override
   public String post(WxMpApiUrl url, String postData) throws WxErrorException {
-    return this.post(url.getUrl(), postData);
+    return this.post(url.getUrl(this.getWxMpConfigStorage()), postData);
   }
 
   @Override
   public <T, E> T execute(RequestExecutor<T, E> executor, WxMpApiUrl url, E data) throws WxErrorException {
-    return this.execute(executor, url.getUrl(), data);
+    return this.execute(executor, url.getUrl(this.getWxMpConfigStorage()), data);
   }
 
   /**

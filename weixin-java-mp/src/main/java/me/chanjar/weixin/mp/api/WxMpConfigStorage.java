@@ -1,11 +1,12 @@
 package me.chanjar.weixin.mp.api;
 
-import java.io.File;
-import java.util.concurrent.locks.Lock;
-
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.mp.bean.WxMpHostConfig;
 import me.chanjar.weixin.mp.enums.TicketType;
+
+import java.io.File;
+import java.util.concurrent.locks.Lock;
 
 /**
  * 微信客户端配置存储.
@@ -96,4 +97,8 @@ public interface WxMpConfigStorage {
    */
   boolean autoRefreshToken();
 
+  /**
+   * 得到微信接口地址域名部分的自定义设置信息.
+   */
+  WxMpHostConfig getHostConfig();
 }
