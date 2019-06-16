@@ -807,7 +807,6 @@ public interface WxMpApiUrl {
     }
   }
 
-
   @AllArgsConstructor
   enum User implements WxMpApiUrl {
     /**
@@ -830,6 +829,22 @@ public interface WxMpApiUrl {
      * changeopenid.
      */
     USER_CHANGE_OPENID_URL(API_DEFAULT_HOST_URL, "/cgi-bin/changeopenid");
+
+    private String prefix;
+    private String path;
+
+    @Override
+    public String getUrl(WxMpConfigStorage config) {
+      return buildUrl(config.getHostConfig(), prefix, path);
+    }
+  }
+
+  @AllArgsConstructor
+  enum Comment implements WxMpApiUrl {
+    /**
+     * 打开已群发文章评论.
+     */
+    OPEN(API_DEFAULT_HOST_URL, "/cgi-bin/comment/open");
 
     private String prefix;
     private String path;

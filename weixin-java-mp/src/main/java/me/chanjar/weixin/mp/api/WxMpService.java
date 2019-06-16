@@ -526,4 +526,13 @@ public interface WxMpService {
   void setAiOpenService(WxMpAiOpenService aiOpenService);
 
   void setMarketingService(WxMpMarketingService marketingService);
+
+  /**
+   * 返回评论数据管理接口方法的实现类对象，以方便调用其各个接口.
+   *
+   * @return WxMpWifiService
+   */
+  WxMpCommentService getCommentService();
+
+  void setCommentService(WxMpCommentService commentService);
 }

@@ -62,6 +62,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpAiOpenService aiOpenService = new WxMpAiOpenServiceImpl(this);
   private WxMpWifiService wifiService = new WxMpWifiServiceImpl(this);
   private WxMpMarketingService marketingService = new WxMpMarketingServiceImpl(this);
+  private WxMpCommentService commentService = new WxMpCommentServiceImpl(this);
 
   private Map<String, WxMpConfigStorage> configStorageMap;
 
@@ -607,5 +608,15 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   @Override
   public void setMarketingService(WxMpMarketingService marketingService) {
     this.marketingService = marketingService;
+  }
+
+  @Override
+  public WxMpCommentService getCommentService() {
+    return this.commentService;
+  }
+
+  @Override
+  public void setCommentService(WxMpCommentService commentService) {
+    this.commentService = commentService;
   }
 }
