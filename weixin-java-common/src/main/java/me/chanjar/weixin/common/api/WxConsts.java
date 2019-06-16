@@ -98,6 +98,11 @@ public class WxConsts {
      * 菜单消息.
      */
     public static final String MSGMENU = "msgmenu";
+
+    /**
+     * 小程序通知消息.
+     */
+    public static final String MINIPROGRAM_NOTICE = "miniprogram_notice";
   }
 
   /**
