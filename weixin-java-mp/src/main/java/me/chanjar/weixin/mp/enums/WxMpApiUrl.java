@@ -386,7 +386,12 @@ public interface WxMpApiUrl {
     /**
      * list.
      */
-    BIZWIFI_SHOP_LIST(API_DEFAULT_HOST_URL, "/bizwifi/shop/list");
+    BIZWIFI_SHOP_LIST(API_DEFAULT_HOST_URL, "/bizwifi/shop/list"),
+
+    /**
+     * get.
+     */
+    BIZWIFI_SHOP_GET(API_DEFAULT_HOST_URL, "/bizwifi/shop/get");
 
     private String prefix;
     private String path;
