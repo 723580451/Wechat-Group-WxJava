@@ -284,7 +284,9 @@ public interface WxCpService {
    * 获取用户相关接口的服务类对象
    */
   WxCpUserService getUserService();
-  
+
+  WxCpExternalContactService getExternalContactService();
+
   /**
    * 获取群聊服务
    * 

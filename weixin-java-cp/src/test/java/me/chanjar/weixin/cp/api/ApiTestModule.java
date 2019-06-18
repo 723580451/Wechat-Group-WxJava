@@ -52,6 +52,8 @@ public class ApiTestModule implements Module {
 
     protected String tagId;
 
+    protected String externalUserId;
+
     public String getUserId() {
       return this.userId;
     }
@@ -76,12 +78,22 @@ public class ApiTestModule implements Module {
       this.tagId = tagId;
     }
 
+    public String getExternalUserId() {
+      return externalUserId;
+    }
+
+    public void setExternalUserId(String externalUserId) {
+      this.externalUserId = externalUserId;
+    }
+
     @Override
     public String toString() {
       return super.toString() + " > WxXmlCpConfigStorage{" +
         "userId='" + this.userId + '\'' +
         ", departmentId='" + this.departmentId + '\'' +
         ", tagId='" + this.tagId + '\'' +
+        ", externalUserId='" + this.externalUserId + '\'' +
+
         '}';
     }
   }

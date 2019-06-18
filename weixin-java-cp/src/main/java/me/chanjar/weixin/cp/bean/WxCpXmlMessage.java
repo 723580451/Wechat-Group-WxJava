@@ -176,6 +176,26 @@ public class WxCpXmlMessage implements Serializable {
   private String userId;
 
   /**
+   * 变更信息的外部联系人的userid，注意不是企业成员的帐号.
+   */
+  @XStreamAlias("ExternalUserID")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String externalUserID;
+
+  /**
+   * 添加此用户的「联系我」方式配置的state参数，可用于识别添加此用户的渠道
+   */
+  @XStreamAlias("State")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String state;
+
+  /**
+   * 欢迎语code，可用于发送欢迎语
+   */
+  @XStreamAlias("WelcomeCode")
+  @XStreamConverter(value = XStreamCDataConverter.class)
+  private String welcomeCode;
+  /**
    * 新的UserID，变更时推送（userid由系统生成时可更改一次）.
    */
   @XStreamAlias("NewUserID")

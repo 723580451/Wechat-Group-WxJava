@@ -103,4 +103,10 @@ public final class WxCpApiPathConsts {
     public static final String USER_CONVERT_TO_USERID = "/cgi-bin/user/convert_to_userid";
     public static final String GET_EXTERNAL_CONTACT = "/cgi-bin/crm/get_external_contact?external_userid=";
   }
+
+  public static class ExternalContact {
+    public static final String GET_EXTERNAL_CONTACT = "/cgi-bin/crm/get_external_contact?external_userid=";
+    public static final String LIST_EXTERNAL_CONTACT = "/cgi-bin/externalcontact/list?userid=";
+    public static final String GET_FOLLOW_USER_LIST = "/cgi-bin/externalcontact/get_follow_user_list";
+  }
 }

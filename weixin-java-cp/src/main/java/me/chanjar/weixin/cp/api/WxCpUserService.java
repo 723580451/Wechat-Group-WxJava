@@ -149,4 +149,6 @@ public interface WxCpUserService {
    * @param userId 外部联系人的userid
    */
   WxCpUserExternalContactInfo getExternalContact(String userId) throws WxErrorException;
+
+
 }

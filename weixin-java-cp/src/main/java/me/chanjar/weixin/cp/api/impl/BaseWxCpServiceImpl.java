@@ -19,17 +19,7 @@ import me.chanjar.weixin.common.util.http.RequestExecutor;
 import me.chanjar.weixin.common.util.http.RequestHttp;
 import me.chanjar.weixin.common.util.http.SimpleGetRequestExecutor;
 import me.chanjar.weixin.common.util.http.SimplePostRequestExecutor;
-import me.chanjar.weixin.cp.api.WxCpAgentService;
-import me.chanjar.weixin.cp.api.WxCpChatService;
-import me.chanjar.weixin.cp.api.WxCpDepartmentService;
-import me.chanjar.weixin.cp.api.WxCpMediaService;
-import me.chanjar.weixin.cp.api.WxCpMenuService;
-import me.chanjar.weixin.cp.api.WxCpOAuth2Service;
-import me.chanjar.weixin.cp.api.WxCpOaService;
-import me.chanjar.weixin.cp.api.WxCpService;
-import me.chanjar.weixin.cp.api.WxCpTagService;
-import me.chanjar.weixin.cp.api.WxCpTaskCardService;
-import me.chanjar.weixin.cp.api.WxCpUserService;
+import me.chanjar.weixin.cp.api.*;
 import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
@@ -60,6 +50,7 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
   private WxCpAgentService      agentService      = new WxCpAgentServiceImpl(this);
   private WxCpOaService         oaService         = new WxCpOaServiceImpl(this);
   private WxCpTaskCardService   taskCardService   = new WxCpTaskCardServiceImpl(this);
+  private WxCpExternalContactService externalContactService = new WxCpExternalContactServiceImpl(this);
 
   /**
    * 全局的是否正在刷新access token的锁
@@ -394,6 +385,11 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
   @Override
   public WxCpUserService getUserService() {
     return userService;
+  }
+
+  @Override
+  public WxCpExternalContactService getExternalContactService() {
+    return externalContactService;
   }
 
   @Override

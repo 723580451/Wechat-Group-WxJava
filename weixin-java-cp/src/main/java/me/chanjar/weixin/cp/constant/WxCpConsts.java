@@ -89,6 +89,26 @@ public class WxCpConsts {
      */
     public static final String TASKCARD_CLICK = "taskcard_click";
 
+    /**
+     * 企业成员添加外部联系人事件推送
+     */
+    public static final String CHANGE_EXTERNAL_CONTACT = "change_external_contact";
+
+
+  }
+
+  /**
+   * 企业外部联系人变更事件的CHANGE_TYPE
+   */
+  public static class ExternalContactChangeType {
+    /**
+     * 新增外部联系人
+     */
+    public static final String ADD_EXTERNAL_CONTACT = "add_external_contact";
+    /**
+     * 删除外部联系人
+     */
+    public static final String DEL_EXTERNAL_CONTACT = "del_external_contact";
   }
 
   /**
