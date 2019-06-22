@@ -27,13 +27,11 @@ public class WxMpDemoServer {
     ServletHandler servletHandler = new ServletHandler();
     server.setHandler(servletHandler);
 
-    ServletHolder endpointServletHolder = new ServletHolder(
-      new WxMpEndpointServlet(wxMpConfigStorage, wxMpService,
-        wxMpMessageRouter));
+    ServletHolder endpointServletHolder = new ServletHolder(new WxMpEndpointServlet(wxMpConfigStorage, wxMpService,
+      wxMpMessageRouter));
     servletHandler.addServletWithMapping(endpointServletHolder, "/*");
 
-    ServletHolder oauthServletHolder = new ServletHolder(
-      new WxMpOAuth2Servlet(wxMpService));
+    ServletHolder oauthServletHolder = new ServletHolder(new WxMpOAuth2Servlet(wxMpService));
     servletHandler.addServletWithMapping(oauthServletHolder, "/oauth2/*");
 
     server.start();
@@ -41,10 +39,8 @@ public class WxMpDemoServer {
   }
 
   private static void initWeixin() {
-    try (InputStream is1 = ClassLoader
-      .getSystemResourceAsStream("test-config.xml")) {
-      WxMpDemoInMemoryConfigStorage config = WxMpDemoInMemoryConfigStorage
-        .fromXml(is1);
+    try (InputStream is1 = ClassLoader.getSystemResourceAsStream("test-config.xml")) {
+      WxMpDemoInMemoryConfigStorage config = WxMpDemoInMemoryConfigStorage.fromXml(is1);
 
       wxMpConfigStorage = config;
       wxMpService = new WxMpServiceHttpClientImpl();
