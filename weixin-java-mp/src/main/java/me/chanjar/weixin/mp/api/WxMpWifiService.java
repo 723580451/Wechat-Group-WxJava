@@ -45,4 +45,22 @@ public interface WxMpWifiService {
    * @throws WxErrorException 异常
    */
   WxMpWifiShopDataResult getShopWifiInfo(int shopId) throws WxErrorException;
+
+  /**
+   * <pre>
+   * 修改门店网络信息.
+   * 通过此接口修改门店的网络信息，包括网络名称（ssid）或密码。需注意：
+   * 只有门店下已添加Wi-Fi网络信息，才能调用此接口修改网络信息；添加方式请参考“添加密码型设备”和"添加portal型设备”接口文档。
+   * 网络信息修改后，密码型设备需同步修改所有设备的ssid或密码；portal型设备需修改所有设备的ssid，并按照《硬件鉴权协议接口》修改“第二步：改造移动端portal页面”中的ssid参数，否则将无法正常连网。
+   * 文档地址：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1457435413
+   * </pre>
+   *
+   * @param shopId   门店ID
+   * @param oldSsid  旧的ssid
+   * @param ssid     无线网络设备的ssid。32个字符以内；ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！ 当门店下是portal型设备时，ssid必填；当门店下是密码型设备时，ssid选填，且ssid和密码必须有一个以大写字母“WX”开头
+   * @param password 无线网络设备的密码。8-24个字符；不能包含中文字符； 当门店下是密码型设备时，才可填写password，且ssid和密码必须有一个以大写字母“WX”开头
+   * @return 是否更新成功
+   * @throws WxErrorException .
+   */
+  boolean updateShopWifiInfo(int shopId, String oldSsid, String ssid, String password) throws WxErrorException;
 }

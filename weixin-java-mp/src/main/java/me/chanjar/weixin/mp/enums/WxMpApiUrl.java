@@ -391,7 +391,12 @@ public interface WxMpApiUrl {
     /**
      * get.
      */
-    BIZWIFI_SHOP_GET(API_DEFAULT_HOST_URL, "/bizwifi/shop/get");
+    BIZWIFI_SHOP_GET(API_DEFAULT_HOST_URL, "/bizwifi/shop/get"),
+
+    /**
+     * upadte.
+     */
+    BIZWIFI_SHOP_UPDATE(API_DEFAULT_HOST_URL, "/bizwifi/shop/update");
 
     private String prefix;
     private String path;

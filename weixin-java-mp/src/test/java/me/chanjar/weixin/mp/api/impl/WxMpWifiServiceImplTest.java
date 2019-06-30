@@ -43,6 +43,13 @@ public class WxMpWifiServiceImplTest {
     System.out.println(wifiInfo);
   }
 
+  @Test
+  public void testUpdateShopWifiInfo() throws WxErrorException {
+    final boolean result = this.wxService.getWifiService()
+      .updateShopWifiInfo(123, "123", "345", null);
+    assertThat(result).isTrue();
+  }
+
   public static class MockTest {
     private WxMpService wxService = mock(WxMpService.class);
 

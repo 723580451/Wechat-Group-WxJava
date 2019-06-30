@@ -8,8 +8,7 @@ import me.chanjar.weixin.mp.api.WxMpWifiService;
 import me.chanjar.weixin.mp.bean.wifi.WxMpWifiShopDataResult;
 import me.chanjar.weixin.mp.bean.wifi.WxMpWifiShopListResult;
 
-import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Wifi.BIZWIFI_SHOP_GET;
-import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Wifi.BIZWIFI_SHOP_LIST;
+import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Wifi.*;
 
 /**
  * <pre>
@@ -36,5 +35,22 @@ public class WxMpWifiServiceImpl implements WxMpWifiService {
     JsonObject json = new JsonObject();
     json.addProperty("shop_id", shopId);
     return WxMpWifiShopDataResult.fromJson(this.wxMpService.post(BIZWIFI_SHOP_GET, json.toString()));
+  }
+
+  @Override
+  public boolean updateShopWifiInfo(int shopId, String oldSsid, String ssid, String password) throws WxErrorException {
+    JsonObject json = new JsonObject();
+    json.addProperty("shop_id", shopId);
+    json.addProperty("old_ssid", oldSsid);
+    json.addProperty("ssid", ssid);
+    if (password != null) {
+      json.addProperty("password", password);
+    }
+    try {
+      this.wxMpService.post(BIZWIFI_SHOP_UPDATE, json.toString());
+      return true;
+    } catch (WxErrorException e) {
+      throw e;
+    }
   }
 }
