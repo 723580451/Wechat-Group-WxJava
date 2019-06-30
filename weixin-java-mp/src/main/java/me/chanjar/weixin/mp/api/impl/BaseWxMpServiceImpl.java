@@ -63,6 +63,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpWifiService wifiService = new WxMpWifiServiceImpl(this);
   private WxMpMarketingService marketingService = new WxMpMarketingServiceImpl(this);
   private WxMpCommentService commentService = new WxMpCommentServiceImpl(this);
+  private WxMpOcrService ocrService = new WxMpOcrServiceImpl(this);
 
   private Map<String, WxMpConfigStorage> configStorageMap;
 
@@ -601,6 +602,11 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   }
 
   @Override
+  public WxMpOcrService getOcrService() {
+    return this.ocrService;
+  }
+
+  @Override
   public WxMpMarketingService getMarketingService() {
     return this.marketingService;
   }
@@ -608,6 +614,11 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   @Override
   public void setMarketingService(WxMpMarketingService marketingService) {
     this.marketingService = marketingService;
+  }
+
+  @Override
+  public void setOcrService(WxMpOcrService ocrService) {
+    this.ocrService = ocrService;
   }
 
   @Override

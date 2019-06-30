@@ -493,6 +493,13 @@ public interface WxMpService {
    */
   WxMpWifiService getWifiService();
 
+  /**
+   * 返回WIFI接口方法的实现类对象，以方便调用其各个接口.
+   *
+   * @return WxMpWifiService
+   */
+  WxMpOcrService getOcrService();
+
   void setKefuService(WxMpKefuService kefuService);
 
   void setMaterialService(WxMpMaterialService materialService);
@@ -526,6 +533,8 @@ public interface WxMpService {
   void setAiOpenService(WxMpAiOpenService aiOpenService);
 
   void setMarketingService(WxMpMarketingService marketingService);
+
+  void setOcrService(WxMpOcrService ocrService);
 
   /**
    * 返回评论数据管理接口方法的实现类对象，以方便调用其各个接口.

@@ -427,6 +427,26 @@ public interface WxMpApiUrl {
   }
 
   @AllArgsConstructor
+  enum Ocr implements WxMpApiUrl {
+    /**
+     * 身份证识别.
+     */
+    IDCARD(API_DEFAULT_HOST_URL, "/cv/ocr/idcard?type=%s&img_url=%s");
+
+    private String prefix;
+    private String path;
+
+    @Override
+    public String getUrl(WxMpConfigStorage config) {
+      if (config == null) {
+        return buildUrl(null, prefix, path);
+      }
+
+      return buildUrl(config.getHostConfig(), prefix, path);
+    }
+  }
+
+  @AllArgsConstructor
   enum Card implements WxMpApiUrl {
     /**
      * create.
