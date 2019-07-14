@@ -61,7 +61,11 @@ public interface WxMpMarketingService {
    * @param endDate   结束日期
    * @param filtering 过滤条件
    * @param page      页码，获取指定页数据
-   * @param page_size 一页获取的数据条数(1-100)
+   * @param pageSize  一页获取的数据条数(1-100)
+   * @return .
+   * @throws WxErrorException .
+   * @throws IOException      .
    */
-  WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer page_size) throws WxErrorException, IOException;
+  WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer pageSize)
+    throws WxErrorException, IOException;
 }

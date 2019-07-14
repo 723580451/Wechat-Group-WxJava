@@ -54,7 +54,8 @@ public class WxMpMarketingServiceImpl implements WxMpMarketingService {
   }
 
   @Override
-  public WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer pageSize) throws WxErrorException, IOException {
+  public WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer pageSize)
+    throws WxErrorException, IOException {
     Date today = new Date();
     if (beginDate == null) {
       beginDate = today;
@@ -68,7 +69,7 @@ public class WxMpMarketingServiceImpl implements WxMpMarketingService {
     dateRange.addProperty("end_date", DateFormatUtils.format(endDate, "yyyy-MM-dd"));
     params += "&date_range=" + URLEncoder.encode(dateRange.toString(), StandardCharsets.UTF_8.name());
     params += "&page=" + page;
-    params += "&pageSize=" + pageSize;
+    params += "&page_size=" + pageSize;
     if (filtering != null) {
       JsonArray filterJson = new JsonArray();
       for (WxMpAdLeadFilter filter : filtering) {

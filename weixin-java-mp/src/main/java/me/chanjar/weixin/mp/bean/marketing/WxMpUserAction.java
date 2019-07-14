@@ -25,6 +25,7 @@ public class WxMpUserAction implements Serializable {
   private String url;
   private Integer actionTime;
   private String actionType;
+  private String leadsType;
   private String clickId;
   private Integer actionParam;
 
@@ -44,6 +45,7 @@ public class WxMpUserAction implements Serializable {
     if (this.actionParam != null) {
       JsonObject actionParamJson = new JsonObject();
       actionParamJson.addProperty("value", actionParam);
+      actionParamJson.addProperty("leads_type", leadsType);
       json.add("action_param", actionParamJson);
     }
 
