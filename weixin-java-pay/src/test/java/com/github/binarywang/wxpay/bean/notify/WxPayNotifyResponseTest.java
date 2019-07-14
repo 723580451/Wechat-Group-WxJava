@@ -15,9 +15,9 @@ public class WxPayNotifyResponseTest {
   @Test
   public void testSuccess() {
     final String result = WxPayNotifyResponse.success("OK");
-    assertThat(result).isEqualTo("<xml>\n" +
-      "  <return_code><![CDATA[SUCCESS]]></return_code>\n" +
-      "  <return_msg><![CDATA[OK]]></return_msg>\n" +
+    assertThat(result).isEqualTo("<xml>" +
+      "<return_code><![CDATA[SUCCESS]]></return_code>" +
+      "<return_msg><![CDATA[OK]]></return_msg>" +
       "</xml>");
   }
 }

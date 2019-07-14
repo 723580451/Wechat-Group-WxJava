@@ -44,7 +44,7 @@ public class WxPayNotifyResponse {
     WxPayNotifyResponse response = new WxPayNotifyResponse(FAIL, msg);
     XStream xstream = XStreamInitializer.getInstance();
     xstream.autodetectAnnotations(true);
-    return xstream.toXML(response);
+    return xstream.toXML(response).replace("\n", "").replace("  ", "");
   }
 
   /**
@@ -57,7 +57,7 @@ public class WxPayNotifyResponse {
     WxPayNotifyResponse response = new WxPayNotifyResponse(SUCCESS, msg);
     XStream xstream = XStreamInitializer.getInstance();
     xstream.autodetectAnnotations(true);
-    return xstream.toXML(response);
+    return xstream.toXML(response).replace("\n", "").replace("  ", "");
   }
 
 }
