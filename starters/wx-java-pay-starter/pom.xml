@@ -5,7 +5,7 @@
   <parent>
     <artifactId>wx-java</artifactId>
     <groupId>com.github.binarywang</groupId>
-    <version>3.4.6.B</version>
+    <version>3.4.7.B</version>
     <relativePath>../../</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
