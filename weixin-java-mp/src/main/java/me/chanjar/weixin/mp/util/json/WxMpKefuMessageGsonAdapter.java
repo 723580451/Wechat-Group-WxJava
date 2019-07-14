@@ -83,7 +83,7 @@ public class WxMpKefuMessageGsonAdapter implements JsonSerializer<WxMpKefuMessag
       case KefuMsgType.MSGMENU: {
           JsonObject msgmenuJsonObject = new JsonObject();
           JsonArray listJsonArray = new JsonArray();
-          for (WxMpKefuMessage.WxMsgMenu list : message.getList()) {
+          for (WxMpKefuMessage.MsgMenu list : message.getMsgMenus()) {
             JsonObject listJson = new JsonObject();
             listJson.addProperty("id", list.getId());
             listJson.addProperty("content", list.getContent());

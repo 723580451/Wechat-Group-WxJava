@@ -11,13 +11,13 @@ import java.util.List;
  * 菜单消息builder
  * <pre>
  * 用法:
- * WxMpKefuMessage m = WxMpKefuMessage.MSGMENU().addList(lists).headContent(headContent).tailContent(tailContent).toUser(...).build();
+ * WxMpKefuMessage m = WxMpKefuMessage.MSGMENU().addMenus(lists).headContent(headContent).tailContent(tailContent).toUser(...).build();
  * </pre>
  *
  * @author billytomato
  */
 public final class WxMsgMenuBuilder extends BaseBuilder<WxMsgMenuBuilder> {
-  private List<WxMpKefuMessage.WxMsgMenu> list = new ArrayList<>();
+  private List<WxMpKefuMessage.MsgMenu> msgMenus = new ArrayList<>();
   private String headContent;
   private String tailContent;
 
@@ -26,13 +26,13 @@ public final class WxMsgMenuBuilder extends BaseBuilder<WxMsgMenuBuilder> {
     this.msgType = WxConsts.KefuMsgType.MSGMENU;
   }
 
-  public WxMsgMenuBuilder addList(WxMpKefuMessage.WxMsgMenu... list) {
-    Collections.addAll(this.list, list);
+  public WxMsgMenuBuilder addMenus(WxMpKefuMessage.MsgMenu... msgMenus) {
+    Collections.addAll(this.msgMenus, msgMenus);
     return this;
   }
 
-  public WxMsgMenuBuilder list(List<WxMpKefuMessage.WxMsgMenu> list) {
-    this.list = list;
+  public WxMsgMenuBuilder msgMenus(List<WxMpKefuMessage.MsgMenu> msgMenus) {
+    this.msgMenus = msgMenus;
     return this;
   }
 
@@ -51,7 +51,7 @@ public final class WxMsgMenuBuilder extends BaseBuilder<WxMsgMenuBuilder> {
     WxMpKefuMessage m = super.build();
     m.setHeadContent(this.headContent);
     m.setTailContent(this.tailContent);
-    m.setList(this.list);
+    m.setMsgMenus(this.msgMenus);
     return m;
   }
 }

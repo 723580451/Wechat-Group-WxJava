@@ -5,8 +5,6 @@ import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage.WxArticle;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Test
 public class WxMpKefuMessageTest {
 
@@ -156,18 +154,10 @@ public class WxMpKefuMessageTest {
   }
 
   public void testMsgMenuBuild() {
-
-    WxMpKefuMessage.WxMsgMenu wxMsgMenu1=new WxMpKefuMessage.WxMsgMenu();
-    wxMsgMenu1.setId("101");
-    wxMsgMenu1.setContent("msgmenu1");
-
-    WxMpKefuMessage.WxMsgMenu wxMsgMenu2=new WxMpKefuMessage.WxMsgMenu();
-    wxMsgMenu2.setId("102");
-    wxMsgMenu2.setContent("msgmenu2");
-
     WxMpKefuMessage reply = WxMpKefuMessage.MSGMENU()
       .toUser("OPENID")
-      .addList(wxMsgMenu1).addList(wxMsgMenu2)
+      .addMenus(new WxMpKefuMessage.MsgMenu("101", "msgmenu1"),
+        new WxMpKefuMessage.MsgMenu("102", "msgmenu2"))
       .headContent("head_content")
       .tailContent("tail_content")
       .build();
