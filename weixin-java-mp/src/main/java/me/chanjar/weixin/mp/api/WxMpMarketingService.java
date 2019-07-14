@@ -11,16 +11,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <pre>
- * 微信营销接口
- * </pre>
+ * 微信营销接口.
  *
  * @author <a href="https://github.com/007gzs">007</a>
  */
 public interface WxMpMarketingService {
   /**
    * <pre>
-   * 创建数据源
+   * 创建数据源.
    * 接口调用请求说明
    * https://wximg.qq.com/wxp/pdftool/get.html?id=rkalQXDBM&pa=39
    * </pre>
@@ -33,7 +31,7 @@ public interface WxMpMarketingService {
 
   /**
    * <pre>
-   * 获取数据源信息
+   * 获取数据源信息.
    * </pre>
    *
    * @param userActionSetId 数据源唯一ID
@@ -41,7 +39,7 @@ public interface WxMpMarketingService {
   List<WxMpUserActionSet> getUserActionSets(Long userActionSetId) throws WxErrorException;
 
   /**
-   * 回传数据
+   * 回传数据.
    * 接口调用请求说明
    * https://wximg.qq.com/wxp/pdftool/get.html?id=rkalQXDBM&pa=39
    *
@@ -51,7 +49,7 @@ public interface WxMpMarketingService {
 
   /**
    * <pre>
-   * 获取朋友圈销售线索数据接口
+   * 获取朋友圈销售线索数据接口.
    * 接口调用请求说明
    *
    * http请求方式: POST

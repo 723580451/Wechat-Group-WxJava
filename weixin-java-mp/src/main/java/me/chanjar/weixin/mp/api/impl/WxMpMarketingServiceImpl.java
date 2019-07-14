@@ -50,15 +50,11 @@ public class WxMpMarketingServiceImpl implements WxMpMarketingService {
 
   @Override
   public void addUserAction(List<WxMpUserAction> actions) throws WxErrorException {
-    JsonArray json = new JsonArray();
-    for (WxMpUserAction action : actions) {
-      json.add(action.toJsonObject());
-    }
-    wxMpService.post(USER_ACTIONS_ADD, json.toString());
+    wxMpService.post(USER_ACTIONS_ADD, WxMpUserAction.listToJson(actions));
   }
 
   @Override
-  public WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer page_size) throws WxErrorException, IOException {
+  public WxMpAdLeadResult getAdLeads(Date beginDate, Date endDate, List<WxMpAdLeadFilter> filtering, Integer page, Integer pageSize) throws WxErrorException, IOException {
     Date today = new Date();
     if (beginDate == null) {
       beginDate = today;
@@ -72,7 +68,7 @@ public class WxMpMarketingServiceImpl implements WxMpMarketingService {
     dateRange.addProperty("end_date", DateFormatUtils.format(endDate, "yyyy-MM-dd"));
     params += "&date_range=" + URLEncoder.encode(dateRange.toString(), StandardCharsets.UTF_8.name());
     params += "&page=" + page;
-    params += "&page_size=" + page_size;
+    params += "&pageSize=" + pageSize;
     if (filtering != null) {
       JsonArray filterJson = new JsonArray();
       for (WxMpAdLeadFilter filter : filtering) {
