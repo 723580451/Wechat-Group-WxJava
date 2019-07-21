@@ -9,7 +9,7 @@ import me.chanjar.weixin.open.api.WxOpenComponentService;
 /**
  * @author <a href="https://github.com/007gzs">007</a>
  */
-/* package(无需对外暴露) */ class WxOpenMpServiceImpl extends WxMpServiceImpl {
+public class WxOpenMpServiceImpl extends WxMpServiceImpl {
   private WxOpenComponentService wxOpenComponentService;
   private WxMpConfigStorage wxMpConfigStorage;
   private String appId;
