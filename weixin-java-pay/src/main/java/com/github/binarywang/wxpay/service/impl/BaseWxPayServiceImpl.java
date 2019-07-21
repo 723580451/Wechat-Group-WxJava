@@ -47,7 +47,6 @@ import static com.github.binarywang.wxpay.constant.WxPayConstants.TarType;
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
 public abstract class BaseWxPayServiceImpl implements WxPayService {
-  private static final String PAY_BASE_URL = "https://api.mch.weixin.qq.com";
   private static final String TOTAL_FUND_COUNT = "资金流水总笔数";
 
   /**
@@ -89,10 +88,10 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
   @Override
   public String getPayBaseUrl() {
     if (this.getConfig().isUseSandboxEnv()) {
-      return PAY_BASE_URL + "/sandboxnew";
+      return this.getConfig().getPayBaseUrl() + "/sandboxnew";
     }
 
-    return PAY_BASE_URL;
+    return this.getConfig().getPayBaseUrl();
   }
 
   @Override
@@ -101,7 +100,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
     String url = this.getPayBaseUrl() + "/secapi/pay/refund";
     if (this.getConfig().isUseSandboxEnv()) {
-      url = PAY_BASE_URL + "/sandboxnew/pay/refund";
+      url = this.getConfig().getPayBaseUrl() + "/sandboxnew/pay/refund";
     }
 
     String responseContent = this.post(url, request.toXML(), true);

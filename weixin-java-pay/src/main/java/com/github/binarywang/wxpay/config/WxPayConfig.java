@@ -18,6 +18,12 @@ import java.security.KeyStore;
  */
 @Data
 public class WxPayConfig {
+  private static final String DEFAULT_PAY_BASE_URL = "https://api.mch.weixin.qq.com";
+
+  /**
+   * 微信支付接口请求地址域名部分.
+   */
+  private String payBaseUrl = DEFAULT_PAY_BASE_URL;
 
   /**
    * http请求连接超时时间.
@@ -95,6 +101,18 @@ public class WxPayConfig {
   private Integer httpProxyPort;
   private String httpProxyUsername;
   private String httpProxyPassword;
+
+  /**
+   * 返回所设置的微信支付接口请求地址域名.
+   * @return 微信支付接口请求地址域名
+   */
+  public String getPayBaseUrl() {
+    if (StringUtils.isEmpty(this.payBaseUrl)) {
+      return DEFAULT_PAY_BASE_URL;
+    }
+
+    return this.payBaseUrl;
+  }
 
   /**
    * 初始化ssl.
