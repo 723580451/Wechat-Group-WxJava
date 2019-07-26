@@ -195,7 +195,7 @@ public class WxCpXmlMessageTest {
     assertEquals(wxMessage.getMsgType(), WxConsts.XmlMsgType.EVENT);
     assertEquals(wxMessage.getEvent(), WxCpConsts.EventType.CHANGE_EXTERNAL_CONTACT);
     assertEquals(wxMessage.getChangeType(), WxCpConsts.ExternalContactChangeType.ADD_EXTERNAL_CONTACT);
-    assertEquals(wxMessage.getExternalUserID(), "woAJ2GCAAAXtWyujaWJHDDGi0mACH71w");
+    assertEquals(wxMessage.getExternalUserId(), "woAJ2GCAAAXtWyujaWJHDDGi0mACH71w");
     assertEquals(wxMessage.getState(), "teststate");
     assertEquals(wxMessage.getWelcomeCode(), "WELCOMECODE");
 
@@ -220,6 +220,6 @@ public class WxCpXmlMessageTest {
     assertEquals(wxMessage.getEvent(), WxCpConsts.EventType.CHANGE_EXTERNAL_CONTACT);
     assertEquals(wxMessage.getChangeType(), WxCpConsts.ExternalContactChangeType.DEL_EXTERNAL_CONTACT);
     assertEquals(wxMessage.getUserId(), "zhangsan");
-    assertEquals(wxMessage.getExternalUserID(), "woAJ2GCAAAXtWyujaWJHDDGi0mACH71w");
+    assertEquals(wxMessage.getExternalUserId(), "woAJ2GCAAAXtWyujaWJHDDGi0mACH71w");
   }
 }

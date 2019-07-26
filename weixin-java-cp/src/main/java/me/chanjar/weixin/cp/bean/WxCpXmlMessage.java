@@ -180,17 +180,17 @@ public class WxCpXmlMessage implements Serializable {
    */
   @XStreamAlias("ExternalUserID")
   @XStreamConverter(value = XStreamCDataConverter.class)
-  private String externalUserID;
+  private String externalUserId;
 
   /**
-   * 添加此用户的「联系我」方式配置的state参数，可用于识别添加此用户的渠道
+   * 添加此用户的「联系我」方式配置的state参数，可用于识别添加此用户的渠道.
    */
   @XStreamAlias("State")
   @XStreamConverter(value = XStreamCDataConverter.class)
   private String state;
 
   /**
-   * 欢迎语code，可用于发送欢迎语
+   * 欢迎语code，可用于发送欢迎语.
    */
   @XStreamAlias("WelcomeCode")
   @XStreamConverter(value = XStreamCDataConverter.class)
@@ -211,11 +211,11 @@ public class WxCpXmlMessage implements Serializable {
   private String name;
 
   /**
-   * 成员部门列表.
+   * 成员部门列表，变更时推送，仅返回该应用有查看权限的部门id.
    */
   @XStreamAlias("Department")
   @XStreamConverter(value = XStreamCDataConverter.class)
-  private String department;
+  private Long[] departments;
 
   /**
    * 手机号码.
@@ -265,6 +265,12 @@ public class WxCpXmlMessage implements Serializable {
   private Integer isLeader;
 
   /**
+   * 表示所在部门是否为上级，0-否，1-是，顺序与Department字段的部门逐一对应.
+   */
+  @XStreamAlias("IsLeaderInDept")
+  private Integer[] isLeaderInDept;
+
+  /**
    * 座机.
    */
   @XStreamAlias("Telephone")
@@ -288,7 +294,7 @@ public class WxCpXmlMessage implements Serializable {
    * 部门Id.
    */
   @XStreamAlias("Id")
-  private Integer id;
+  private Long id;
 
   /**
    * 父部门id.
