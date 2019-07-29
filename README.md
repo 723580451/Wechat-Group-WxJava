@@ -97,38 +97,49 @@
 
 ----------------------------------
 ### 使用案例
-完整案例登记列表，请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)查看，欢迎提供更多的案例。
+完整案例登记列表，请[【访问这里】](https://github.com/Wechat-Group/weixin-java-tools/issues/729)查看，欢迎登记更多的案例。
 
-<details>
-<summary>已整理过的案例列表，请点击此处展开查看</summary>
+以下为部分案例列表：
 
-1. 开源项目：https://github.com/workcheng/weiya
-1. 开源项目：https://github.com/jmdhappy/xxpay-master 
-1. 开源工具：https://github.com/rememberber/WePush
-1. 开源项目（微信点餐系统）：http://www.sqmax.top/springboot-project/
-1. 小程序：（京东）友家铺子，友家铺子店长版，京粉精选
-1. 小程序：[喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
-1. 小程序：树懒揽书+
-1. 小程序：广廉快线，鹏城巴士等
-1. 小程序：当燃挑战、sportlight轻灵运动
-1. 小程序：360考试宝典
-1. 公众号：中国电信上海网厅（sh_189）
-1. 公众号：E答平台
-1. 公众号：宁夏生鲜365
-1. 公众号：通服货滴
-1. 公众号：神龙养车
-1. 公众号：沃音乐商务智能
-1. 公众号：[全民约跑健身便利店](http://www.oneminsport.com/)
-1. 公众号：[洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
-1. 公众号和小程序：民医台（可自行搜索）
-1. 高善人力资源
-1. 平台：[小猪餐餐](http://www.xzcancan.com/)
-1. 平台：[餐饮系统](http://canyin.daydao.com)
-1. 锐捷网络：Saleslink
-1. 洽洽企业号
-1. HTC企业微信
-  
-</details>
+#### 开源项目：
+- 基于微信公众号的签到、抽奖、发送弹幕程序：https://github.com/workcheng/weiya
+- XxPay聚合支付：https://github.com/jmdhappy/xxpay-master
+- 微同商城：https://gitee.com/fuyang_lipengjun/platform
+- 微信点餐系统：https://github.com/sqmax/springboot-project
+- 专注批量推送的小而美的工具：https://github.com/rememberber/WePush
+
+#### 小程序：
+- （京东）友家铺子，友家铺子店长版，京粉精选
+- [喵星人贴吧助手(扫码关注)](http://p98ahz3tg.bkt.clouddn.com/miniappqrcode.jpg)
+- 树懒揽书+
+- 广廉快线，鹏城巴士等
+- 当燃挑战、sportlight轻灵运动
+- 360考试宝典
+- 民医台（可自行搜索）
+
+#### 公众号：
+- 中国电信上海网厅（sh_189）
+- E答平台
+- 宁夏生鲜365
+- 通服货滴
+- 神龙养车
+- 沃音乐商务智能
+- 光环云社群
+- 手机排队
+- [全民约跑健身便利店](http://www.oneminsport.com/)
+- [洽洽食品](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFM8TwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAycDRPOXBZbVZib2UxMDAwME0wN2gAAgRIu4RbAwQAAAAA)、[洽洽合伙人](https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=gQFP8jwAAAAAAAAAAS5odHRwOi8vd2VpeGluLnFxLmNvbS9xLzAyOUpJaU5VcXBlWTAxMDAwME0wN1oAAgSau4RbAwQAAAAA)
+- 民医台（可自行搜索）
+
+#### 企业号/企业微信：
+- 洽洽企业号
+- HTC企业微信
+
+#### 其他：
+- 高善人力资源
+- [小猪餐餐](http://www.xzcancan.com/)
+- [餐饮系统](http://canyin.daydao.com)
+- 微信公众号管理系统：http://demo.joolun.com
+- 锐捷网络：Saleslink
 
 ----------------------------------
 ### 贡献者列表
@@ -148,3 +159,7 @@
 1. [charmingoh (Charming)](http://github.com/charmingoh)
 
 </details>
+
+### GitHub Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/Wechat-Group/WxJava.svg)](https://starchart.cc/Wechat-Group/WxJava)     
