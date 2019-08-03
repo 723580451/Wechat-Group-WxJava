@@ -1,4 +1,4 @@
-package cn.binarywang.wx.miniapp.config;
+package cn.binarywang.wx.miniapp.config.impl;
 
 import java.io.File;
 import java.util.HashMap;
@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
+import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import com.github.jedis.lock.JedisLock;
 
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
@@ -17,105 +18,92 @@ import redis.clients.jedis.JedisPool;
 
 /**
  * 基于Redis的微信配置provider.
- * 
+ *
  * <pre>
  * 需要引入依赖<a href="https://github.com/abelaska/jedis-lock">jedis-lock</a>，才能使用该类。
  * </pre>
  *
  * @author <a href="https://github.com/winter4666">winter</a>
  */
-public class WxMaInRedisConfig implements WxMaConfig {
-	
+public class WxMaRedisConfigImpl implements WxMaConfig {
   private static final String ACCESS_TOKEN = "accessToken";
   private static final String JSAPI_TICKET = "jsapiTicket";
   private static final String CARD_API_TICKET = "cardApiTicket";
-  
+
   private static final String HASH_VALUE_FIELD = "value";
   private static final String HASH_EXPIRE_FIELD = "expire";
-	
-  protected JedisPool jedisPool;
+
+  private JedisPool jedisPool;
   /**
-   * 微信小程序唯一id，用于拼接存储到redis时的key，防止key重复
+   * 微信小程序唯一id，用于拼接存储到redis时的key，防止key重复.
    */
-  protected String maId;
-	
-  protected volatile String msgDataFormat;
+  private String maId;
+
+  private volatile String msgDataFormat;
   protected volatile String appid;
-  protected volatile String secret;
+  private volatile String secret;
   protected volatile String token;
-  protected volatile String aesKey;
+  private volatile String aesKey;
 
-  protected volatile String httpProxyHost;
-  protected volatile int httpProxyPort;
-  protected volatile String httpProxyUsername;
-  protected volatile String httpProxyPassword;
+  private volatile String httpProxyHost;
+  private volatile int httpProxyPort;
+  private volatile String httpProxyUsername;
+  private volatile String httpProxyPassword;
 
-  protected Lock accessTokenLock;
-  protected Lock jsapiTicketLock;
-  protected Lock cardApiTicketLock;
+  private Lock accessTokenLock;
+  private Lock jsapiTicketLock;
+  private Lock cardApiTicketLock;
 
   /**
-   * 临时文件目录
+   * 临时文件目录.
    */
   protected volatile File tmpDirFile;
 
-  protected volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
-  
+  private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+
   private String getRedisKey(String key) {
-	StringBuilder redisKey = new StringBuilder("maConfig:");
-	if(maId == null) {
-	  return redisKey.append(key).toString();	  
-	} else {
-	  return redisKey.append(maId).append(":").append(key).toString();
-	}
+    StringBuilder redisKey = new StringBuilder("maConfig:");
+    if (maId == null) {
+      return redisKey.append(key).toString();
+    } else {
+      return redisKey.append(maId).append(":").append(key).toString();
+    }
   }
-  
+
   private String getValueFromRedis(String key) {
-  	Jedis jedis = jedisPool.getResource();
-  	try {
+    try (Jedis jedis = jedisPool.getResource()) {
       return jedis.hget(getRedisKey(key), HASH_VALUE_FIELD);
-  	} finally {
-  	  jedis.close();
-  	}
+    }
   }
-	
+
   private void setValueToRedis(String key, long expiresTime, String value) {
-  	Jedis jedis = jedisPool.getResource();
-  	try {
-  	  Map<String, String> hash = new HashMap<String, String>();
-  	  hash.put(HASH_VALUE_FIELD, value);
-  	  hash.put(HASH_EXPIRE_FIELD, String.valueOf(expiresTime));
-  	  jedis.hmset(getRedisKey(key), hash);
-  	} finally {
-  	  jedis.close();
-  	}
+    try (Jedis jedis = jedisPool.getResource()) {
+      Map<String, String> hash = new HashMap<String, String>();
+      hash.put(HASH_VALUE_FIELD, value);
+      hash.put(HASH_EXPIRE_FIELD, String.valueOf(expiresTime));
+      jedis.hmset(getRedisKey(key), hash);
+    }
   }
-  
+
   private long getExpireFromRedis(String key) {
-  	Jedis jedis = jedisPool.getResource();
-  	try {
+    try (Jedis jedis = jedisPool.getResource()) {
       String expire = jedis.hget(getRedisKey(key), HASH_EXPIRE_FIELD);
-      return expire == null ? 0 : Long.valueOf(expire);
-  	} finally {
-  	  jedis.close();
-  	}
+      return expire == null ? 0 : Long.parseLong(expire);
+    }
   }
-  
+
   private void setExpire(String key, long expiresTime) {
-  	Jedis jedis = jedisPool.getResource();
-  	try {
-  	  jedis.hset(getRedisKey(key), HASH_EXPIRE_FIELD, String.valueOf(expiresTime));
-  	} finally {
-  	  jedis.close();
-  	}
+    try (Jedis jedis = jedisPool.getResource()) {
+      jedis.hset(getRedisKey(key), HASH_EXPIRE_FIELD, String.valueOf(expiresTime));
+    }
   }
 
   public void setJedisPool(JedisPool jedisPool) {
-	this.jedisPool = jedisPool;
+    this.jedisPool = jedisPool;
   }
 
   public void setMaId(String maId) {
-	this.maId = maId;
+    this.maId = maId;
   }
 
   @Override
@@ -125,19 +113,19 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
   @Override
   public Lock getAccessTokenLock() {
-	if(accessTokenLock == null) {
-	  synchronized (this) {
-		if(accessTokenLock == null) {
-		  accessTokenLock = new DistributedLock(getRedisKey("accessTokenLock")); 
-		}
-	  }
-	}
+    if (accessTokenLock == null) {
+      synchronized (this) {
+        if (accessTokenLock == null) {
+          accessTokenLock = new DistributedLock(getRedisKey("accessTokenLock"));
+        }
+      }
+    }
     return accessTokenLock;
   }
 
   @Override
   public boolean isAccessTokenExpired() {
-    return System.currentTimeMillis() >  getExpireFromRedis(ACCESS_TOKEN);
+    return System.currentTimeMillis() > getExpireFromRedis(ACCESS_TOKEN);
   }
 
   @Override
@@ -147,7 +135,7 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
   @Override
   public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
-	setValueToRedis(ACCESS_TOKEN, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, accessToken);
+    setValueToRedis(ACCESS_TOKEN, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, accessToken);
   }
 
   @Override
@@ -157,30 +145,30 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
   @Override
   public Lock getJsapiTicketLock() {
-	if(jsapiTicketLock == null) {
-	  synchronized (this) {
-		if(jsapiTicketLock == null) {
-		  jsapiTicketLock = new DistributedLock(getRedisKey("jsapiTicketLock")); 
-		}
-	  }
-	}
+    if (jsapiTicketLock == null) {
+      synchronized (this) {
+        if (jsapiTicketLock == null) {
+          jsapiTicketLock = new DistributedLock(getRedisKey("jsapiTicketLock"));
+        }
+      }
+    }
     return jsapiTicketLock;
   }
 
   @Override
   public boolean isJsapiTicketExpired() {
-	return System.currentTimeMillis() >  getExpireFromRedis(JSAPI_TICKET);
+    return System.currentTimeMillis() > getExpireFromRedis(JSAPI_TICKET);
   }
 
   @Override
   public void expireJsapiTicket() {
-	setExpire(JSAPI_TICKET, 0);
+    setExpire(JSAPI_TICKET, 0);
   }
 
   @Override
   public void updateJsapiTicket(String jsapiTicket, int expiresInSeconds) {
-	// 预留200秒的时间
-	setValueToRedis(JSAPI_TICKET, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, jsapiTicket);
+    // 预留200秒的时间
+    setValueToRedis(JSAPI_TICKET, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, jsapiTicket);
   }
 
 
@@ -191,34 +179,34 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
   @Override
   public Lock getCardApiTicketLock() {
-	if(cardApiTicketLock == null) {
-	  synchronized (this) {
-		if(cardApiTicketLock == null) {
-		  cardApiTicketLock = new DistributedLock(getRedisKey("cardApiTicketLock")); 
-		}
-	  }
-	}
+    if (cardApiTicketLock == null) {
+      synchronized (this) {
+        if (cardApiTicketLock == null) {
+          cardApiTicketLock = new DistributedLock(getRedisKey("cardApiTicketLock"));
+        }
+      }
+    }
     return cardApiTicketLock;
   }
 
   @Override
   public boolean isCardApiTicketExpired() {
-	return System.currentTimeMillis() >  getExpireFromRedis(CARD_API_TICKET);
+    return System.currentTimeMillis() > getExpireFromRedis(CARD_API_TICKET);
   }
 
   @Override
   public void expireCardApiTicket() {
-	setExpire(CARD_API_TICKET, 0);
+    setExpire(CARD_API_TICKET, 0);
   }
 
   @Override
   public void updateCardApiTicket(String cardApiTicket, int expiresInSeconds) {
-	setValueToRedis(CARD_API_TICKET, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, cardApiTicket);
+    setValueToRedis(CARD_API_TICKET, System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L, cardApiTicket);
   }
 
   @Override
   public void expireAccessToken() {
-	setExpire(ACCESS_TOKEN, 0);
+    setExpire(ACCESS_TOKEN, 0);
   }
 
   @Override
@@ -241,7 +229,7 @@ public class WxMaInRedisConfig implements WxMaConfig {
 
   @Override
   public long getExpiresTime() {
-	return getExpireFromRedis(ACCESS_TOKEN);
+    return getExpireFromRedis(ACCESS_TOKEN);
   }
 
   @Override
@@ -325,80 +313,65 @@ public class WxMaInRedisConfig implements WxMaConfig {
   public void setAppid(String appid) {
     this.appid = appid;
   }
-  
+
   /**
-   * 基于redis的简单分布式锁
+   * 基于redis的简单分布式锁.
    */
   private class DistributedLock implements Lock {
-	
-	private JedisLock lock;
-	
-	private DistributedLock(String key) {
-	  this.lock = new JedisLock(getRedisKey(key));
-	}
 
-	@Override
-	public void lock() {
-	  Jedis jedis = jedisPool.getResource();
-	  try {
-		if(!lock.acquire(jedis)) {
-		  throw new RuntimeException("acquire timeouted");
-		}
-	  } catch (InterruptedException e) {
-	    throw new RuntimeException("lock failed",e);
-	  } finally {
-		jedis.close();
-	  }
-	}
+    private JedisLock lock;
 
-	@Override
-	public void lockInterruptibly() throws InterruptedException {
-	  Jedis jedis = jedisPool.getResource();
-	  try {
-		if(!lock.acquire(jedis)) {
-		  throw new RuntimeException("acquire timeouted");
-		}
-	  } finally {
-		jedis.close();
-	  }
-	}
+    private DistributedLock(String key) {
+      this.lock = new JedisLock(getRedisKey(key));
+    }
 
-	@Override
-	public boolean tryLock() {
-	  Jedis jedis = jedisPool.getResource();
-	  try {
-		return lock.acquire(jedis);
-	  } catch (InterruptedException e) {
-	    throw new RuntimeException("lock failed",e);
-	  } finally {
-		jedis.close();
-	  }
-	}
+    @Override
+    public void lock() {
+      try (Jedis jedis = jedisPool.getResource()) {
+        if (!lock.acquire(jedis)) {
+          throw new RuntimeException("acquire timeouted");
+        }
+      } catch (InterruptedException e) {
+        throw new RuntimeException("lock failed", e);
+      }
+    }
 
-	@Override
-	public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-	  Jedis jedis = jedisPool.getResource();
-	  try {
-		return lock.acquire(jedis);
-	  } finally {
-		jedis.close();
-	  }
-	}
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+      try (Jedis jedis = jedisPool.getResource()) {
+        if (!lock.acquire(jedis)) {
+          throw new RuntimeException("acquire timeouted");
+        }
+      }
+    }
 
-	@Override
-	public void unlock() {
-	  Jedis jedis = jedisPool.getResource();
-	  try {
-		lock.release(jedis);
-	  } finally {
-		jedis.close();
-	  }
-	}
+    @Override
+    public boolean tryLock() {
+      try (Jedis jedis = jedisPool.getResource()) {
+        return lock.acquire(jedis);
+      } catch (InterruptedException e) {
+        throw new RuntimeException("lock failed", e);
+      }
+    }
 
-	@Override
-	public Condition newCondition() {
-	  throw new RuntimeException("unsupported method");
-	}
-	  
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+      try (Jedis jedis = jedisPool.getResource()) {
+        return lock.acquire(jedis);
+      }
+    }
+
+    @Override
+    public void unlock() {
+      try (Jedis jedis = jedisPool.getResource()) {
+        lock.release(jedis);
+      }
+    }
+
+    @Override
+    public Condition newCondition() {
+      throw new RuntimeException("unsupported method");
+    }
+
   }
 }

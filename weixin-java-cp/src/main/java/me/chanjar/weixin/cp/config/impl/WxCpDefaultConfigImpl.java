@@ -1,45 +1,49 @@
-package me.chanjar.weixin.cp.config;
+package me.chanjar.weixin.cp.config.impl;
 
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
- * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
+ * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化.
  *
  * @author Daniel Qian
  */
-public class WxCpInMemoryConfigStorage implements WxCpConfigStorage {
-  protected volatile String corpId;
-  protected volatile String corpSecret;
+public class WxCpDefaultConfigImpl implements WxCpConfigStorage, Serializable {
+  private static final long serialVersionUID = 1154541446729462780L;
 
-  protected volatile String token;
+  private volatile String corpId;
+  private volatile String corpSecret;
+
+  private volatile String token;
   protected volatile String accessToken;
-  protected volatile String aesKey;
+  private volatile String aesKey;
   protected volatile Integer agentId;
-  protected volatile long expiresTime;
+  private volatile long expiresTime;
 
-  protected volatile String oauth2redirectUri;
+  private volatile String oauth2redirectUri;
 
-  protected volatile String httpProxyHost;
-  protected volatile int httpProxyPort;
-  protected volatile String httpProxyUsername;
-  protected volatile String httpProxyPassword;
+  private volatile String httpProxyHost;
+  private volatile int httpProxyPort;
+  private volatile String httpProxyUsername;
+  private volatile String httpProxyPassword;
 
-  protected volatile String jsapiTicket;
-  protected volatile long jsapiTicketExpiresTime;
+  private volatile String jsapiTicket;
+  private volatile long jsapiTicketExpiresTime;
 
-  protected volatile String agentJsapiTicket;
-  protected volatile long agentJsapiTicketExpiresTime;
+  private volatile String agentJsapiTicket;
+  private volatile long agentJsapiTicketExpiresTime;
 
-  protected volatile File tmpDirFile;
+  private volatile File tmpDirFile;
 
   private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
 
-  protected volatile String baseApiUrl;
+  private volatile String baseApiUrl;
 
   @Override
   public void setBaseApiUrl(String baseUrl) {

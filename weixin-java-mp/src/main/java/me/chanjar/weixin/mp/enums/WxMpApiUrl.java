@@ -1,7 +1,7 @@
 package me.chanjar.weixin.mp.enums;
 
 import lombok.AllArgsConstructor;
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.mp.config.WxMpConfigStorage;
 
 import static me.chanjar.weixin.mp.bean.WxMpHostConfig.*;
 

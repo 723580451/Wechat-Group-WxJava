@@ -14,7 +14,6 @@ public interface WxCpTpConfigStorage {
 
   /**
    * 设置企业微信服务器 baseUrl.
-   *
    * 默认值是 https://qyapi.weixin.qq.com , 如果使用默认值，则不需要调用 setBaseApiUrl
    *
    * @param baseUrl 企业微信服务器 Url
@@ -23,7 +22,6 @@ public interface WxCpTpConfigStorage {
 
   /**
    * 读取企业微信 API Url.
-   *
    * 支持私有化企业微信服务器.
    */
   String getApiUrl(String path);
@@ -33,7 +31,7 @@ public interface WxCpTpConfigStorage {
   boolean isSuiteAccessTokenExpired();
 
   /**
-   * 强制将suite access token过期掉
+   * 强制将suite access token过期掉.
    */
   void expireSuiteAccessToken();
 
@@ -46,15 +44,15 @@ public interface WxCpTpConfigStorage {
   boolean isSuiteTicketExpired();
 
   /**
-   * 强制将suite ticket过期掉
+   * 强制将suite ticket过期掉.
    */
   void expireSuiteTicket();
 
   /**
-   * 应该是线程安全的
+   * 应该是线程安全的.
    */
   void updateSuiteTicket(String suiteTicket, int expiresInSeconds);
-  
+
   String getCorpId();
 
   String getCorpSecret();
@@ -80,7 +78,7 @@ public interface WxCpTpConfigStorage {
   File getTmpDirFile();
 
   /**
-   * http client builder
+   * http client builder.
    *
    * @return ApacheHttpClientBuilder
    */

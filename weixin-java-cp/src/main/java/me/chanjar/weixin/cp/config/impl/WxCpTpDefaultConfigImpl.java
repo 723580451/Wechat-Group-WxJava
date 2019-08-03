@@ -1,44 +1,47 @@
-package me.chanjar.weixin.cp.config;
+package me.chanjar.weixin.cp.config.impl;
 
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
- * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化
+ * 基于内存的微信配置provider，在实际生产环境中应该将这些配置持久化.
  *
- * @author Daniel Qian
+ * @author someone
  */
-public class WxCpTpInMemoryConfigStorage implements WxCpTpConfigStorage {
-  protected volatile String corpId;
-  protected volatile String corpSecret;
-  
-  protected volatile String suiteId;
-  protected volatile String suiteSecret;
+public class WxCpTpDefaultConfigImpl implements WxCpTpConfigStorage, Serializable {
+  private static final long serialVersionUID = 6678780920621872824L;
 
-  protected volatile String token;
-  protected volatile String suiteAccessToken;
-  protected volatile String aesKey;
-  protected volatile long expiresTime;
+  private volatile String corpId;
+  private volatile String corpSecret;
 
-  protected volatile String oauth2redirectUri;
+  private volatile String suiteId;
+  private volatile String suiteSecret;
 
-  protected volatile String httpProxyHost;
-  protected volatile int httpProxyPort;
-  protected volatile String httpProxyUsername;
-  protected volatile String httpProxyPassword;
+  private volatile String token;
+  private volatile String suiteAccessToken;
+  private volatile String aesKey;
+  private volatile long expiresTime;
 
-  protected volatile String suiteTicket;
-  protected volatile long suiteTicketExpiresTime;
+  private volatile String oauth2redirectUri;
 
+  private volatile String httpProxyHost;
+  private volatile int httpProxyPort;
+  private volatile String httpProxyUsername;
+  private volatile String httpProxyPassword;
 
-  protected volatile File tmpDirFile;
+  private volatile String suiteTicket;
+  private volatile long suiteTicketExpiresTime;
+
+  private volatile File tmpDirFile;
 
   private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
 
-  protected volatile String baseApiUrl;
+  private volatile String baseApiUrl;
 
   @Override
   public void setBaseApiUrl(String baseUrl) {
@@ -57,7 +60,7 @@ public class WxCpTpInMemoryConfigStorage implements WxCpTpConfigStorage {
   public String getSuiteAccessToken() {
     return this.suiteAccessToken;
   }
-  
+
   public void setSuiteAccessToken(String suiteAccessToken) {
     this.suiteAccessToken = suiteAccessToken;
   }
@@ -82,25 +85,25 @@ public class WxCpTpInMemoryConfigStorage implements WxCpTpConfigStorage {
     this.suiteAccessToken = suiteAccessToken;
     this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 200) * 1000L;
   }
-  
+
   @Override
   public String getCorpId() {
     return this.corpId;
   }
-  
+
   public void setCorpId(String corpId) {
     this.corpId = corpId;
   }
-  
+
   @Override
   public String getCorpSecret() {
     return this.corpSecret;
   }
-  
+
   public void setCorpSecret(String corpSecret) {
     this.corpSecret = corpSecret;
   }
-  
+
   @Override
   public String getSuiteTicket() {
     return this.suiteTicket;

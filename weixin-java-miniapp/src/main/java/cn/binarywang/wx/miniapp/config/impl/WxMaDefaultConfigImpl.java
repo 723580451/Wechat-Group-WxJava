@@ -1,9 +1,10 @@
-package cn.binarywang.wx.miniapp.config;
+package cn.binarywang.wx.miniapp.config.impl;
 
 import java.io.File;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import cn.binarywang.wx.miniapp.config.WxMaConfig;
 import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
@@ -13,38 +14,39 @@ import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
-public class WxMaInMemoryConfig implements WxMaConfig {
-  protected volatile String msgDataFormat;
+public class WxMaDefaultConfigImpl implements WxMaConfig {
+  private volatile String msgDataFormat;
   protected volatile String appid;
-  protected volatile String secret;
+  private volatile String secret;
   protected volatile String token;
-  protected volatile String accessToken;
-  protected volatile String aesKey;
-  protected volatile long expiresTime;
+  private volatile String accessToken;
+  private volatile String aesKey;
+  private volatile long expiresTime;
 
-  protected volatile String httpProxyHost;
-  protected volatile int httpProxyPort;
-  protected volatile String httpProxyUsername;
-  protected volatile String httpProxyPassword;
+  private volatile String httpProxyHost;
+  private volatile int httpProxyPort;
+  private volatile String httpProxyUsername;
+  private volatile String httpProxyPassword;
 
-  protected volatile String jsapiTicket;
-  protected volatile long jsapiTicketExpiresTime;
-
-  //微信卡券的ticket单独缓存
-  protected volatile String cardApiTicket;
-  protected volatile long cardApiTicketExpiresTime;
-
-
-  protected Lock accessTokenLock = new ReentrantLock();
-  protected Lock jsapiTicketLock = new ReentrantLock();
-  protected Lock cardApiTicketLock = new ReentrantLock();
+  private volatile String jsapiTicket;
+  private volatile long jsapiTicketExpiresTime;
 
   /**
-   * 临时文件目录
+   * 微信卡券的ticket单独缓存.
+   */
+  private volatile String cardApiTicket;
+  private volatile long cardApiTicketExpiresTime;
+
+  protected Lock accessTokenLock = new ReentrantLock();
+  private Lock jsapiTicketLock = new ReentrantLock();
+  private Lock cardApiTicketLock = new ReentrantLock();
+
+  /**
+   * 临时文件目录.
    */
   protected volatile File tmpDirFile;
 
-  protected volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
+  private volatile ApacheHttpClientBuilder apacheHttpClientBuilder;
 
   @Override
   public String getAccessToken() {

@@ -1,4 +1,4 @@
-package me.chanjar.weixin.mp.api;
+package me.chanjar.weixin.mp.config.impl;
 
 import me.chanjar.weixin.mp.enums.TicketType;
 import redis.clients.jedis.Jedis;
@@ -15,17 +15,17 @@ import redis.clients.jedis.JedisPool;
  * @author nickwong
  */
 @SuppressWarnings("hiding")
-public class WxMpInRedisConfigStorage extends WxMpInMemoryConfigStorage {
+public class WxMpRedisConfigImpl extends WxMpDefaultConfigImpl {
   private static final String ACCESS_TOKEN_KEY = "wx:access_token:";
 
   /**
    * 使用连接池保证线程安全.
    */
-  protected final JedisPool jedisPool;
+  private final JedisPool jedisPool;
 
   private String accessTokenKey;
 
-  public WxMpInRedisConfigStorage(JedisPool jedisPool) {
+  public WxMpRedisConfigImpl(JedisPool jedisPool) {
     this.jedisPool = jedisPool;
   }
 

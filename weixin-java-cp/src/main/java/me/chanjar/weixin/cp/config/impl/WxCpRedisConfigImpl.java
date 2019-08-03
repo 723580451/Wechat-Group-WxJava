@@ -1,7 +1,8 @@
-package me.chanjar.weixin.cp.config;
+package me.chanjar.weixin.cp.config.impl;
 
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -17,7 +18,7 @@ import java.io.File;
  *
  * @author gaigeshen
  */
-public class WxCpJedisConfigStorage implements WxCpConfigStorage {
+public class WxCpRedisConfigImpl implements WxCpConfigStorage {
   private static final String ACCESS_TOKEN_KEY = "WX_CP_ACCESS_TOKEN";
   private static final String ACCESS_TOKEN_EXPIRES_TIME_KEY = "WX_CP_ACCESS_TOKEN_EXPIRES_TIME";
   private static final String JS_API_TICKET_KEY = "WX_CP_JS_API_TICKET";
@@ -54,23 +55,23 @@ public class WxCpJedisConfigStorage implements WxCpConfigStorage {
     return baseApiUrl + path;
   }
 
-  public WxCpJedisConfigStorage(JedisPool jedisPool) {
+  public WxCpRedisConfigImpl(JedisPool jedisPool) {
     this.jedisPool = jedisPool;
   }
 
-  public WxCpJedisConfigStorage(String host, int port) {
+  public WxCpRedisConfigImpl(String host, int port) {
     jedisPool = new JedisPool(host, port);
   }
 
-  public WxCpJedisConfigStorage(JedisPoolConfig poolConfig, String host, int port) {
+  public WxCpRedisConfigImpl(JedisPoolConfig poolConfig, String host, int port) {
     jedisPool = new JedisPool(poolConfig, host, port);
   }
 
-  public WxCpJedisConfigStorage(JedisPoolConfig poolConfig, String host, int port, int timeout, String password) {
+  public WxCpRedisConfigImpl(JedisPoolConfig poolConfig, String host, int port, int timeout, String password) {
     jedisPool = new JedisPool(poolConfig, host, port, timeout, password);
   }
 
-  public WxCpJedisConfigStorage(JedisPoolConfig poolConfig, String host, int port, int timeout, String password, int database) {
+  public WxCpRedisConfigImpl(JedisPoolConfig poolConfig, String host, int port, int timeout, String password, int database) {
     jedisPool = new JedisPool(poolConfig, host, port, timeout, password, database);
   }
 

@@ -1,8 +1,8 @@
 package com.binarywang.spring.starter.wxjava.mp;
 
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpInRedisConfigStorage;
+import me.chanjar.weixin.mp.config.WxMpConfigStorage;
+import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
+import me.chanjar.weixin.mp.config.impl.WxMpRedisConfigImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -34,23 +34,23 @@ public class WxMpStorageAutoConfiguration {
         return getWxMpInMemoryConfigStorage();
     }
 
-    private WxMpInMemoryConfigStorage getWxMpInMemoryConfigStorage() {
-        WxMpInMemoryConfigStorage config = new WxMpInMemoryConfigStorage();
+    private WxMpDefaultConfigImpl getWxMpInMemoryConfigStorage() {
+        WxMpDefaultConfigImpl config = new WxMpDefaultConfigImpl();
         setWxMpInfo(config);
         return config;
     }
 
-    private WxMpInRedisConfigStorage getWxMpInRedisConfigStorage() {
+    private WxMpRedisConfigImpl getWxMpInRedisConfigStorage() {
         JedisPool poolToUse = jedisPool;
         if (poolToUse == null) {
             poolToUse = getJedisPool();
         }
-        WxMpInRedisConfigStorage config = new WxMpInRedisConfigStorage(poolToUse);
+        WxMpRedisConfigImpl config = new WxMpRedisConfigImpl(poolToUse);
         setWxMpInfo(config);
         return config;
     }
 
-    private void setWxMpInfo(WxMpInMemoryConfigStorage config) {
+    private void setWxMpInfo(WxMpDefaultConfigImpl config) {
         config.setAppId(properties.getAppId());
         config.setSecret(properties.getSecret());
         config.setToken(properties.getToken());

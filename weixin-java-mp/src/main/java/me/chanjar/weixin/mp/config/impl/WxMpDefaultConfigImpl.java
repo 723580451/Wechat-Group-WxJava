@@ -1,4 +1,4 @@
-package me.chanjar.weixin.mp.api;
+package me.chanjar.weixin.mp.config.impl;
 
 import java.io.File;
 import java.io.Serializable;
@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import lombok.Data;
 import me.chanjar.weixin.common.bean.WxAccessToken;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
+import me.chanjar.weixin.mp.config.WxMpConfigStorage;
 import me.chanjar.weixin.mp.bean.WxMpHostConfig;
 import me.chanjar.weixin.mp.enums.TicketType;
 import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
@@ -18,7 +19,7 @@ import me.chanjar.weixin.mp.util.json.WxMpGsonBuilder;
  * @author chanjarster
  */
 @Data
-public class WxMpInMemoryConfigStorage implements WxMpConfigStorage, Serializable {
+public class WxMpDefaultConfigImpl implements WxMpConfigStorage, Serializable {
   private static final long serialVersionUID = -6646519023303395185L;
 
   protected volatile String appId;
