@@ -779,7 +779,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
 
   @Override
   public String queryComment(WxPayQueryCommentRequest request) throws WxPayException {
-    request.setSignType(SignType.HMAC_SHA256);
+    request.setSignType(SignType.HMAC_SHA256);// 签名类型，目前仅支持HMAC-SHA256，默认就是HMAC-SHA256
     request.checkAndSign(this.getConfig());
 
     String url = this.getPayBaseUrl() + "/billcommentsp/batchquerycomment";
