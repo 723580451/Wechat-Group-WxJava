@@ -4,7 +4,7 @@
     ```xml
     <dependency>
         <groupId>com.github.binarywang</groupId>
-        <artifactId>wx-java-mp-starter</artifactId>
+        <artifactId>wx-java-mp-spring-boot-starter</artifactId>
         <version>${version}</version>
     </dependency>
     ```

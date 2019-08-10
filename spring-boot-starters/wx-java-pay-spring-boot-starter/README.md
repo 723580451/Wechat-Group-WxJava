@@ -3,7 +3,7 @@
 ```xml
     <dependency>
         <groupId>com.github.binarywang</groupId>
-        <artifactId>wx-java-pay-starter</artifactId>
+        <artifactId>wx-java-pay-spring-boot-starter</artifactId>
         <version>${version}</version>
     </dependency>
  ```
