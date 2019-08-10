@@ -112,4 +112,14 @@ public class WxCpUserServiceImplTest {
   }
 
 
+  @Test
+  public void testGetUserId() throws WxErrorException {
+    String result = this.wxCpService.getUserService().getUserId("xxx");
+    System.out.println(result);
+    assertNotNull(result);
+  }
+
+  @Test
+  public void testGetExternalContact() {
+  }
 }

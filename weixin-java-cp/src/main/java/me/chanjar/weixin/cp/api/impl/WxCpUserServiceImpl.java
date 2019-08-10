@@ -181,6 +181,16 @@ public class WxCpUserServiceImpl implements WxCpUserService {
   }
 
   @Override
+  public String getUserId(String mobile) throws WxErrorException {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("mobile", mobile);
+    String url = this.mainService.getWxCpConfigStorage().getApiUrl(GET_USER_ID);
+    String responseContent = this.mainService.post(url, jsonObject.toString());
+    JsonElement tmpJsonElement = new JsonParser().parse(responseContent);
+    return tmpJsonElement.getAsJsonObject().get("userid").getAsString();
+  }
+
+  @Override
   public WxCpUserExternalContactInfo getExternalContact(String userId) throws WxErrorException {
     String url = this.mainService.getWxCpConfigStorage().getApiUrl(GET_EXTERNAL_CONTACT + userId);
     String responseContent = this.mainService.get(url, null);
