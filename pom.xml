@@ -105,8 +105,9 @@
     <module>weixin-java-pay</module>
     <module>weixin-java-miniapp</module>
     <module>weixin-java-open</module>
-    <module>starters/wx-java-pay-starter</module>
-    <module>starters/wx-java-mp-starter</module>
+    <module>spring-boot-starters/wx-java-pay-spring-boot-starter</module>
+    <module>spring-boot-starters/wx-java-mp-spring-boot-starter</module>
+    <module>spring-boot-starters/wx-java-miniapp-spring-boot-starter</module>
     <!--module>weixin-java-osgi</module-->
   </modules>
 

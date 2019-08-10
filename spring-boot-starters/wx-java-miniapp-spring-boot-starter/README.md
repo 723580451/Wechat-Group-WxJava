@@ -3,20 +3,19 @@
 ```xml
     <dependency>
         <groupId>com.github.binarywang</groupId>
-        <artifactId>wx-java-pay-spring-boot-starter</artifactId>
+        <artifactId>wx-java-miniapp-spring-boot-starter</artifactId>
         <version>${version}</version>
     </dependency>
  ```
 2. 添加配置(application.yml)
 ```yml
 wx:
-  pay:
-    appId: 
-    mchId: 
-    mchKey: 
-    subAppId:
-    subMchId:
-    keyPath:
+  miniapp:
+    appid: 111
+    secret: 111
+    token: 111
+    aesKey: 111
+    msgDataFormat: JSON
 ```
 
 
