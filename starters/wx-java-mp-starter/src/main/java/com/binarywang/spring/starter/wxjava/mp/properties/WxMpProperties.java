@@ -1,12 +1,12 @@
-package com.binarywang.spring.starter.wxjava.mp;
+package com.binarywang.spring.starter.wxjava.mp.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.Serializable;
 
-import static com.binarywang.spring.starter.wxjava.mp.WxMpProperties.PREFIX;
-import static com.binarywang.spring.starter.wxjava.mp.WxMpProperties.StorageType.memory;
+import static com.binarywang.spring.starter.wxjava.mp.properties.WxMpProperties.PREFIX;
+import static com.binarywang.spring.starter.wxjava.mp.properties.WxMpProperties.StorageType.memory;
 
 
 /**

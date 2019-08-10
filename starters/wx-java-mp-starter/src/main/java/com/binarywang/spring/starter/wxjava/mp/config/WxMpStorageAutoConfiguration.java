@@ -1,5 +1,7 @@
-package com.binarywang.spring.starter.wxjava.mp;
+package com.binarywang.spring.starter.wxjava.mp.config;
 
+import com.binarywang.spring.starter.wxjava.mp.properties.RedisProperties;
+import com.binarywang.spring.starter.wxjava.mp.properties.WxMpProperties;
 import me.chanjar.weixin.mp.config.WxMpConfigStorage;
 import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpRedisConfigImpl;

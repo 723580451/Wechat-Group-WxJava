@@ -1,4 +1,4 @@
-package com.binarywang.spring.starter.wxjava.mp;
+package com.binarywang.spring.starter.wxjava.mp.config;
 
 import me.chanjar.weixin.mp.config.WxMpConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
