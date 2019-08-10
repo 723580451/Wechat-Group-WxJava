@@ -10,9 +10,9 @@
     <relativePath>../../</relativePath>
   </parent>
 
-  <artifactId>wx-java-mp-starter</artifactId>
+  <artifactId>wx-java-mp-spring-boot-starter</artifactId>
   <name>WxJava - Spring Boot Starter for MP</name>
-  <description>微信公众号开发的Spring Boot Starter</description>
+  <description>微信公众号开发的 Spring Boot Starter</description>
 
   <properties>
     <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
