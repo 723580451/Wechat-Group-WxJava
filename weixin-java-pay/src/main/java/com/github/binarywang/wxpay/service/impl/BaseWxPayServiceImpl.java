@@ -144,7 +144,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     } catch (WxPayException e) {
       throw e;
     } catch (Exception e) {
-      throw new WxPayException("发生异常，" + e.getMessage(), e);
+      throw new WxPayException("发生异常！", e);
     }
   }
 
@@ -508,7 +508,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     return WxPayBillResult.fromRawBillResultString(responseContent, billType);
   }
 
-  private String handleGzipBill(String url, String requestStr) {
+  private String handleGzipBill(String url, String requestStr) throws WxPayException {
     try {
       byte[] responseBytes = this.postForBytes(url, requestStr, false);
       Path tempDirectory = Files.createTempDirectory("bill");
@@ -522,13 +522,12 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
           throw WxPayException.from(BaseWxPayResult.fromXML(new String(responseBytes, StandardCharsets.UTF_8),
             WxPayCommonResult.class));
         } else {
-          throw new WxPayException("解压zip文件出错，" + e.getMessage(), e);
+          throw new WxPayException("解压zip文件出错！", e);
         }
       }
     } catch (Exception e) {
-      throw new WxPayException("解析对账单文件时出错，" + e.getMessage(), e);
+      throw new WxPayException("解析对账单文件时出错！", e);
     }
-    return null;
   }
 
   @Override
@@ -582,7 +581,7 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     } catch (WxPayException wxPayException) {
       throw wxPayException;
     } catch (Exception e) {
-      throw new WxPayException("解压zip文件出错",e);
+      throw new WxPayException("解压zip文件出错", e);
     }
   }
 
