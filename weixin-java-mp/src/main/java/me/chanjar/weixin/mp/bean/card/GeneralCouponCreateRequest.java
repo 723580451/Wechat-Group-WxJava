@@ -10,18 +10,18 @@ import java.io.Serializable;
 /**
  * .
  * @author leeis
- * @Date 2018/12/29
+ * @date 2018/12/29
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GeneralCardCreateRequest extends AbstractCardCreateRequest implements Serializable {
+public class GeneralCouponCreateRequest extends AbstractCardCreateRequest implements Serializable {
   private static final long serialVersionUID = 1771355872211267723L;
 
   @SerializedName("card_type")
   private String cardType = "GENERAL_COUPON";
 
   @SerializedName("general_coupon")
-  private GeneralCard generalCoupon;
+  private GeneralCoupon generalCoupon;
 
   @Override
   public String toString() {

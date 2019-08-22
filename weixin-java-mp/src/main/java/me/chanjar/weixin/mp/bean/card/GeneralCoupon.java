@@ -10,15 +10,15 @@ import java.io.Serializable;
 /**
  * .
  * @author leeis
- * @Date 2018/12/29
+ * @date 2018/12/29
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public final class GeneralCard extends Card implements Serializable {
+public final class GeneralCoupon extends Card implements Serializable {
   private static final long serialVersionUID = -1577656733441132585L;
 
   /**
-   * 兑换券专用，填写兑换内容的名称。
+   * 兑换券专用，填写兑换内容的名称.
    */
   @SerializedName("default_detail")
   private String defaultDetail;
@@ -28,7 +28,7 @@ public final class GeneralCard extends Card implements Serializable {
     return WxMpGsonBuilder.create().toJson(this);
   }
 
-  public static GeneralCard fromJson(String json) {
-    return WxMpGsonBuilder.create().fromJson(json, GeneralCard.class);
+  public static GeneralCoupon fromJson(String json) {
+    return WxMpGsonBuilder.create().fromJson(json, GeneralCoupon.class);
   }
 }

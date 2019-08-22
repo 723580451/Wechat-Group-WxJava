@@ -186,13 +186,13 @@ public class WxMpCardServiceImplTest {
 
     //普通兑换券
     WxMpCardCreateRequest generalMessage = new WxMpCardCreateRequest();
-    GeneralCardCreateRequest generalCardCreateRequest = new GeneralCardCreateRequest();
-    GeneralCard generalCard = new GeneralCard();
-    generalCard.setBaseInfo(base);
-    generalCard.setDefaultDetail("音乐木盒");
+    GeneralCouponCreateRequest generalCouponCreateRequest = new GeneralCouponCreateRequest();
+    GeneralCoupon generalCoupon = new GeneralCoupon();
+    generalCoupon.setBaseInfo(base);
+    generalCoupon.setDefaultDetail("音乐木盒");
 
-    generalCardCreateRequest.setGeneralCoupon(generalCard);
-    generalMessage.setCardCreateRequest(generalCardCreateRequest);
+    generalCouponCreateRequest.setGeneralCoupon(generalCoupon);
+    generalMessage.setCardCreateRequest(generalCouponCreateRequest);
     System.out.println(this.wxService.getCardService().createCard(generalMessage));
   }
 
