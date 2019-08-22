@@ -138,7 +138,7 @@ public interface WxMpCardService {
    * @return result
    * @throws WxErrorException 异常
    */
-  WxMpCardCreateResult createCard(WxMpCardCreateMessage cardCreateMessage) throws WxErrorException;
+  WxMpCardCreateResult createCard(WxMpCardCreateRequest cardCreateMessage) throws WxErrorException;
 
   /**
    * 创建卡券二维码.
@@ -183,7 +183,8 @@ public interface WxMpCardService {
    * @return WxMpCardLandingPageCreateResult
    * @throws WxErrorException 异常
    */
-  WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest createRequest) throws WxErrorException;
+  WxMpCardLandingPageCreateResult createLandingPage(WxMpCardLandingPageCreateRequest createRequest)
+    throws WxErrorException;
 
   /**
    * 将用户的卡券设置为失效状态.

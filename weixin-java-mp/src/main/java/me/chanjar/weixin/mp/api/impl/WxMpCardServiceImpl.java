@@ -178,7 +178,7 @@ public class WxMpCardServiceImpl implements WxMpCardService {
   }
 
   @Override
-  public WxMpCardCreateResult createCard(WxMpCardCreateMessage cardCreateMessage) throws WxErrorException {
+  public WxMpCardCreateResult createCard(WxMpCardCreateRequest cardCreateMessage) throws WxErrorException {
     String response = this.wxMpService.post(WxMpApiUrl.Card.CARD_CREATE, GSON.toJson(cardCreateMessage));
     return WxMpCardCreateResult.fromJson(response);
   }
