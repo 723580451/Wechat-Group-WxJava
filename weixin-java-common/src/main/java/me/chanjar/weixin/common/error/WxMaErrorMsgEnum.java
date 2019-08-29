@@ -227,7 +227,51 @@ public enum WxMaErrorMsgEnum {
    * https://developers.weixin.qq.com/miniprogram/dev/api/open-api/sec-check/msgSecCheck.html
    * </pre>
    */
-  CODE_87014(87014, "内容含有违法违规内容");
+  CODE_87014(87014, "内容含有违法违规内容"),
+  /**
+   * 系统繁忙，此时请开发者稍候再试.
+   */
+  CODE_MINUS_1(-1, "系统繁忙，此时请开发者稍候再试"),
+  /**
+   * code 无效.
+   */
+  CODE_40029(40029, "code 无效"),
+  /**
+   * access_token 过期.
+   */
+  CODE_42001(42001, "access_token 过期"),
+  /**
+   * post 数据为空.
+   */
+  CODE_44002(44002, "post 数据为空"),
+  /**
+   * post 数据中参数缺失.
+   */
+  CODE_47001(47001, "post 数据中参数缺失"),
+  /**
+   * 参数 activity_id 错误.
+   */
+  CODE_47501(47501, "参数 activity_id 错误"),
+  /**
+   * 参数 target_state 错误.
+   */
+  CODE_47502(47502, "参数 target_state 错误"),
+  /**
+   * 参数 version_type 错误.
+   */
+  CODE_47503(47503, "参数 version_type 错误"),
+  /**
+   * activity_id 过期.
+   */
+  CODE_47504(47504, "activity_id 过期"),
+  /**
+   * 没有绑定开放平台帐号.
+   */
+  CODE_89002(89002, "没有绑定开放平台帐号"),
+  /**
+   * 订单无效.
+   */
+  CODE_89300(89300, "订单无效");
 
   private int code;
   private String msg;
@@ -238,7 +282,6 @@ public enum WxMaErrorMsgEnum {
   }
 
   /**
-   * <pre>
    * 通过错误代码查找其中文含义.
    */
   public static String findMsgByCode(int code) {
