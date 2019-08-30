@@ -875,7 +875,17 @@ public interface WxMpApiUrl {
     /**
      * 打开已群发文章评论.
      */
-    OPEN(API_DEFAULT_HOST_URL, "/cgi-bin/comment/open");
+    OPEN(API_DEFAULT_HOST_URL, "/cgi-bin/comment/open"),
+
+    /**
+     * 关闭已群发文章评论.
+     */
+    CLOSE(API_DEFAULT_HOST_URL, "/cgi-bin/comment/close"),
+
+    /**
+     * 查看指定文章的评论数据.
+     */
+    LIST(API_DEFAULT_HOST_URL, "/cgi-bin/comment/list");
 
     private String prefix;
     private String path;
