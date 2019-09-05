@@ -2,7 +2,7 @@ package me.chanjar.weixin.open.api;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.open.bean.fastma.WxFastMaCategory;
+import me.chanjar.weixin.open.bean.ma.WxFastMaCategory;
 import me.chanjar.weixin.open.bean.result.*;
 
 import java.util.List;

@@ -7,11 +7,9 @@ import com.google.gson.JsonObject;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.open.api.WxOpenComponentService;
 import me.chanjar.weixin.open.api.WxOpenFastMaService;
-import me.chanjar.weixin.open.bean.fastma.WxFastMaCategory;
+import me.chanjar.weixin.open.bean.ma.WxFastMaCategory;
 import me.chanjar.weixin.open.bean.result.*;
 import me.chanjar.weixin.open.util.json.WxOpenGsonBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;

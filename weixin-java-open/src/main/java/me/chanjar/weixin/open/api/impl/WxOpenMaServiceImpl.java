@@ -13,7 +13,7 @@ import me.chanjar.weixin.open.bean.ma.WxMaOpenCommitExtInfo;
 import me.chanjar.weixin.open.bean.ma.WxMaQrcodeParam;
 import me.chanjar.weixin.open.bean.message.WxOpenMaSubmitAuditMessage;
 import me.chanjar.weixin.open.bean.result.*;
-import me.chanjar.weixin.open.util.requestexecuter.ma.MaQrCodeRequestExecutor;
+import me.chanjar.weixin.open.executor.MaQrCodeRequestExecutor;
 
 import java.io.File;
 import java.util.List;

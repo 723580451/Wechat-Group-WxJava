@@ -1,4 +1,4 @@
-package me.chanjar.weixin.open.util.requestexecuter.ma;
+package me.chanjar.weixin.open.executor;
 
 import jodd.http.HttpConnectionProvider;
 import jodd.http.HttpRequest;

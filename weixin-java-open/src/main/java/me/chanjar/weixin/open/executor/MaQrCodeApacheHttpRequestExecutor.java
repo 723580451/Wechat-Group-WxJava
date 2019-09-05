@@ -1,4 +1,4 @@
-package me.chanjar.weixin.open.util.requestexecuter.ma;
+package me.chanjar.weixin.open.executor;
 
 import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.error.WxError;
