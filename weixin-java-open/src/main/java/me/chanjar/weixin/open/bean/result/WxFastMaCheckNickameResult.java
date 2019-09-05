@@ -10,20 +10,20 @@ import lombok.EqualsAndHashCode;
  * @since 2019/1/26 17:39
  */
 @Data
-@EqualsAndHashCode (callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class WxFastMaCheckNickameResult extends WxOpenResult {
   private static final long serialVersionUID = 8022192589710319473L;
 
   /**
    * 审核编号.
    */
-  @SerializedName ("hit_condition")
+  @SerializedName("hit_condition")
   boolean hitCondition;
 
   /**
    * 材料说明
    */
-  @SerializedName ("wording")
+  @SerializedName("wording")
   String wording;
 
 }

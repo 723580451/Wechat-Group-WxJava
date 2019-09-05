@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  * @description 查询改名状态实体类
  * @since 2019/1/26 17:52
  */
-@EqualsAndHashCode (callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class WxFastMaQueryNicknameStatusResult extends WxOpenResult {
 
@@ -18,26 +18,26 @@ public class WxFastMaQueryNicknameStatusResult extends WxOpenResult {
   /**
    * 审核昵称
    */
-  @SerializedName ("nickname")
+  @SerializedName("nickname")
   private String nickname;
   /**
    * 审核状态，1：审核中，2：审核失败，3：审核成功
    */
-  @SerializedName ("audit_stat")
+  @SerializedName("audit_stat")
   private int auditStat;
   /**
    * 失败原因
    */
-  @SerializedName ("fail_reason")
+  @SerializedName("fail_reason")
   private String failReason;
   /**
    * 审核提交时间
    */
-  @SerializedName ("create_time")
+  @SerializedName("create_time")
   private String createTime;
   /**
    * 审核提交时间
    */
-  @SerializedName ("audit_time")
+  @SerializedName("audit_time")
   private String auditTime;
 }

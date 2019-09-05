@@ -98,7 +98,6 @@ public interface WxOpenMaService extends WxMaService {
   String API_UPDATE_SHOW_WXA_ITEM = "https://api.weixin.qq.com/wxa/updateshowwxaitem";
 
 
-
   /**
    * 以下接口为三方平台代小程序实现的代码管理功能
    * <p>
@@ -266,7 +265,6 @@ public interface WxOpenMaService extends WxMaService {
    * 获得体验者列表
    */
   WxOpenMaTesterListResult getTesterList() throws WxErrorException;
-
 
 
   /**

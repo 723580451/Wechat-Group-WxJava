@@ -5,9 +5,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import me.chanjar.weixin.open.util.json.WxOpenGsonBuilder;
 
-import java.io.Serializable;
-import java.util.List;
-
 /**
  * 微信开放平台小程序当前分阶段发布详情
  */
