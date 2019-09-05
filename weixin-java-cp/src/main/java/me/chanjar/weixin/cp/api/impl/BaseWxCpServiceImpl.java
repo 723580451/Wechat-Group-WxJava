@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -24,9 +25,6 @@ import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
-import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -260,7 +258,7 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
     String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
     try {
-      T result = executor.execute(uriWithAccessToken, data);
+      T result = executor.execute(uriWithAccessToken, data, WxType.CP);
       log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
       return result;
     } catch (WxErrorException e) {

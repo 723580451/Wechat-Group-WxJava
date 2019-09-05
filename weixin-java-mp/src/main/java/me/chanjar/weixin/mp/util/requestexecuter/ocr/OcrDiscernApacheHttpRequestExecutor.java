@@ -1,5 +1,6 @@
 package me.chanjar.weixin.mp.util.requestexecuter.ocr;
 
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.RequestHttp;
@@ -17,41 +18,40 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * .
+ *
  * @author : zhayueran
- * @Date: 2019/6/27 14:06
- * @Description:
+ * @date 2019/6/27 14:06
  */
 public class OcrDiscernApacheHttpRequestExecutor extends OcrDiscernRequestExecutor<CloseableHttpClient, HttpHost> {
-
-
   public OcrDiscernApacheHttpRequestExecutor(RequestHttp requestHttp) {
     super(requestHttp);
   }
 
   @Override
-    public String execute(String uri, File file) throws WxErrorException, IOException {
-        HttpPost httpPost = new HttpPost(uri);
-        if (requestHttp.getRequestHttpProxy() != null) {
-            RequestConfig config = RequestConfig.custom().setProxy(requestHttp.getRequestHttpProxy()).build();
-            httpPost.setConfig(config);
-        }
-        if (file != null) {
-            HttpEntity entity = MultipartEntityBuilder
-                    .create()
-                    .addBinaryBody("file", file)
-                    .setMode(HttpMultipartMode.RFC6532)
-                    .build();
-            httpPost.setEntity(entity);
-        }
-        try (CloseableHttpResponse response = requestHttp.getRequestHttpClient().execute(httpPost)) {
-            String responseContent = Utf8ResponseHandler.INSTANCE.handleResponse(response);
-            WxError error = WxError.fromJson(responseContent);
-            if (error.getErrorCode() != 0) {
-                throw new WxErrorException(error);
-            }
-            return responseContent;
-        } finally {
-            httpPost.releaseConnection();
-        }
+  public String execute(String uri, File file, WxType wxType) throws WxErrorException, IOException {
+    HttpPost httpPost = new HttpPost(uri);
+    if (requestHttp.getRequestHttpProxy() != null) {
+      RequestConfig config = RequestConfig.custom().setProxy(requestHttp.getRequestHttpProxy()).build();
+      httpPost.setConfig(config);
     }
+    if (file != null) {
+      HttpEntity entity = MultipartEntityBuilder
+        .create()
+        .addBinaryBody("file", file)
+        .setMode(HttpMultipartMode.RFC6532)
+        .build();
+      httpPost.setEntity(entity);
+    }
+    try (CloseableHttpResponse response = requestHttp.getRequestHttpClient().execute(httpPost)) {
+      String responseContent = Utf8ResponseHandler.INSTANCE.handleResponse(response);
+      WxError error = WxError.fromJson(responseContent, wxType);
+      if (error.getErrorCode() != 0) {
+        throw new WxErrorException(error);
+      }
+      return responseContent;
+    } finally {
+      httpPost.releaseConnection();
+    }
+  }
 }

@@ -18,7 +18,6 @@ import me.chanjar.weixin.cp.api.WxCpTpService;
 import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 import me.chanjar.weixin.cp.bean.WxCpTpCorp;
 import me.chanjar.weixin.cp.config.WxCpTpConfigStorage;
-import me.chanjar.weixin.cp.constant.WxCpApiPathConsts;
 
 import java.io.File;
 import java.io.IOException;
@@ -183,7 +182,7 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
     String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "suite_access_token=" + suiteAccessToken;
 
     try {
-      T result = executor.execute(uriWithAccessToken, data);
+      T result = executor.execute(uriWithAccessToken, data, WxType.CP);
       log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
       return result;
     } catch (WxErrorException e) {

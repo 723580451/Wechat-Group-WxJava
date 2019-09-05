@@ -1,13 +1,14 @@
 package cn.binarywang.wx.miniapp.api.impl;
 
-import java.io.File;
-
 import cn.binarywang.wx.miniapp.api.WxMaSecCheckService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import com.google.gson.JsonObject;
+import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.bean.result.WxMediaUploadResult;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
+
+import java.io.File;
 
 /**
  * <pre>
@@ -17,12 +18,9 @@ import me.chanjar.weixin.common.util.http.MediaUploadRequestExecutor;
  *
  * @author <a href="https://github.com/binarywang">Binary Wang</a>
  */
+@AllArgsConstructor
 public class WxMaSecCheckServiceImpl implements WxMaSecCheckService {
   private WxMaService service;
-
-  public WxMaSecCheckServiceImpl(WxMaService service) {
-    this.service = service;
-  }
 
   @Override
   public boolean checkImage(File file) throws WxErrorException {

@@ -23,7 +23,7 @@ public class MaterialVideoInfoOkhttpRequestExecutor extends MaterialVideoInfoReq
   }
 
   @Override
-  public WxMpMaterialVideoInfoResult execute(String uri, String materialId) throws WxErrorException, IOException {
+  public WxMpMaterialVideoInfoResult execute(String uri, String materialId, WxType wxType) throws WxErrorException, IOException {
     logger.debug("MaterialVideoInfoOkhttpRequestExecutor is running");
     //得到httpClient
     OkHttpClient client = requestHttp.getRequestHttpClient();

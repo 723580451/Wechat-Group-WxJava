@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.cp.api.WxCpAgentService;
@@ -46,7 +47,7 @@ public class WxCpAgentServiceImpl implements WxCpAgentService {
     String responseContent = this.mainService.post(url, agentInfo.toJson());
     JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
     if (jsonObject.get("errcode").getAsInt() != 0) {
-      throw new WxErrorException(WxError.fromJson(responseContent));
+      throw new WxErrorException(WxError.fromJson(responseContent, WxType.CP));
     }
   }
 
@@ -56,7 +57,7 @@ public class WxCpAgentServiceImpl implements WxCpAgentService {
     String responseContent = this.mainService.get(url, null);
     JsonObject jsonObject = JSON_PARSER.parse(responseContent).getAsJsonObject();
     if (jsonObject.get("errcode").getAsInt() != 0) {
-      throw new WxErrorException(WxError.fromJson(responseContent));
+      throw new WxErrorException(WxError.fromJson(responseContent, WxType.CP));
     }
 
     return WxCpGsonBuilder.create().fromJson(jsonObject.get("agentlist").toString(), new TypeToken<List<WxCpAgent>>() {

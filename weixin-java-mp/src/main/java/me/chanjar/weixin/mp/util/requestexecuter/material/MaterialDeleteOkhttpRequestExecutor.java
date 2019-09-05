@@ -28,12 +28,12 @@ public class MaterialDeleteOkhttpRequestExecutor extends MaterialDeleteRequestEx
   }
 
   @Override
-  public void execute(String uri, String data, ResponseHandler<Boolean> handler) throws WxErrorException, IOException {
-    handler.handle(this.execute(uri, data));
+  public void execute(String uri, String data, ResponseHandler<Boolean> handler, WxType wxType) throws WxErrorException, IOException {
+    handler.handle(this.execute(uri, data, wxType));
   }
 
   @Override
-  public Boolean execute(String uri, String materialId) throws WxErrorException, IOException {
+  public Boolean execute(String uri, String materialId, WxType wxType) throws WxErrorException, IOException {
     logger.debug("MaterialDeleteOkhttpRequestExecutor is running");
     //得到httpClient
     OkHttpClient client = requestHttp.getRequestHttpClient();

@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.bean.WxNetCheckResult;
 import me.chanjar.weixin.common.error.WxError;
@@ -180,7 +181,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
   private WxMpOAuth2AccessToken getOAuth2AccessToken(String url) throws WxErrorException {
     try {
       RequestExecutor<String, String> executor = SimpleGetRequestExecutor.create(this);
-      String responseText = executor.execute(url, null);
+      String responseText = executor.execute(url, null, WxType.MP);
       return WxMpOAuth2AccessToken.fromJson(responseText);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -210,7 +211,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
 
     try {
       RequestExecutor<String, String> executor = SimpleGetRequestExecutor.create(this);
-      String responseText = executor.execute(url, null);
+      String responseText = executor.execute(url, null, WxType.MP);
       return WxMpUser.fromJson(responseText);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -222,7 +223,7 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
     String url = String.format(OAUTH2_VALIDATE_TOKEN_URL.getUrl(this.getWxMpConfigStorage()), token.getAccessToken(), token.getOpenId());
 
     try {
-      SimpleGetRequestExecutor.create(this).execute(url, null);
+      SimpleGetRequestExecutor.create(this).execute(url, null, WxType.MP);
     } catch (IOException e) {
       throw new RuntimeException(e);
     } catch (WxErrorException e) {
@@ -333,11 +334,10 @@ public abstract class BaseWxMpServiceImpl<H, P> implements WxMpService, RequestH
     }
 
     String accessToken = getAccessToken(false);
-
     String uriWithAccessToken = uri + (uri.contains("?") ? "&" : "?") + "access_token=" + accessToken;
 
     try {
-      T result = executor.execute(uriWithAccessToken, data);
+      T result = executor.execute(uriWithAccessToken, data, WxType.MP);
       log.debug("\n【请求地址】: {}\n【请求参数】：{}\n【响应数据】：{}", uriWithAccessToken, dataForLog, result);
       return result;
     } catch (WxErrorException e) {

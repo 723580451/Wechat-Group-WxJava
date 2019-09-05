@@ -3,6 +3,7 @@ package me.chanjar.weixin.open.util.requestexecuter.ma;
 import java.io.File;
 import java.io.IOException;
 
+import me.chanjar.weixin.common.WxType;
 import me.chanjar.weixin.common.error.WxError;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.util.http.RequestExecutor;
@@ -24,8 +25,8 @@ public abstract class MaQrCodeRequestExecutor<H, P> implements RequestExecutor<F
   }
 
   @Override
-  public void execute(String uri, WxMaQrcodeParam data, ResponseHandler<File> handler) throws WxErrorException, IOException {
-    handler.handle(this.execute(uri, data));
+  public void execute(String uri, WxMaQrcodeParam data, ResponseHandler<File> handler, WxType wxType) throws WxErrorException, IOException {
+    handler.handle(this.execute(uri, data, wxType));
   }
 
   public static RequestExecutor<File, WxMaQrcodeParam> create(RequestHttp requestHttp) throws WxErrorException {

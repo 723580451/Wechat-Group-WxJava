@@ -24,7 +24,7 @@ public class MaterialVoiceAndImageDownloadOkhttpRequestExecutor extends Material
   }
 
   @Override
-  public InputStream execute(String uri, String materialId) throws WxErrorException, IOException {
+  public InputStream execute(String uri, String materialId, WxType wxType) throws WxErrorException, IOException {
     logger.debug("MaterialVoiceAndImageDownloadOkhttpRequestExecutor is running");
     OkHttpClient client = requestHttp.getRequestHttpClient();
     RequestBody requestBody = new FormBody.Builder().add("media_id", materialId).build();

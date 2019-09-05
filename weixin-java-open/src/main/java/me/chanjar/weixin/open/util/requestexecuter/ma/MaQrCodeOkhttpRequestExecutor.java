@@ -32,7 +32,7 @@ public class MaQrCodeOkhttpRequestExecutor extends MaQrCodeRequestExecutor<OkHtt
   }
 
   @Override
-  public File execute(String uri, WxMaQrcodeParam qrcodeParam) throws WxErrorException, IOException {
+  public File execute(String uri, WxMaQrcodeParam qrcodeParam, WxType wxType) throws WxErrorException, IOException {
     if (qrcodeParam != null && StringUtils.isNotBlank(qrcodeParam.getPagePath())) {
       if (uri.indexOf('?') == -1) {
         uri += '?';
