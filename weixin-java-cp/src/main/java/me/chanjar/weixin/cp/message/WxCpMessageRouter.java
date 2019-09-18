@@ -129,7 +129,7 @@ public class WxCpMessageRouter {
   /**
    * 处理微信消息.
    */
-  private WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage, final Map<String, Object> context) {
+  public WxCpXmlOutMessage route(final WxCpXmlMessage wxMessage, final Map<String, Object> context) {
     if (isMsgDuplicated(wxMessage)) {
       // 如果是重复消息，那么就不做处理
       return null;
