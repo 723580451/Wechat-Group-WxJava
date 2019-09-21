@@ -7,8 +7,9 @@ import lombok.EqualsAndHashCode;
 import java.util.List;
 
 /**
+ * 获取小程序已经设置的类目结果类.
+ *
  * @author Hipple
- * @description 获取小程序已经设置的类目结果类
  * @since 2019/1/26 18:27
  */
 @Data

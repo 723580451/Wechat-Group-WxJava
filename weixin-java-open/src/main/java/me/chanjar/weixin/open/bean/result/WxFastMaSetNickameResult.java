@@ -5,8 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * 设置小程序名称结果类.
+ *
  * @author Hipple
- * @description 设置小程序名称结果类
  * @since 2019/1/26 17:39
  */
 @Data

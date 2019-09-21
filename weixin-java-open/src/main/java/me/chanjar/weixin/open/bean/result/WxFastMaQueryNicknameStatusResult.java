@@ -5,8 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * 查询改名状态实体类.
+ *
  * @author Hipple
- * @description 查询改名状态实体类
  * @since 2019/1/26 17:52
  */
 @EqualsAndHashCode(callSuper = true)

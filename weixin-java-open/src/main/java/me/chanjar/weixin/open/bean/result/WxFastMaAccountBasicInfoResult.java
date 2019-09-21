@@ -5,8 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
+ * 快速创建的小程序的账号基本信息.
+ *
  * @author Hipple
- * @description 快速创建的小程序的账号基本信息
  * @since 2019/1/23 14:39
  */
 @Data

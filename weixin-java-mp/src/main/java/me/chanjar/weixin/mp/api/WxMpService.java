@@ -179,7 +179,6 @@ public interface WxMpService {
    */
   String[] getCallbackIP() throws WxErrorException;
 
-
   /**
    * <pre>
    *  网络检测
@@ -189,7 +188,7 @@ public interface WxMpService {
    *
    * @param action   执行的检测动作
    * @param operator 指定平台从某个运营商进行检测
-   * @throws WxErrorException
+   * @throws WxErrorException .
    */
   WxNetCheckResult netCheck(String action, String operator) throws WxErrorException;
 
@@ -305,6 +304,8 @@ public interface WxMpService {
    * 设置当微信系统响应系统繁忙时，最大重试次数.
    * 默认：5次
    * </pre>
+   *
+   * @param maxRetryTimes 最大重试次数
    */
   void setMaxRetryTimes(int maxRetryTimes);
 
@@ -317,18 +318,21 @@ public interface WxMpService {
 
   /**
    * 设置 {@link WxMpConfigStorage} 的实现. 兼容老版本
+   *
+   * @param wxConfigProvider .
    */
   void setWxMpConfigStorage(WxMpConfigStorage wxConfigProvider);
 
   /**
-   * {@link Map<String, WxMpConfigStorage>} 加入新的 {@link WxMpConfigStorage}，适用于动态添加新的微信公众号配置
+   * Map里 加入新的 {@link WxMpConfigStorage}，适用于动态添加新的微信公众号配置.
    *
+   * @param mpId          公众号id
    * @param configStorage 新的微信配置
    */
   void addConfigStorage(String mpId, WxMpConfigStorage configStorage);
 
   /**
-   * 从{@link Map<String, WxMpConfigStorage>} 移除 {@link String mpId} 所对应的 {@link WxMpConfigStorage}，适用于动态移除微信公众号配置
+   * 从 Map中 移除 {@link String mpId} 所对应的 {@link WxMpConfigStorage}，适用于动态移除微信公众号配置.
    *
    * @param mpId 对应公众号的标识
    */
@@ -351,7 +355,7 @@ public interface WxMpService {
   void setMultiConfigStorages(Map<String, WxMpConfigStorage> configStorages, String defaultMpId);
 
   /**
-   * 进行相应的公众号切换
+   * 进行相应的公众号切换.
    *
    * @param mpId 公众号标识
    * @return 切换是否成功
@@ -359,7 +363,7 @@ public interface WxMpService {
   boolean switchover(String mpId);
 
   /**
-   * 进行相应的公众号切换
+   * 进行相应的公众号切换.
    *
    * @param mpId 公众号标识
    * @return 切换成功，则返回当前对象，方便链式调用，否则抛出异常
@@ -484,6 +488,8 @@ public interface WxMpService {
   void initHttp();
 
   /**
+   * 获取RequestHttp对象.
+   *
    * @return RequestHttp对象
    */
   RequestHttp getRequestHttp();
@@ -516,40 +522,130 @@ public interface WxMpService {
    */
   WxMpOcrService getOcrService();
 
+  /**
+   * .
+   *
+   * @param kefuService .
+   */
   void setKefuService(WxMpKefuService kefuService);
 
+  /**
+   * .
+   *
+   * @param materialService .
+   */
   void setMaterialService(WxMpMaterialService materialService);
 
+  /**
+   * .
+   *
+   * @param menuService .
+   */
   void setMenuService(WxMpMenuService menuService);
 
+  /**
+   * .
+   *
+   * @param userService .
+   */
   void setUserService(WxMpUserService userService);
 
+  /**
+   * .
+   *
+   * @param tagService .
+   */
   void setTagService(WxMpUserTagService tagService);
 
+  /**
+   * .
+   *
+   * @param qrCodeService .
+   */
   void setQrCodeService(WxMpQrcodeService qrCodeService);
 
+  /**
+   * .
+   *
+   * @param cardService .
+   */
   void setCardService(WxMpCardService cardService);
 
+  /**
+   * .
+   *
+   * @param storeService .
+   */
   void setStoreService(WxMpStoreService storeService);
 
+  /**
+   * .
+   *
+   * @param dataCubeService .
+   */
   void setDataCubeService(WxMpDataCubeService dataCubeService);
 
+  /**
+   * .
+   *
+   * @param blackListService .
+   */
   void setBlackListService(WxMpUserBlacklistService blackListService);
 
+  /**
+   * .
+   *
+   * @param templateMsgService .
+   */
   void setTemplateMsgService(WxMpTemplateMsgService templateMsgService);
 
+  /**
+   * .
+   *
+   * @param deviceService .
+   */
   void setDeviceService(WxMpDeviceService deviceService);
 
+  /**
+   * .
+   *
+   * @param shakeService .
+   */
   void setShakeService(WxMpShakeService shakeService);
 
+  /**
+   * .
+   *
+   * @param memberCardService .
+   */
   void setMemberCardService(WxMpMemberCardService memberCardService);
 
+  /**
+   * .
+   *
+   * @param massMessageService .
+   */
   void setMassMessageService(WxMpMassMessageService massMessageService);
 
+  /**
+   * .
+   *
+   * @param aiOpenService .
+   */
   void setAiOpenService(WxMpAiOpenService aiOpenService);
 
+  /**
+   * .
+   *
+   * @param marketingService .
+   */
   void setMarketingService(WxMpMarketingService marketingService);
 
+  /**
+   * .
+   *
+   * @param ocrService .
+   */
   void setOcrService(WxMpOcrService ocrService);
 
   /**
@@ -559,5 +655,10 @@ public interface WxMpService {
    */
   WxMpCommentService getCommentService();
 
+  /**
+   * .
+   *
+   * @param commentService .
+   */
   void setCommentService(WxMpCommentService commentService);
 }
