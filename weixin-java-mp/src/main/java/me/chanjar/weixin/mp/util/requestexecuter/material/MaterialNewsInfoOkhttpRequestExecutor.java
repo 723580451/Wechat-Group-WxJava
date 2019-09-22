@@ -28,13 +28,11 @@ public class MaterialNewsInfoOkhttpRequestExecutor extends MaterialNewsInfoReque
 
   @Override
   public WxMpMaterialNews execute(String uri, String materialId, WxType wxType) throws WxErrorException, IOException {
-    OkHttpClient client = requestHttp.getRequestHttpClient();
-
     RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
       WxGsonBuilder.create().toJson(ImmutableMap.of("media_id", materialId)));
     Request request = new Request.Builder().url(uri).post(requestBody).build();
 
-    Response response = client.newCall(request).execute();
+    Response response = requestHttp.getRequestHttpClient().newCall(request).execute();
     String responseContent = response.body().string();
     log.debug("响应原始数据：{}", responseContent);
 

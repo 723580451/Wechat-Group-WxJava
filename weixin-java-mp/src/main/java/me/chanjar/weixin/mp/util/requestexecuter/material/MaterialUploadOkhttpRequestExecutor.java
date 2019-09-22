@@ -38,8 +38,6 @@ public class MaterialUploadOkhttpRequestExecutor extends MaterialUploadRequestEx
       throw new FileNotFoundException();
     }
 
-    //得到httpClient
-
     OkHttpClient client = requestHttp.getRequestHttpClient();
 
     MultipartBody.Builder bodyBuilder = new MultipartBody.Builder()
