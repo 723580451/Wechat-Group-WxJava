@@ -11,6 +11,8 @@ import org.testng.Assert;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -92,5 +94,24 @@ public class BaseWxMpServiceImplTest {
     pingInfo.setPackageLoss("0%");
     Assert.assertEquals(result.getPingInfos().get(1), pingInfo);
 
+  }
+
+  @Test
+  public void testGetCallbackIP() throws WxErrorException {
+    String[] ipArray = this.wxService.getCallbackIP();
+    System.out.println(Arrays.toString(ipArray));
+    Assert.assertNotNull(ipArray);
+    Assert.assertNotEquals(ipArray.length, 0);
+  }
+
+  public void testShortUrl() throws WxErrorException {
+    String shortUrl = this.wxService.shortUrl("http://www.baidu.com/test?access_token=123");
+    assertThat(shortUrl).isNotEmpty();
+    System.out.println(shortUrl);
+  }
+
+  @Test(expectedExceptions = WxErrorException.class)
+  public void testShortUrl_with_exceptional_url() throws WxErrorException {
+    this.wxService.shortUrl("http://www.baidu.com/test?redirect_count=1&access_token=123");
   }
 }
