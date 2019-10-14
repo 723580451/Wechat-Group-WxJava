@@ -17,52 +17,52 @@ import static com.binarywang.spring.starter.wxjava.open.properties.WxOpenPropert
 @Data
 @ConfigurationProperties(PREFIX)
 public class WxOpenProperties {
-    public static final String PREFIX = "wx.open";
+  public static final String PREFIX = "wx.open";
 
+  /**
+   * 设置微信开放平台的appid.
+   */
+  private String appId;
+
+  /**
+   * 设置微信开放平台的app secret.
+   */
+  private String secret;
+
+  /**
+   * 设置微信开放平台的token.
+   */
+  private String token;
+
+  /**
+   * 设置微信开放平台的EncodingAESKey.
+   */
+  private String aesKey;
+
+  /**
+   * 存储策略, memory, redis.
+   */
+  private ConfigStorage configStorage = new ConfigStorage();
+
+
+  @Data
+  public static class ConfigStorage implements Serializable {
+    private static final long serialVersionUID = 4815731027000065434L;
+
+    private StorageType type = memory;
+
+    private RedisProperties redis = new RedisProperties();
+
+  }
+
+  public enum StorageType {
     /**
-     * 设置微信开放平台的appid.
+     * 内存.
      */
-    private String appId;
-
+    memory,
     /**
-     * 设置微信开放平台的app secret.
+     * redis.
      */
-    private String secret;
-
-    /**
-     * 设置微信开放平台的token.
-     */
-    private String token;
-
-    /**
-     * 设置微信开放平台的EncodingAESKey.
-     */
-    private String aesKey;
-
-    /**
-     * 存储策略, memory, redis.
-     */
-    private ConfigStorage configStorage = new ConfigStorage();
-
-
-    @Data
-    public static class ConfigStorage implements Serializable {
-        private static final long serialVersionUID = 4815731027000065434L;
-
-        private StorageType type = memory;
-
-        private RedisProperties redis = new RedisProperties();
-
-    }
-
-    public enum StorageType {
-        /**
-         * 内存.
-         */
-        memory,
-        /**
-         * redis.
-         */
-        redis
-    }
+    redis
+  }
 }

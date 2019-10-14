@@ -17,23 +17,23 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WxOpenServiceAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public WxOpenService wxOpenService(WxOpenConfigStorage configStorage) {
-        WxOpenService wxOpenService = new WxOpenServiceImpl();
-        wxOpenService.setWxOpenConfigStorage(configStorage);
-        return wxOpenService;
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public WxOpenService wxOpenService(WxOpenConfigStorage configStorage) {
+    WxOpenService wxOpenService = new WxOpenServiceImpl();
+    wxOpenService.setWxOpenConfigStorage(configStorage);
+    return wxOpenService;
+  }
 
-    @Bean
-    public WxOpenMessageRouter wxOpenMessageRouter(WxOpenService wxOpenService) {
-        return new WxOpenMessageRouter(wxOpenService);
-    }
+  @Bean
+  public WxOpenMessageRouter wxOpenMessageRouter(WxOpenService wxOpenService) {
+    return new WxOpenMessageRouter(wxOpenService);
+  }
 
-    @Bean
-    public WxOpenComponentService wxOpenComponentService(WxOpenService wxOpenService) {
-        return wxOpenService.getWxOpenComponentService();
-    }
+  @Bean
+  public WxOpenComponentService wxOpenComponentService(WxOpenService wxOpenService) {
+    return wxOpenService.getWxOpenComponentService();
+  }
 
 
 }
