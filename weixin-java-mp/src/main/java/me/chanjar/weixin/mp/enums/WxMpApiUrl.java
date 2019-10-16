@@ -954,4 +954,49 @@ public interface WxMpApiUrl {
       return buildUrl(config.getHostConfig(), prefix, path);
     }
   }
+
+  @AllArgsConstructor
+  enum ImgProc implements WxMpApiUrl {
+    /**
+     * 二维码/条码识别
+     */
+    QRCODE(API_DEFAULT_HOST_URL, "/cv/img/qrcode?img_url=%s"),
+
+    /**
+     * 二维码/条码识别(文件)
+     */
+    FILE_QRCODE(API_DEFAULT_HOST_URL, "/cv/img/qrcode"),
+
+    /**
+     * 图片高清化
+     */
+    SUPER_RESOLUTION(API_DEFAULT_HOST_URL, "/cv/img/superresolution?img_url=%s"),
+
+    /**
+     * 图片高清化(文件)
+     */
+    FILE_SUPER_RESOLUTION(API_DEFAULT_HOST_URL, "/cv/img/superresolution"),
+
+    /**
+     * 图片智能裁剪
+     */
+    AI_CROP(API_DEFAULT_HOST_URL, "/cv/img/aicrop?img_url=%s&ratios=%s"),
+
+    /**
+     * 图片智能裁剪(文件)
+     */
+    FILE_AI_CROP(API_DEFAULT_HOST_URL, "/cv/img/aicrop?ratios=%s");
+
+    private String prefix;
+    private String path;
+
+    @Override
+    public String getUrl(WxMpConfigStorage config) {
+      if (null == config) {
+        return buildUrl(null, prefix, path);
+      }
+      return buildUrl(config.getHostConfig(), prefix, path);
+    }
+  }
+
 }
