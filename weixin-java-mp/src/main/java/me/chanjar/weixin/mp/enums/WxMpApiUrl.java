@@ -440,9 +440,58 @@ public interface WxMpApiUrl {
     /**
      * 身份证识别.
      */
-    IDCARD(API_DEFAULT_HOST_URL, "/cv/ocr/idcard?type=%s&img_url=%s"),
+    IDCARD(API_DEFAULT_HOST_URL, "/cv/ocr/idcard?img_url=%s"),
 
-    FILEIDCARD(API_DEFAULT_HOST_URL, "/cv/ocr/idcard?type=%s");
+    FILEIDCARD(API_DEFAULT_HOST_URL, "/cv/ocr/idcard"),
+
+    /**
+     * 银行卡OCR识别
+     */
+    BANK_CARD(API_DEFAULT_HOST_URL, "/cv/ocr/bankcard?img_url=%s"),
+
+    /**
+     * 银行卡OCR识别(文件)
+     */
+    FILE_BANK_CARD(API_DEFAULT_HOST_URL, "/cv/ocr/bankcard"),
+
+    /**
+     * 行驶证OCR识别
+     */
+    DRIVING(API_DEFAULT_HOST_URL, "/cv/ocr/driving?img_url=%s"),
+    /**
+     * 行驶证OCR识别(文件)
+     */
+    FILE_DRIVING(API_DEFAULT_HOST_URL, "/cv/ocr/driving"),
+
+    /**
+     * 驾驶证OCR识别
+     */
+    DRIVING_LICENSE(API_DEFAULT_HOST_URL, "/cv/ocr/drivinglicense?img_url=%s"),
+
+    /**
+     * 驾驶证OCR识别(文件)
+     */
+    FILE_DRIVING_LICENSE(API_DEFAULT_HOST_URL, "/cv/ocr/drivinglicense"),
+
+    /**
+     * 营业执照OCR识别
+     */
+    BIZ_LICENSE(API_DEFAULT_HOST_URL, "/cv/ocr/bizlicense?img_url=%s"),
+
+    /**
+     * 营业执照OCR识别(文件)
+     */
+    FILE_BIZ_LICENSE(API_DEFAULT_HOST_URL, "/cv/ocr/bizlicense"),
+
+    /**
+     * 通用印刷体OCR识别
+     */
+    COMM(API_DEFAULT_HOST_URL, "/cv/ocr/comm?img_url=%s"),
+
+    /**
+     * 通用印刷体OCR识别(文件)
+     */
+    FILE_COMM(API_DEFAULT_HOST_URL, "/cv/ocr/comm");
 
     private String prefix;
     private String path;
