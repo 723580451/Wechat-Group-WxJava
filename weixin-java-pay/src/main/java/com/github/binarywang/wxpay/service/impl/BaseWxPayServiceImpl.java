@@ -788,4 +788,25 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
     return responseContent;
   }
 
+  @Override
+  public WxPayFaceAuthInfoResult getWxPayFaceAuthInfo(WxPayFaceAuthInfoRequest request) throws WxPayException {
+    request.checkAndSign(this.getConfig());
+    String url = "https://payapp.weixin.qq.com/face/get_wxpayface_authinfo";
+    String responseContent = this.post(url, request.toXML(), false);
+    WxPayFaceAuthInfoResult result = BaseWxPayResult.fromXML(responseContent, WxPayFaceAuthInfoResult.class);
+    result.checkResult(this, request.getSignType(), true);
+    return result;
+  }
+
+  @Override
+  public WxPayFacepayResult facepay(WxPayFacepayRequest request) throws WxPayException {
+    request.checkAndSign(this.getConfig());
+
+    String url = this.getPayBaseUrl() + "/pay/facepay";
+    String responseContent = this.post(url, request.toXML(), false);
+    WxPayFacepayResult result = BaseWxPayResult.fromXML(responseContent, WxPayFacepayResult.class);
+    result.checkResult(this, request.getSignType(), true);
+    return result;
+  }
+
 }
