@@ -24,6 +24,7 @@ import me.chanjar.weixin.cp.api.*;
 import me.chanjar.weixin.cp.bean.WxCpMaJsCode2SessionResult;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
 import me.chanjar.weixin.cp.bean.WxCpMessageSendResult;
+import me.chanjar.weixin.cp.bean.WxCpProviderToken;
 import me.chanjar.weixin.cp.config.WxCpConfigStorage;
 
 import java.io.File;
@@ -197,6 +198,14 @@ public abstract class BaseWxCpServiceImpl<H, P> implements WxCpService, RequestH
       ips[i] = jsonArray.get(i).getAsString();
     }
     return ips;
+  }
+
+  @Override
+  public WxCpProviderToken getProviderToken(String corpId, String providerSecret) throws WxErrorException {
+    JsonObject jsonObject = new JsonObject();
+    jsonObject.addProperty("corpid", corpId);
+    jsonObject.addProperty("provider_secret", providerSecret);
+    return WxCpProviderToken.fromJson(this.post(this.configStorage.getApiUrl(GET_PROVIDER_TOKEN), jsonObject.toString()));
   }
 
   @Override
