@@ -36,7 +36,7 @@ public class ProfitSharingServiceImplTest {
       .transactionId("4200000431201910234736634272")
       .receivers(instance.toJSONString())
       .build();
-    this.logger.info(this.payService.getProfitSharingService().profitsharing(request).toString());
+    this.logger.info(this.payService.getProfitSharingService().profitSharing(request).toString());
   }
 
   @Test
@@ -52,7 +52,7 @@ public class ProfitSharingServiceImplTest {
       .transactionId("4200000448201910238249687345")//order_id=30000102922019102310821824010
       .receivers(instance.toJSONString())
       .build();
-    this.logger.info(this.payService.getProfitSharingService().multiprofitsharing(request).toString());
+    this.logger.info(this.payService.getProfitSharingService().multiProfitSharing(request).toString());
   }
 
   @Test
@@ -63,7 +63,7 @@ public class ProfitSharingServiceImplTest {
       .transactionId("4200000441201910238267278073")
       .description("分账完成")
       .build();
-    this.logger.info(this.payService.getProfitSharingService().profitsharingfinish(request).toString());
+    this.logger.info(this.payService.getProfitSharingService().profitSharingFinish(request).toString());
   }
 
   @Test
@@ -98,7 +98,7 @@ public class ProfitSharingServiceImplTest {
       .outOrderNo("20191023112023031060677")
       .transactionId("4200000431201910234736634272")
       .build();
-    ProfitSharingQueryResult result = this.payService.getProfitSharingService().profitsharingQuery(request);
+    ProfitSharingQueryResult result = this.payService.getProfitSharingService().profitSharingQuery(request);
     this.logger.info(result.formatReceivers().toString());
     this.logger.info(result.toString());
   }
@@ -114,7 +114,7 @@ public class ProfitSharingServiceImplTest {
       .returnAmount(2)
       .description("用户退款")
       .build();
-    this.logger.info(this.payService.getProfitSharingService().profitsharingReturn(request).toString());
+    this.logger.info(this.payService.getProfitSharingService().profitSharingReturn(request).toString());
   }
 
   @Test
@@ -124,7 +124,7 @@ public class ProfitSharingServiceImplTest {
       .outOrderNo("20191023154723316420060")
       .outReturnNo("R2019102315")
       .build();
-    this.logger.info(this.payService.getProfitSharingService().profitsharingReturnQuery(request).toString());
+    this.logger.info(this.payService.getProfitSharingService().profitSharingReturnQuery(request).toString());
   }
 
 

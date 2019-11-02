@@ -3,9 +3,6 @@ package com.github.binarywang.wxpay.service;
 import com.github.binarywang.wxpay.bean.profitsharing.*;
 import com.github.binarywang.wxpay.exception.WxPayException;
 
-import com.github.binarywang.wxpay.bean.profitsharing.ProfitSharingResult;
-import com.github.binarywang.wxpay.bean.profitsharing.ProfitSharingRequest;
-
 /**
  * 注意：微信最高分账比例为30%
  * 可多次分账到同一个人，但是依然不能超过30%
@@ -22,11 +19,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/profitsharing
    * </pre>
    *
-   * @param profitsharingRequest
-   * @return
+   * @param request .
+   * @return .
    * @throws WxPayException the wx pay exception
    */
-  ProfitSharingResult profitsharing(ProfitSharingRequest profitsharingRequest) throws WxPayException;
+  ProfitSharingResult profitSharing(ProfitSharingRequest request) throws WxPayException;
 
   /**
    * <pre>
@@ -38,11 +35,11 @@ public interface ProfitSharingService {
    * 文档详见: https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=25_6&index=2
    * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/multiprofitsharing
    *
-   * @param profitsharingRequest
-   * @return
+   * @param request .
+   * @return .
    * @throws WxPayException the wx pay exception
    */
-  ProfitSharingResult multiprofitsharing(ProfitSharingRequest profitsharingRequest) throws WxPayException;
+  ProfitSharingResult multiProfitSharing(ProfitSharingRequest request) throws WxPayException;
 
   /**
    * <pre>
@@ -54,11 +51,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/profitsharingfinish
    * </pre>
    *
-   * @param profitSharingFinishRequest
-   * @return
+   * @param request .
+   * @return .
    * @throws WxPayException the wx pay exception
    */
-  ProfitSharingResult profitsharingfinish(ProfitSharingFinishRequest profitSharingFinishRequest) throws WxPayException;
+  ProfitSharingResult profitSharingFinish(ProfitSharingFinishRequest request) throws WxPayException;
 
   /**
    * <pre>
@@ -67,11 +64,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/pay/profitsharingaddreceiver
    * </pre>
    *
-   * @param profitSharingReceiverRequest
-   * @return
-   * @throws WxPayException
+   * @param request .
+   * @return .
+   * @throws WxPayException .
    */
-  ProfitSharingReceiverResult addReceiver(ProfitSharingReceiverRequest profitSharingReceiverRequest) throws WxPayException;
+  ProfitSharingReceiverResult addReceiver(ProfitSharingReceiverRequest request) throws WxPayException;
 
   /**
    * <pre>
@@ -80,11 +77,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/pay/profitsharingremovereceiver
    * </pre>
    *
-   * @param profitSharingReceiverRequest
-   * @return
-   * @throws WxPayException
+   * @param request .
+   * @return .
+   * @throws WxPayException .
    */
-  ProfitSharingReceiverResult removeReceiver(ProfitSharingReceiverRequest profitSharingReceiverRequest) throws WxPayException;
+  ProfitSharingReceiverResult removeReceiver(ProfitSharingReceiverRequest request) throws WxPayException;
 
   /**
    * TODO:微信返回签名失败
@@ -93,11 +90,11 @@ public interface ProfitSharingService {
    * 接口频率：80QPS
    * </pre>
    *
-   * @param profitSharingReceiverRequest
-   * @return
-   * @throws WxPayException
+   * @param request .
+   * @return .
+   * @throws WxPayException .
    */
-  ProfitSharingQueryResult profitsharingQuery(ProfitSharingQueryRequest profitSharingReceiverRequest) throws WxPayException;
+  ProfitSharingQueryResult profitSharingQuery(ProfitSharingQueryRequest request) throws WxPayException;
 
   /**
    * TODO:这个接口用真实的数据返回【参数不正确】，我对比官方文档除了缺少sub_mch_id，和sub_appid之外其他相同，当我随便填了一个商户id的时候，提示【回退方没有开通分账回退功能】
@@ -111,11 +108,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/secapi/pay/profitsharingreturn
    * </pre>
    *
-   * @param profitSharingReturnRequest
-   * @return
-   * @throws WxPayException
+   * @param returnRequest .
+   * @return .
+   * @throws WxPayException .
    */
-  ProfitSharingReturnResult profitsharingReturn(ProfitSharingReturnRequest profitSharingReturnRequest) throws WxPayException;
+  ProfitSharingReturnResult profitSharingReturn(ProfitSharingReturnRequest returnRequest) throws WxPayException;
 
   /**
    * TODO:因profitsharingReturn接口无法使用，没有办法对这里进行真实的测试，模拟数据这里返回【记录不存在】
@@ -127,10 +124,11 @@ public interface ProfitSharingService {
    * 接口链接：https://api.mch.weixin.qq.com/pay/profitsharingreturnquery
    * </pre>
    *
-   * @param profitSharingReturnQueryRequest
-   * @return
-   * @throws WxPayException
+   * @param queryRequest .
+   * @return .
+   * @throws WxPayException .
    */
-  ProfitSharingReturnResult profitsharingReturnQuery(ProfitSharingReturnQueryRequest profitSharingReturnQueryRequest) throws WxPayException;
+  ProfitSharingReturnResult profitSharingReturnQuery(ProfitSharingReturnQueryRequest queryRequest)
+    throws WxPayException;
 
 }

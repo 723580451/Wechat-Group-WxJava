@@ -20,7 +20,7 @@ public class ProfitSharingServiceImpl implements ProfitSharingService {
   }
 
   @Override
-  public ProfitSharingResult profitsharing(ProfitSharingRequest request) throws WxPayException {
+  public ProfitSharingResult profitSharing(ProfitSharingRequest request) throws WxPayException {
     request.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/secapi/pay/profitsharing";
 
@@ -31,7 +31,7 @@ public class ProfitSharingServiceImpl implements ProfitSharingService {
   }
 
   @Override
-  public ProfitSharingResult multiprofitsharing(ProfitSharingRequest request) throws WxPayException {
+  public ProfitSharingResult multiProfitSharing(ProfitSharingRequest request) throws WxPayException {
     request.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/secapi/pay/multiprofitsharing";
 
@@ -42,7 +42,7 @@ public class ProfitSharingServiceImpl implements ProfitSharingService {
   }
 
   @Override
-  public ProfitSharingResult profitsharingfinish(ProfitSharingFinishRequest request) throws WxPayException {
+  public ProfitSharingResult profitSharingFinish(ProfitSharingFinishRequest request) throws WxPayException {
     request.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/secapi/pay/profitsharingfinish";
 
@@ -75,7 +75,7 @@ public class ProfitSharingServiceImpl implements ProfitSharingService {
   }
 
   @Override
-  public ProfitSharingQueryResult profitsharingQuery(ProfitSharingQueryRequest request) throws WxPayException {
+  public ProfitSharingQueryResult profitSharingQuery(ProfitSharingQueryRequest request) throws WxPayException {
     if (true) throw new WxPayException("暂不支持，微信一直返回签名失败");
     request.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/pay/profitsharingquery";
@@ -87,24 +87,24 @@ public class ProfitSharingServiceImpl implements ProfitSharingService {
   }
 
   @Override
-  public ProfitSharingReturnResult profitsharingReturn(ProfitSharingReturnRequest request) throws WxPayException {
-    request.checkAndSign(this.payService.getConfig());
+  public ProfitSharingReturnResult profitSharingReturn(ProfitSharingReturnRequest returnRequest) throws WxPayException {
+    returnRequest.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/secapi/pay/profitsharingreturn";
 
-    String responseContent = this.payService.post(url, request.toXML(), true);
+    String responseContent = this.payService.post(url, returnRequest.toXML(), true);
     ProfitSharingReturnResult result = BaseWxPayResult.fromXML(responseContent, ProfitSharingReturnResult.class);
-    result.checkResult(this.payService, request.getSignType(), true);
+    result.checkResult(this.payService, returnRequest.getSignType(), true);
     return result;
   }
 
   @Override
-  public ProfitSharingReturnResult profitsharingReturnQuery(ProfitSharingReturnQueryRequest request) throws WxPayException {
-    request.checkAndSign(this.payService.getConfig());
+  public ProfitSharingReturnResult profitSharingReturnQuery(ProfitSharingReturnQueryRequest queryRequest) throws WxPayException {
+    queryRequest.checkAndSign(this.payService.getConfig());
     String url = this.payService.getPayBaseUrl() + "/pay/profitsharingreturnquery";
 
-    String responseContent = this.payService.post(url, request.toXML(), true);
+    String responseContent = this.payService.post(url, queryRequest.toXML(), true);
     ProfitSharingReturnResult result = BaseWxPayResult.fromXML(responseContent, ProfitSharingReturnResult.class);
-    result.checkResult(this.payService, request.getSignType(), true);
+    result.checkResult(this.payService, queryRequest.getSignType(), true);
     return result;
   }
 }

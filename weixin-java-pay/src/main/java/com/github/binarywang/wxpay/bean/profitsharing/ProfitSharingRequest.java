@@ -78,9 +78,7 @@ public class ProfitSharingRequest extends BaseWxPayRequest {
 
   @Override
   protected void checkConstraints() throws WxPayException {
-    /**
-     * 目前仅支持HMAC-SHA256
-     */
+    // 目前仅支持HMAC-SHA256.
     this.setSignType(WxPayConstants.SignType.HMAC_SHA256);
   }
 }
