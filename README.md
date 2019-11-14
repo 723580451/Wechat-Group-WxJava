@@ -24,8 +24,13 @@
 				</a>
 			</td>
 			<td align="right" valign="middle">
-				<a href="https://coding.net/?utm_source=WxJava" target="_blank">
-					<img height="120" src="https://gitee.com/binary/weixin-java-tools/raw/master/images/banners/coding.jpg">
+				<a href="https://mp.weixin.qq.com/s?__biz=MzI3MzAwMzk4OA==&mid=2454621857&idx=1&sn=7e59b83cce3be3b56d393d24a9193c11&chksm=fc93ca1acbe4430c7e7fcf581b472a815696a3c8c00aa007f404862f246426ab21b5d0509a9e&token=453905422&lang=zh_CN#rd" target="_blank">
+					<img height="120" src="https://github.com/Wechat-Group/WxJava/blob/master/images/banners/planB.jpg?raw=true">
+				</a>
+			</td>
+			<td align="center" valign="middle">
+				<a href="https://www.vultr.com/?ref=7888900-4F" target="_blank">
+					<img height="120" src="https://github.com/Wechat-Group/WxJava/blob/master/images/banners/vultr.jpg?raw=true">
 				</a>
 			</td>
 			<td align="center" valign="middle">
