@@ -11,10 +11,10 @@
 - 微信小程序：[点击查看使用方法](https://github.com/Wechat-Group/WxJava/tree/master/spring-boot-starters/wx-java-miniapp-spring-boot-starter) 
 
 ### Demo 列表
-1. 微信支付 Demo：[GitHub](http://github.com/binarywang/weixin-java-pay-demo)、[码云](http://gitee.com/binary/weixin-java-pay-demo)
-1. 企业号/企业微信 Demo：[GitHub](http://github.com/binarywang/weixin-java-cp-demo)、[码云](http://gitee.com/binary/weixin-java-cp-demo)
-1. 微信小程序 Demo：[GitHub](http://github.com/binarywang/weixin-java-miniapp-demo)、[码云](http://gitee.com/binary/weixin-java-miniapp-demo)
-1. 开放平台 Demo：[GitHub](http://github.com/Wechat-Group/weixin-java-open-demo)、[码云](http://gitee.com/binary/weixin-java-open-demo)
+1. 微信支付 Demo：[GitHub](http://github.com/binarywang/weixin-java-pay-demo)、[码云](http://gitee.com/binary/weixin-java-pay-demo) [![Build Status](https://travis-ci.org/binarywang/weixin-java-pay-demo.svg?branch=master)](https://travis-ci.org/binarywang/weixin-java-pay-demo)
+1. 企业号/企业微信 Demo：[GitHub](http://github.com/binarywang/weixin-java-cp-demo)、[码云](http://gitee.com/binary/weixin-java-cp-demo) [![Build Status](https://travis-ci.org/binarywang/weixin-java-cp-demo.svg?branch=master)](https://travis-ci.org/binarywang/weixin-java-cp-demo)
+1. 微信小程序 Demo：[GitHub](http://github.com/binarywang/weixin-java-miniapp-demo)、[码云](http://gitee.com/binary/weixin-java-miniapp-demo) [![Build Status](https://travis-ci.org/binarywang/weixin-java-miniapp-demo.svg?branch=master)](https://travis-ci.org/binarywang/weixin-java-miniapp-demo)
+1. 开放平台 Demo：[GitHub](http://github.com/Wechat-Group/weixin-java-open-demo)、[码云](http://gitee.com/binary/weixin-java-open-demo) [![Build Status](https://travis-ci.org/Wechat-Group/weixin-java-open-demo.svg?branch=master)](https://travis-ci.org/Wechat-Group/weixin-java-open-demo)
 1. 公众号 Demo：
 	- 使用 `Spring MVC` 实现的公众号 Demo：[GitHub](http://github.com/binarywang/weixin-java-mp-demo-springmvc)、[码云](https://gitee.com/binary/weixin-java-mp-demo)
 	- 使用 `Spring Boot` 实现的公众号 Demo（支持多公众号）：[GitHub](http://github.com/binarywang/weixin-java-mp-demo-springboot)、[码云](http://gitee.com/binary/weixin-java-mp-demo-springboot)
