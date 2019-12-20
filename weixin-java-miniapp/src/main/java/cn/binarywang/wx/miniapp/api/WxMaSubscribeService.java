@@ -144,7 +144,7 @@ public interface WxMaSubscribeService {
   }
 
   @Data
-  class PubTemplateKeyword{
+  class PubTemplateKeyword {
     private int kid;
     private String name;
     private String example;
