@@ -38,7 +38,7 @@ public class WxMaSubscribeServiceImplTest {
 
   @Test
   public void testAddTemplate() throws WxErrorException {
-    final String templateId = this.wxService.getSubscribeService().addTemplate("1", Lists.newArrayList(1), "");
+    final String templateId = this.wxService.getSubscribeService().addTemplate("1", Lists.newArrayList(1), "hhaa");
     System.out.println(templateId);
   }
 
