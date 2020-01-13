@@ -51,4 +51,9 @@ public class ProfitSharingQueryRequest extends BaseWxPayRequest {
   protected void checkConstraints() throws WxPayException {
     this.setSignType(WxPayConstants.SignType.HMAC_SHA256);
   }
+
+  @Override
+  public boolean ignoreAppid() {
+    return true;
+  }
 }
