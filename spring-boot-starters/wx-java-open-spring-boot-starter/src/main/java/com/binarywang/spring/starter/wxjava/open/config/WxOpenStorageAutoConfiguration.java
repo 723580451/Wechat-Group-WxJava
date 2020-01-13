@@ -6,7 +6,12 @@ import lombok.RequiredArgsConstructor;
 import me.chanjar.weixin.open.api.WxOpenConfigStorage;
 import me.chanjar.weixin.open.api.impl.WxOpenInMemoryConfigStorage;
 import me.chanjar.weixin.open.api.impl.WxOpenInRedisConfigStorage;
+import me.chanjar.weixin.open.api.impl.WxOpenInRedissonConfigStorage;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.TransportMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,6 +33,9 @@ public class WxOpenStorageAutoConfiguration {
   @Autowired(required = false)
   private JedisPool jedisPool;
 
+  @Autowired(required = false)
+  private RedissonClient redissonClient;
+
   @Value("${wx.open.config-storage.redis.host:}")
   private String redisHost;
 
@@ -40,12 +48,20 @@ public class WxOpenStorageAutoConfiguration {
     if (type == WxOpenProperties.StorageType.redis) {
       return getWxOpenInRedisConfigStorage();
     }
+
+    if (type == WxOpenProperties.StorageType.jedis){
+      return getWxOpenInRedisConfigStorage();
+    }
+
+    if (type == WxOpenProperties.StorageType.redisson){
+      return getWxOpenInRedissonConfigStorage();
+    }
     return getWxOpenInMemoryConfigStorage();
   }
 
   private WxOpenInMemoryConfigStorage getWxOpenInMemoryConfigStorage() {
     WxOpenInMemoryConfigStorage config = new WxOpenInMemoryConfigStorage();
-    setWxOpenInfo(config);
+    config.setWxOpenInfo(properties.getAppId(),properties.getSecret(), properties.getToken(), properties.getAesKey());
     return config;
   }
 
@@ -55,16 +71,20 @@ public class WxOpenStorageAutoConfiguration {
       poolToUse = getJedisPool();
     }
     WxOpenInRedisConfigStorage config = new WxOpenInRedisConfigStorage(poolToUse);
-    setWxOpenInfo(config);
+    config.setWxOpenInfo(properties.getAppId(),properties.getSecret(), properties.getToken(), properties.getAesKey());
     return config;
   }
 
-  private void setWxOpenInfo(WxOpenConfigStorage config) {
-    config.setComponentAppId(properties.getAppId());
-    config.setComponentAppSecret(properties.getSecret());
-    config.setComponentToken(properties.getToken());
-    config.setComponentAesKey(properties.getAesKey());
+  private WxOpenInRedissonConfigStorage getWxOpenInRedissonConfigStorage(){
+    RedissonClient redissonClientToUse = this.redissonClient;
+    if(redissonClient == null){
+      redissonClientToUse = getRedissonClient();
+    }
+    WxOpenInRedissonConfigStorage config = new WxOpenInRedissonConfigStorage(redissonClientToUse);
+    config.setWxOpenInfo(properties.getAppId(),properties.getSecret(), properties.getToken(), properties.getAesKey());
+    return config;
   }
+
 
   private JedisPool getJedisPool() {
     WxOpenProperties.ConfigStorage storage = properties.getConfigStorage();
@@ -89,5 +109,17 @@ public class WxOpenStorageAutoConfiguration {
     JedisPool pool = new JedisPool(config, redis.getHost(), redis.getPort(),
       redis.getTimeout(), redis.getPassword(), redis.getDatabase());
     return pool;
+  }
+
+  private RedissonClient getRedissonClient(){
+    WxOpenProperties.ConfigStorage storage = properties.getConfigStorage();
+    RedisProperties redis = storage.getRedis();
+
+    Config config = new Config();
+    config.useSingleServer()
+      .setAddress("redis://" + redis.getHost() + ":" + redis.getPort())
+      .setPassword(redis.getPassword());
+    config.setTransportMode(TransportMode.NIO);
+    return Redisson.create(config);
   }
 }
