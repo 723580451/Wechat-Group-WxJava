@@ -6,7 +6,7 @@ import me.chanjar.weixin.common.annotation.Required;
 
 /**
  * <pre>
- *  提交刷卡支付请求对象类
+ *  提交付款码支付请求对象类
  * Created by Binary Wang on 2017-3-23.
  * </pre>
  *
@@ -210,6 +210,18 @@ public class WxPayMicropayRequest extends BaseWxPayRequest {
    */
   @XStreamAlias("scene_info")
   private String sceneInfo;
+
+  /**
+   * <pre>
+   * 字段名：是否指定服务商分账.
+   * 变量名：profit_sharing
+   * 是否必填：否
+   * 详情：Y-是，需要分账  N-否，不分账，字母要求大写，不传默认不分账
+   * 详细参考 https://pay.weixin.qq.com/wiki/doc/api/allocation_sl.php?chapter=24_3&index=3
+   * </pre>
+   */
+  @XStreamAlias("profit_sharing")
+  private String profitSharing;
 
   @Override
   protected void checkConstraints() {

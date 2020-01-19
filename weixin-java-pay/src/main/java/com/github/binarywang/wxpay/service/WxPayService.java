@@ -490,7 +490,7 @@ public interface WxPayService {
 
   /**
    * <pre>
-   * 提交刷卡支付.
+   * 提交付款码支付.
    * 文档地址：https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_10&index=1
    * 应用场景：
    * 收银员使用扫码设备读取微信用户刷卡授权码以后，二维码或条码信息传送至商户收银台，由商户收银台或者商户后台调用该接口发起支付。
