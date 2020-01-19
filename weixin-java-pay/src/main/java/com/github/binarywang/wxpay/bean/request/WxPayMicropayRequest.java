@@ -21,6 +21,19 @@ import me.chanjar.weixin.common.annotation.Required;
 public class WxPayMicropayRequest extends BaseWxPayRequest {
   /**
    * <pre>
+   * 字段名：设备号.
+   * 变量名：device_info
+   * 是否必填：否
+   * 类型：String(32)
+   * 示例值：013467007045764
+   * 描述：终端设备号(商户自定义，如门店编号)
+   * </pre>
+   */
+  @XStreamAlias("device_info")
+  private String deviceInfo;
+
+  /**
+   * <pre>
    * 字段名：接口版本号.
    * 变量名：version
    * 是否必填：单品优惠必填
@@ -179,6 +192,20 @@ public class WxPayMicropayRequest extends BaseWxPayRequest {
    */
   @XStreamAlias("time_expire")
   private String timeExpire;
+
+  /**
+   * <pre>
+   * 字段名：电子发票入口开放标识	.
+   * 变量名：receipt
+   * 是否必填：否
+   * 类型：String(8)
+   * 示例值：Y
+   * 描述：Y，传入Y时，支付成功消息和支付详情页将出现开票入口。需要在微信支付商户平台或微信公众平台开通电子发票功能，传此字段才可生效
+   * </pre>
+   **/
+  @Required
+  @XStreamAlias("receipt")
+  private String receipt;
 
   /**
    * <pre>
