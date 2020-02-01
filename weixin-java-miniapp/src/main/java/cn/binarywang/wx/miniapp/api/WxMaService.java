@@ -242,4 +242,9 @@ public interface WxMaService {
    * @return
    */
   WxMaExpressService getExpressService();
+
+  /**
+   * 获取云开发接口服务对象
+   */
+  WxMaCloudService getCloudService();
 }

@@ -463,6 +463,8 @@ public enum WxMaErrorMsgEnum {
   CODE_85003(85003, "微信号绑定的小程序体验者达到上限"),
 
   CODE_85004(85004, "微信号已经绑定"),
+
+//  CODE_504002(-504002, "云函数未找到 Function not found"),
   ;
 
   private int code;
