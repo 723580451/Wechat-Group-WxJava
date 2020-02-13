@@ -83,6 +83,7 @@ public class WxCpUserGsonAdapterTest {
     assertThat(user.getOrders()[1]).isEqualTo(2);
 
     assertThat(user.getAddress()).isEqualTo("广州市海珠区新港中路");
+    assertThat(user.getAlias()).isEqualTo("jackzhang");
     assertThat(user.getExternalAttrs()).isNotEmpty();
 
     final WxCpUser.ExternalAttribute externalAttr1 = user.getExternalAttrs().get(0);
@@ -102,6 +103,7 @@ public class WxCpUserGsonAdapterTest {
     assertThat(externalAttr3.getAppid()).isEqualTo("wx8bd80126147df384");
     assertThat(externalAttr3.getPagePath()).isEqualTo("/index");
     assertThat(externalAttr3.getTitle()).isEqualTo("my miniprogram");
+
   }
 
   @Test
