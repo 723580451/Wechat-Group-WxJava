@@ -53,4 +53,47 @@ public class WxMpCommentServiceImpl implements WxMpCommentService {
 
     return WxMpCommentListVo.fromJson(this.wxMpService.post(LIST, json.toString()));
   }
+
+  @Override
+  public void markElect(String msgDataId, Integer index, Long userCommentId) throws WxErrorException {
+    JsonObject json = this.buildJson(msgDataId, index, userCommentId);
+    this.wxMpService.post(MARK_ELECT, json.toString());
+  }
+
+  @Override
+  public void unmarkElect(String msgDataId, Integer index, Long userCommentId) throws WxErrorException {
+    JsonObject json = this.buildJson(msgDataId, index, userCommentId);
+    this.wxMpService.post(UNMARK_ELECT, json.toString());
+  }
+
+  @Override
+  public void delete(String msgDataId, Integer index, Long userCommentId) throws WxErrorException {
+    JsonObject json = this.buildJson(msgDataId, index, userCommentId);
+
+    this.wxMpService.post(DELETE, json.toString());
+  }
+
+  @Override
+  public void replyAdd(String msgDataId, Integer index, Long userCommentId, String content) throws WxErrorException {
+    JsonObject json = this.buildJson(msgDataId, index, userCommentId);
+    json.addProperty("content", content);
+
+    this.wxMpService.post(REPLY_ADD, json.toString());
+  }
+
+  @Override
+  public void replyDelete(String msgDataId, Integer index, Long userCommentId) throws WxErrorException {
+    JsonObject json = this.buildJson(msgDataId, index, userCommentId);
+    this.wxMpService.post(REPLY_DELETE, json.toString());
+  }
+
+  private JsonObject buildJson(String msgDataId, Integer index, Long userCommentId) {
+    JsonObject json = new JsonObject();
+    json.addProperty("msg_data_id", msgDataId);
+    json.addProperty("user_comment_id", userCommentId);
+    if (index != null) {
+      json.addProperty("index", index);
+    }
+    return json;
+  }
 }

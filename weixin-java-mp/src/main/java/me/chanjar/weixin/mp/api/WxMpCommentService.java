@@ -44,4 +44,60 @@ public interface WxMpCommentService {
    * @throws WxErrorException 异常
    */
   WxMpCommentListVo list(String msgDataId, Integer index, int begin, int count, int type) throws WxErrorException;
+
+  /**
+   * 2.4 将评论标记精选.
+   * 接口调用请求: POST https://api.weixin.qq.com/cgi-bin/comment/markelect?access_token=ACCESS_TOKEN
+   *
+   * @param msgDataId     群发返回的msg_data_id
+   * @param index         多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
+   * @param userCommentId 用户评论id
+   * @throws WxErrorException 异常
+   */
+  void markElect(String msgDataId, Integer index, Long userCommentId) throws WxErrorException;
+
+  /**
+   * 2.5 将评论取消精选.
+   * 接口调用请求: POST https://api.weixin.qq.com/cgi-bin/comment/unmarkelect?access_token=ACCESS_TOKEN
+   *
+   * @param msgDataId     群发返回的msg_data_id
+   * @param index         多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
+   * @param userCommentId 用户评论id
+   * @throws WxErrorException 异常
+   */
+  void unmarkElect(String msgDataId, Integer index, Long userCommentId) throws WxErrorException;
+
+  /**
+   * 2.6 删除评论.
+   * 接口调用请求: POST https://api.weixin.qq.com/cgi-bin/comment/delete?access_token=ACCESS_TOKEN
+   *
+   * @param msgDataId     群发返回的msg_data_id
+   * @param index         多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
+   * @param userCommentId 用户评论id
+   * @throws WxErrorException 异常
+   */
+  void delete(String msgDataId, Integer index, Long userCommentId) throws WxErrorException;
+
+  /**
+   * 2.7 回复评论.
+   * 接口调用请求: POST https://api.weixin.qq.com/cgi-bin/comment/reply/add?access_token=ACCESS_TOKEN
+   *
+   * @param msgDataId     群发返回的msg_data_id
+   * @param index         多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
+   * @param userCommentId 用户评论id
+   * @param content       回复内容
+   * @throws WxErrorException 异常
+   */
+  void replyAdd(String msgDataId, Integer index, Long userCommentId, String content) throws WxErrorException;
+
+  /**
+   * 2.8 删除回复.
+   * 接口调用请求: POST https://api.weixin.qq.com/cgi-bin/comment/reply/delete?access_token=ACCESS_TOKEN
+   *
+   * @param msgDataId     群发返回的msg_data_id
+   * @param index         多图文时，用来指定第几篇图文，从0开始，不带默认操作该msg_data_id的第一篇图文
+   * @param userCommentId 用户评论id
+   * @throws WxErrorException 异常
+   */
+  void replyDelete(String msgDataId, Integer index, Long userCommentId) throws WxErrorException;
 }

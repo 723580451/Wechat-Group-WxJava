@@ -9,9 +9,7 @@ import me.chanjar.weixin.mp.bean.comment.WxMpCommentListVo;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
-import static me.chanjar.weixin.mp.enums.WxMpApiUrl.Comment.LIST;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
@@ -73,5 +71,30 @@ public class WxMpCommentServiceImplTest {
     assertThat(commentListVo.getComment()).isNotEmpty();
 
     assertThat(commentListVo.getComment().get(0).getReply()).isNotNull();
+  }
+
+  @Test
+  public void testMarkElect() throws WxErrorException {
+    this.wxService.getCommentService().markElect("1000000001", null, 1L);
+  }
+
+  @Test
+  public void testUnmarkElect() throws WxErrorException {
+    this.wxService.getCommentService().unmarkElect("1000000001", null, 1L);
+  }
+
+  @Test
+  public void testDelete() throws WxErrorException {
+    this.wxService.getCommentService().delete("1000000001", null, 1L);
+  }
+
+  @Test
+  public void testReplyAdd() throws WxErrorException {
+    this.wxService.getCommentService().replyAdd("1000000001", null, 1L, "haha");
+  }
+
+  @Test
+  public void testReplyADelete() throws WxErrorException {
+    this.wxService.getCommentService().replyDelete("1000000001", null, 1L);
   }
 }
