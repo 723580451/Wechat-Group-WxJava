@@ -2,11 +2,9 @@ package cn.binarywang.wx.miniapp.api.impl;
 
 import cn.binarywang.wx.miniapp.api.WxMaMsgService;
 import cn.binarywang.wx.miniapp.api.WxMaService;
-import cn.binarywang.wx.miniapp.bean.WxMaKefuMessage;
-import cn.binarywang.wx.miniapp.bean.WxMaSubscribeMessage;
-import cn.binarywang.wx.miniapp.bean.WxMaTemplateMessage;
-import cn.binarywang.wx.miniapp.bean.WxMaUniformMessage;
+import cn.binarywang.wx.miniapp.bean.*;
 import cn.binarywang.wx.miniapp.constant.WxMaConstants;
+import cn.binarywang.wx.miniapp.util.json.WxMaGsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.AllArgsConstructor;
@@ -53,6 +51,17 @@ public class WxMaMsgServiceImpl implements WxMaMsgService {
     if (jsonObject.get(WxMaConstants.ERRCODE).getAsInt() != 0) {
       throw new WxErrorException(WxError.fromJson(responseContent, WxType.MiniApp));
     }
+  }
+
+  @Override
+  public JsonObject createUpdatableMessageActivityId() throws WxErrorException {
+    final String responseContent = this.wxMaService.get(ACTIVITY_ID_CREATE_URL, null);
+    return JSON_PARSER.parse(responseContent).getAsJsonObject();
+  }
+
+  @Override
+  public void setUpdatableMsg(WxMaUpdatableMsg msg) throws WxErrorException {
+    this.wxMaService.post(UPDATABLE_MSG_SEND_URL, WxMaGsonBuilder.create().toJson(msg));
   }
 
 }
