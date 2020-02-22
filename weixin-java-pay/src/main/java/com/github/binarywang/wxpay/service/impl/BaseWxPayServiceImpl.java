@@ -322,7 +322,11 @@ public abstract class BaseWxPayServiceImpl implements WxPayService {
       }
 
       case TradeType.JSAPI: {
-        String signType = SignType.MD5;
+        String signType = request.getSignType();
+        if (signType == null) {
+          signType = SignType.MD5;
+        }
+
         String appid = unifiedOrderResult.getAppid();
         if (StringUtils.isNotEmpty(unifiedOrderResult.getSubAppId())) {
           appid = unifiedOrderResult.getSubAppId();
