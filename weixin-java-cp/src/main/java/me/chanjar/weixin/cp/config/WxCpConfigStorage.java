@@ -97,4 +97,10 @@ public interface WxCpConfigStorage {
    * @return ApacheHttpClientBuilder
    */
   ApacheHttpClientBuilder getApacheHttpClientBuilder();
+
+  /**
+   * 是否自动刷新token
+   * @return .
+   */
+  boolean autoRefreshToken();
 }

@@ -194,7 +194,9 @@ public abstract class BaseWxCpTpServiceImpl<H, P> implements WxCpTpService, Requ
       if (error.getErrorCode() == 42009) {
         // 强制设置wxCpTpConfigStorage它的suite access token过期了，这样在下一次请求里就会刷新suite access token
         this.configStorage.expireSuiteAccessToken();
-        return execute(executor, uri, data);
+        if (this.getWxCpTpConfigStorage().autoRefreshToken()) {
+          return this.execute(executor, uri, data);
+        }
       }
 
       if (error.getErrorCode() != 0) {
