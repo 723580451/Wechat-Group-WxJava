@@ -83,7 +83,6 @@ public interface WxCpExternalContactService {
    * @return List of CpUser id
    * @throws WxErrorException .
    */
-  @Deprecated
   List<String> listFollowUser() throws WxErrorException;
 
 }
