@@ -1,4 +1,4 @@
-package me.chanjar.weixin.cp.bean;
+package me.chanjar.weixin.cp.bean.oa;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
@@ -47,4 +47,8 @@ public class WxCpCheckinData implements Serializable {
 
   @SerializedName("mediaids")
   private List<String> mediaIds;
+
+  private Integer lat;
+
+  private Integer lng;
 }

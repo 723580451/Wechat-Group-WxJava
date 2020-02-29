@@ -5,7 +5,10 @@ import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.*;
+import lombok.experimental.Accessors;
 import me.chanjar.weixin.common.annotation.Required;
+
+import java.util.Map;
 
 /**
  * @author Wang GuangXin 2019/10/22 15:44
@@ -14,6 +17,7 @@ import me.chanjar.weixin.common.annotation.Required;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Builder(builderMethodName = "newBuilder")
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias("xml")
@@ -50,5 +54,16 @@ public class ProfitSharingQueryRequest extends BaseWxPayRequest {
   @Override
   protected void checkConstraints() throws WxPayException {
     this.setSignType(WxPayConstants.SignType.HMAC_SHA256);
+  }
+
+  @Override
+  public boolean ignoreAppid() {
+    return true;
+  }
+
+  @Override
+  protected void storeMap(Map<String, String> map) {
+    map.put("transaction_id", transactionId);
+    map.put("out_order_no", outOrderNo);
   }
 }

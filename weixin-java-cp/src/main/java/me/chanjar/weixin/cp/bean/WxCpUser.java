@@ -1,14 +1,14 @@
 package me.chanjar.weixin.cp.bean;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.chanjar.weixin.cp.util.json.WxCpGsonBuilder;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 微信用户信息.
@@ -27,6 +27,8 @@ public class WxCpUser implements Serializable {
   private Gender gender;
   private String email;
   private String avatar;
+  private String thumbAvatar;
+
   /**
    * 地址。长度最大128个字符
    */
@@ -34,6 +36,10 @@ public class WxCpUser implements Serializable {
   private String avatarMediaId;
   private Integer status;
   private Integer enable;
+  /**
+   * 别名；第三方仅通讯录应用可获取
+   */
+  private String alias;
   private Integer isLeader;
   /**
    * is_leader_in_dept.

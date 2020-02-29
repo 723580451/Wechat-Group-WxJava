@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.binarywang</groupId>
   <artifactId>wx-java</artifactId>
-  <version>3.6.0</version>
+  <version>3.7.0</version>
   <packaging>pom</packaging>
   <name>WxJava - Weixin/Wechat Java SDK</name>
   <description>微信开发Java SDK</description>
@@ -99,6 +99,7 @@
   </scm>
 
   <modules>
+    <module>weixin-graal</module>
     <module>weixin-java-common</module>
     <module>weixin-java-cp</module>
     <module>weixin-java-mp</module>
@@ -172,7 +173,7 @@
       <dependency>
         <groupId>com.thoughtworks.xstream</groupId>
         <artifactId>xstream</artifactId>
-        <version>1.4.11</version>
+        <version>1.4.11.1</version>
       </dependency>
       <!-- 由于guava较新的21.0版本需要jdk8，故而此处采用较低版本 -->
       <dependency>
@@ -240,6 +241,12 @@
         <groupId>redis.clients</groupId>
         <artifactId>jedis</artifactId>
         <version>2.9.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>3.12.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -325,6 +332,14 @@
         </plugins>
       </build>
     </profile>
+
+    <profile>
+      <id>native-image</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+
   </profiles>
 
   <build>

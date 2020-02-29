@@ -5,7 +5,7 @@
   <parent>
     <artifactId>wx-java-spring-boot-starters</artifactId>
     <groupId>com.github.binarywang</groupId>
-    <version>3.6.0</version>
+    <version>3.7.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -22,6 +22,11 @@
     <dependency>
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson</artifactId>
       <scope>compile</scope>
     </dependency>
   </dependencies>

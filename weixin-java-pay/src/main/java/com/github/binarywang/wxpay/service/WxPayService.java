@@ -1,16 +1,7 @@
 package com.github.binarywang.wxpay.service;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Map;
-
 import com.github.binarywang.wxpay.bean.WxPayApiData;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponInfoQueryResult;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponSendRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponSendResult;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponStockQueryRequest;
-import com.github.binarywang.wxpay.bean.coupon.WxPayCouponStockQueryResult;
+import com.github.binarywang.wxpay.bean.coupon.*;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyResult;
 import com.github.binarywang.wxpay.bean.notify.WxScanPayNotifyResult;
@@ -18,6 +9,10 @@ import com.github.binarywang.wxpay.bean.request.*;
 import com.github.binarywang.wxpay.bean.result.*;
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.exception.WxPayException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * <pre>
@@ -64,6 +59,13 @@ public interface WxPayService {
    * @return the ent pay service
    */
   EntPayService getEntPayService();
+
+  /**
+   * 获取红包接口服务类.
+   *
+   * @return .
+   */
+  RedpackService getRedpackService();
 
   /**
    * 获取分账服务类.
@@ -282,49 +284,27 @@ public interface WxPayService {
   WxScanPayNotifyResult parseScanPayNotifyResult(String xmlData) throws WxPayException;
 
   /**
-   * 发送微信红包给个人用户.
-   * <pre>
-   * 文档详见:
-   * 发送普通红包 https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_4&index=3
-   *  接口地址：https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
-   * 发送裂变红包 https://pay.weixin.qq.com/wiki/doc/api/tools/cash_coupon.php?chapter=13_5&index=4
-   *  接口地址：https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack
-   * </pre>
-   *
-   * @param request 请求对象
-   * @return the wx pay send redpack result
-   * @throws WxPayException the wx pay exception
+   * @deprecated 建议使用 {@link RedpackService#sendMiniProgramRedpack(WxPaySendMiniProgramRedpackRequest)}
    */
+  @Deprecated
+  WxPaySendMiniProgramRedpackResult sendMiniProgramRedpack(WxPaySendMiniProgramRedpackRequest request) throws WxPayException;
+
+  /**
+   * @deprecated 建议使用 {@link RedpackService#sendRedpack(WxPaySendRedpackRequest)}
+   */
+  @Deprecated
   WxPaySendRedpackResult sendRedpack(WxPaySendRedpackRequest request) throws WxPayException;
 
   /**
-   * <pre>
-   *   查询红包记录.
-   *   用于商户对已发放的红包进行查询红包的具体信息，可支持普通红包和裂变包。
-   *   请求Url：https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo
-   *   是否需要证书：是（证书及使用说明详见商户证书）
-   *   请求方式：POST
-   * </pre>
-   *
-   * @param mchBillNo 商户发放红包的商户订单号，比如10000098201411111234567890
-   * @return the wx pay redpack query result
-   * @throws WxPayException the wx pay exception
+   * @deprecated 建议使用 {@link RedpackService#queryRedpack(String)}
    */
+  @Deprecated
   WxPayRedpackQueryResult queryRedpack(String mchBillNo) throws WxPayException;
 
   /**
-   * <pre>
-   *   查询红包记录.
-   *   用于商户对已发放的红包进行查询红包的具体信息，可支持普通红包和裂变包。
-   *   请求Url：https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo
-   *   是否需要证书：是（证书及使用说明详见商户证书）
-   *   请求方式：POST
-   * </pre>
-   *
-   * @param request 红包查询请求
-   * @return the wx pay redpack query result
-   * @throws WxPayException the wx pay exception
+   * @deprecated 建议使用 {@link RedpackService#queryRedpack(WxPayRedpackQueryRequest)}
    */
+  @Deprecated
   WxPayRedpackQueryResult queryRedpack(WxPayRedpackQueryRequest request) throws WxPayException;
 
   /**
@@ -510,7 +490,7 @@ public interface WxPayService {
 
   /**
    * <pre>
-   * 提交刷卡支付.
+   * 提交付款码支付.
    * 文档地址：https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_10&index=1
    * 应用场景：
    * 收银员使用扫码设备读取微信用户刷卡授权码以后，二维码或条码信息传送至商户收银台，由商户收银台或者商户后台调用该接口发起支付。

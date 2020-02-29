@@ -596,6 +596,11 @@ public interface WxMpApiUrl {
      * 设置自助核销接口
      */
     CARD_SELF_CONSUME_CELL_SET(API_DEFAULT_HOST_URL, "/card/selfconsumecell/set"),
+
+    /**
+     * 获取用户已领取卡券接口
+     */
+    CARD_USER_CARD_LIST(API_DEFAULT_HOST_URL, "/card/user/getcardlist"),
     ;
 
     private String prefix;
@@ -997,7 +1002,32 @@ public interface WxMpApiUrl {
     /**
      * 查看指定文章的评论数据.
      */
-    LIST(API_DEFAULT_HOST_URL, "/cgi-bin/comment/list");
+    LIST(API_DEFAULT_HOST_URL, "/cgi-bin/comment/list"),
+
+    /**
+     * 将评论标记精选.
+     */
+    MARK_ELECT(API_DEFAULT_HOST_URL, "/cgi-bin/comment/markelect"),
+
+    /**
+     * 将评论取消精选.
+     */
+    UNMARK_ELECT(API_DEFAULT_HOST_URL, "/cgi-bin/comment/unmarkelect"),
+
+    /**
+     * 删除评论.
+     */
+    DELETE(API_DEFAULT_HOST_URL, "/cgi-bin/comment/delete"),
+
+    /**
+     * 回复评论.
+     */
+    REPLY_ADD(API_DEFAULT_HOST_URL, "/cgi-bin/comment/reply/add"),
+
+    /**
+     * 删除回复.
+     */
+    REPLY_DELETE(API_DEFAULT_HOST_URL, "/cgi-bin/comment/reply/delete");
 
     private String prefix;
     private String path;

@@ -16,6 +16,7 @@ import me.chanjar.weixin.common.util.crypto.SHA1;
 import me.chanjar.weixin.common.util.http.*;
 import me.chanjar.weixin.common.util.http.apache.ApacheHttpClientBuilder;
 import me.chanjar.weixin.common.util.http.apache.DefaultApacheHttpClientBuilder;
+import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -54,6 +55,9 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   private WxMaRunService runService = new WxMaRunServiceImpl(this);
   private WxMaSecCheckService secCheckService = new WxMaSecCheckServiceImpl(this);
   private WxMaPluginService pluginService = new WxMaPluginServiceImpl(this);
+  private WxMaExpressService expressService = new WxMaExpressServiceImpl(this);
+  private WxMaSubscribeService subscribeService = new WxMaSubscribeServiceImpl(this);
+  private WxMaCloudService cloudService = new WxMaCloudServiceImpl(this);
 
   private int retrySleepMillis = 1000;
   private int maxRetryTimes = 5;
@@ -204,6 +208,11 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
     return execute(SimplePostRequestExecutor.create(this), url, postData);
   }
 
+  @Override
+  public String post(String url, Object obj) throws WxErrorException {
+    return this.execute(SimplePostRequestExecutor.create(this), url, WxGsonBuilder.create().toJson(obj));
+  }
+
   /**
    * 向微信端发送请求，在这里执行的策略是当发生access_token过期时才去刷新，然后重新执行请求，而不是全局定时请求
    */
@@ -327,6 +336,11 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   }
 
   @Override
+  public WxMaSubscribeService getSubscribeService() {
+    return this.subscribeService;
+  }
+
+  @Override
   public WxMaAnalysisService getAnalysisService() {
     return this.analysisService;
   }
@@ -364,5 +378,15 @@ public class WxMaServiceImpl implements WxMaService, RequestHttp<CloseableHttpCl
   @Override
   public WxMaPluginService getPluginService() {
     return this.pluginService;
+  }
+
+  @Override
+  public WxMaExpressService getExpressService() {
+    return this.expressService;
+  }
+
+  @Override
+  public WxMaCloudService getCloudService() {
+    return this.cloudService;
   }
 }

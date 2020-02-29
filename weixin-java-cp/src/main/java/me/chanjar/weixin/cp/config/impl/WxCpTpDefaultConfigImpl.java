@@ -242,6 +242,11 @@ public class WxCpTpDefaultConfigImpl implements WxCpTpConfigStorage, Serializabl
     return this.apacheHttpClientBuilder;
   }
 
+  @Override
+  public boolean autoRefreshToken() {
+    return true;
+  }
+
   public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
     this.apacheHttpClientBuilder = apacheHttpClientBuilder;
   }

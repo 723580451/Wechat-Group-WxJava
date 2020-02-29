@@ -320,6 +320,11 @@ public class WxCpRedisConfigImpl implements WxCpConfigStorage {
     return this.apacheHttpClientBuilder;
   }
 
+  @Override
+  public boolean autoRefreshToken() {
+    return true;
+  }
+
   public void setApacheHttpClientBuilder(ApacheHttpClientBuilder apacheHttpClientBuilder) {
     this.apacheHttpClientBuilder = apacheHttpClientBuilder;
   }

@@ -13,7 +13,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import me.chanjar.weixin.common.util.json.WxGsonBuilder;
 import me.chanjar.weixin.common.util.xml.XStreamInitializer;
+import org.w3c.dom.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -300,6 +302,18 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
   @XStreamAlias("rate_value")
   private String rateValue;
 
+  /**
+   * <pre>
+   * 字段名：签名类型.
+   * 变量名：sign_type
+   * 类型：String(32)
+   * 示例值：HMAC-SHA256
+   * 签名类型，目前支持HMAC-SHA256和MD5，默认为MD5
+   * </pre>
+   */
+  @XStreamAlias("sign_type")
+  private String signType;
+
   @Override
   public void checkResult(WxPayService wxPayService, String signType, boolean checkSuccess) throws WxPayException {
     //防止伪造成功通知
@@ -335,6 +349,51 @@ public class WxPayOrderNotifyResult extends BaseWxPayResult {
       }
     }
     return resultMap;
+  }
+
+  @Override
+  protected void loadXML(Document d) {
+    promotionDetail = readXMLString(d, "promotion_detail");
+    deviceInfo = readXMLString(d, "device_info");
+    openid = readXMLString(d, "openid");
+    isSubscribe = readXMLString(d, "is_subscribe");
+    subOpenid = readXMLString(d, "sub_openid");
+    subIsSubscribe = readXMLString(d, "sub_is_subscribe");
+    tradeType = readXMLString(d, "trade_type");
+    bankType = readXMLString(d, "bank_type");
+    totalFee = readXMLInteger(d, "total_fee");
+    settlementTotalFee = readXMLInteger(d, "settlement_total_fee");
+    feeType = readXMLString(d, "fee_type");
+    cashFee = readXMLInteger(d, "cash_fee");
+    cashFeeType = readXMLString(d, "cash_fee_type");
+    couponFee = readXMLInteger(d, "coupon_fee");
+    couponCount = readXMLInteger(d, "coupon_count");
+    transactionId = readXMLString(d, "transaction_id");
+    outTradeNo = readXMLString(d, "out_trade_no");
+    attach = readXMLString(d, "attach");
+    timeEnd = readXMLString(d, "time_end");
+    version = readXMLString(d, "version");
+    rateValue = readXMLString(d, "rate_value");
+    signType = readXMLString(d, "sign_type");
+
+    composeCoupons();
+  }
+
+  /**
+   * 通过xml组装couponList属性内容.
+   */
+  protected void composeCoupons() {
+    if (this.couponCount == null || this.couponCount == 0) {
+      return;
+    }
+    this.couponList = new ArrayList(couponCount);
+    for (int i = 0; i < this.couponCount; i++) {
+      WxPayOrderNotifyCoupon coupon = new WxPayOrderNotifyCoupon();
+      coupon.setCouponId(this.getXmlValue("xml/coupon_id_" + i));
+      coupon.setCouponType(this.getXmlValue("xml/coupon_type_" + i));
+      coupon.setCouponFee(this.getXmlValueAsInt("xml/coupon_fee_" + i));
+      couponList.add(coupon);
+    }
   }
 
   @Override
