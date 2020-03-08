@@ -111,6 +111,7 @@
 - 专注批量推送的小而美的工具：https://github.com/rememberber/WePush
 - yshop意象商城系统：https://gitee.com/guchengwuyue/yshopmall
 - wx-manage（微信公众号管理项目）：https://github.com/niefy/wx-manage
+- 基于若依开发的微信公众号管理系统：https://gitee.com/joolun/JooLun-wx
 
 #### 小程序：
 - （京东）友家铺子，友家铺子店长版，京粉精选
